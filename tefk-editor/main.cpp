@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <vector>
+#include <Windows.h>
 
 int main() {
 	std::string contents = "";
@@ -8,7 +9,14 @@ int main() {
 
 	while (true) {
 		ch = _getch();
-		contents += ch;
+
+		if (ch == VK_BACK) {
+			if (contents.size()) contents.erase(contents.size() - 1);
+		}
+		else {
+			contents += ch;
+		}
+
 		system("cls");
 		std::cout << contents;
 	}
