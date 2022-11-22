@@ -13,6 +13,9 @@ int main() {
 		if (ch == VK_BACK) {
 			if (contents.size()) contents.erase(contents.size() - 1);
 		}
+		else if (ch == VK_RETURN) {
+			contents += '\n';
+		}
 		else {
 			contents += ch;
 		}
