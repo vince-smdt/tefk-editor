@@ -1,37 +1,19 @@
 #include <iostream>
 #include <conio.h>
-#include <vector>
 #include <Windows.h>
-
-void handleKeyPress(std::string &contents);
+#include "fileeditor.h"
 
 int main() {
-	std::string contents = "";
-	char ch;
+	FileEditor editor("C://temp/test.txt");
 
 	while (true) {
 		if (_kbhit()) {
-			handleKeyPress(contents);
+			editor.keypress(_getche());
 			system("cls");
-			std::cout << contents;
+			std::cout << editor.getFileContent();
+			editor.save();
 		}
 	}
 
 	return 0;
-}
-
-void handleKeyPress(std::string &contents) {
-	char ch = _getch();
-
-	switch (ch) {
-	case VK_BACK:
-		if (contents.size()) contents.erase(contents.size() - 1);
-		break;
-	case VK_RETURN:
-		contents += '\n';
-		break;
-	default:
-		contents += ch;
-		break;
-	}
 }
