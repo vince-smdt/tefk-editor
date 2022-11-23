@@ -11,24 +11,12 @@ public:
 		content = "";
 	}
 
-	~FileEditor() {
-		file.close();
-	}
-
 	std::string getFileContent() {
 		return content;
 	}
 
-	void openFile(const std::string &fileName) {
-		file.open(fileName);
-	}
-
 	void save() {
-		file << content;
-	}
-
-	void erase(int i) {
-		if (content.size()) content.erase(content.size() - 1);
+		file << content << std::flush;
 	}
 
 	void keypress(char ch) {
