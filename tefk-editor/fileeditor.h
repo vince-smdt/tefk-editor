@@ -4,10 +4,11 @@
 class FileEditor {
 private:
 	std::ofstream _file;
-	std::string _content;
+	std::string _filename,
+				_content;
 public:
-	FileEditor(const std::string &fileName) {
-		_file = std::ofstream(fileName);
+	FileEditor(const std::string &filename) {
+		_filename = filename;
 		_content = "";
 	}
 
@@ -16,7 +17,9 @@ public:
 	}
 
 	void save() {
-		_file << _content << std::flush;
+		_file.open(_filename, std::ios::trunc);
+		_file << _content;
+		_file.close();
 	}
 
 	void keypress(char ch) {
