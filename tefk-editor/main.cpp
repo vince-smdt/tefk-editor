@@ -1,9 +1,11 @@
-#include <iostream>
 #include <conio.h>
 #include <Windows.h>
 #include "fileeditor.h"
+#include "cmdinter.h"
 
 int main(int argc, char** argv) {
+	CommandLineArgsInterpreter::interpret(argc, argv);
+
 	FileEditor editor("C://temp/test.txt");
 
 	while (true) {

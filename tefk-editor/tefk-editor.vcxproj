@@ -130,6 +130,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cmdinter.h" />
     <ClInclude Include="fileeditor.h" />
     <ClInclude Include="keypresshandler.h" />
   </ItemGroup>
