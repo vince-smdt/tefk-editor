@@ -3,14 +3,14 @@
 #include <Windows.h>
 #include "fileeditor.h"
 
-int main() {
+int main(int argc, char** argv) {
 	FileEditor editor("C://temp/test.txt");
 
 	while (true) {
 		if (_kbhit()) {
 			editor.keypress(_getche());
 			system("cls");
-			std::cout << editor.getFileContent();
+			std::cout << editor.content();
 			editor.save();
 		}
 	}

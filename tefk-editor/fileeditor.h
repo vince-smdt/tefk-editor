@@ -3,32 +3,32 @@
 
 class FileEditor {
 private:
-	std::ofstream file;
-	std::string content;
+	std::ofstream _file;
+	std::string _content;
 public:
 	FileEditor(const std::string &fileName) {
-		file = std::ofstream(fileName);
-		content = "";
+		_file = std::ofstream(fileName);
+		_content = "";
 	}
 
-	std::string getFileContent() {
-		return content;
+	std::string content() {
+		return _content;
 	}
 
 	void save() {
-		file << content << std::flush;
+		_file << _content << std::flush;
 	}
 
 	void keypress(char ch) {
 		switch (ch) {
 		case VK_BACK:
-			if (content.size()) content.erase(content.size() - 1);
+			if (_content.size()) _content.erase(_content.size() - 1);
 			break;
 		case VK_RETURN:
-			content += '\n';
+			_content += '\n';
 			break;
 		default:
-			content += ch;
+			_content += ch;
 			break;
 		}
 	}
