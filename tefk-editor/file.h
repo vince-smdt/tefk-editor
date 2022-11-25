@@ -1,6 +1,6 @@
 #pragma once
-#include <Windows.h>
 #include <fstream>
+#include "keypresshandler.h"
 
 namespace tefk {
 
@@ -26,17 +26,7 @@ public:
 	}
 
 	void keypress(char ch) {
-		switch (ch) {
-		case VK_BACK:
-			if (_content.size()) _content.erase(_content.size() - 1);
-			break;
-		case VK_RETURN:
-			_content += '\n';
-			break;
-		default:
-			_content += ch;
-			break;
-		}
+		tefk::KeyPressHandler::handleKeyPress(ch, _content);
 	}
 };
 

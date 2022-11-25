@@ -1,9 +1,10 @@
 #pragma once
 #include <iostream>
+#include <math.h>
 
 namespace tefk {
 
-static class CommandLineArgsInterpreter {
+class CommandLineArgsInterpreter {
 private:
 	CommandLineArgsInterpreter(){}
 public:

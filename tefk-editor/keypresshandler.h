@@ -1,10 +1,24 @@
 #pragma once
+#include <Windows.h>
 
 namespace tefk {
 
-static class KeyPressHandler {
-	void handleKeyPress() {
-
+class KeyPressHandler {
+private :
+	KeyPressHandler(){}
+public:
+	static void handleKeyPress(char ch, std::string& filecontent) {
+		switch (ch) {
+		case VK_BACK:
+			if (filecontent.size()) filecontent.erase(filecontent.size() - 1);
+			break;
+		case VK_RETURN:
+			filecontent += '\n';
+			break;
+		default:
+			filecontent += ch;
+			break;
+		}
 	}
 };
 
