@@ -1,13 +1,16 @@
 #pragma once
+#include <Windows.h>
 #include <fstream>
 
-class FileEditor {
+namespace tefk {
+
+class File {
 private:
 	std::ofstream _file;
 	std::string _filename,
-				_content;
+		_content;
 public:
-	FileEditor(const std::string &filename) {
+	File(const std::string& filename) {
 		_filename = filename;
 		_content = "";
 	}
@@ -36,3 +39,5 @@ public:
 		}
 	}
 };
+
+}

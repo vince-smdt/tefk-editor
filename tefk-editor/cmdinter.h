@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+namespace tefk {
+
 static class CommandLineArgsInterpreter {
 private:
 	CommandLineArgsInterpreter(){}
@@ -11,3 +13,5 @@ public:
 		}
 	}
 };
+
+}

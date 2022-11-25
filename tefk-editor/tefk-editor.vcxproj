@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cmdinter.h" />
-    <ClInclude Include="fileeditor.h" />
+    <ClInclude Include="file.h" />
     <ClInclude Include="keypresshandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

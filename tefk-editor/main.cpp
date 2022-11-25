@@ -1,19 +1,18 @@
 #include <conio.h>
-#include <Windows.h>
-#include "fileeditor.h"
+#include "file.h"
 #include "cmdinter.h"
 
 int main(int argc, char** argv) {
-	CommandLineArgsInterpreter::interpret(argc, argv);
+	tefk::CommandLineArgsInterpreter::interpret(argc, argv);
 
-	FileEditor editor("C://temp/test.txt");
-
+	tefk::File file("C://temp/test.txt");
+	
 	while (true) {
 		if (_kbhit()) {
-			editor.keypress(_getche());
+			file.keypress(_getche());
 			system("cls");
-			std::cout << editor.content();
-			editor.save();
+			std::cout << file.content();
+			file.save();
 		}
 	}
 
