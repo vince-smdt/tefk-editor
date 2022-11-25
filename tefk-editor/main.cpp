@@ -1,6 +1,6 @@
 #include <conio.h>
-#include "file.h"
-#include "cmdinter.h"
+#include "file.hpp"
+#include "cmdinter.hpp"
 
 int main(int argc, char** argv) {
 	tefk::CommandLineArgsInterpreter::interpret(argc, argv);

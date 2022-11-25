@@ -20,13 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="file.h">
+    <ClInclude Include="file.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="keypresshandler.h">
+    <ClInclude Include="keypresshandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cmdinter.h">
+    <ClInclude Include="cmdinter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

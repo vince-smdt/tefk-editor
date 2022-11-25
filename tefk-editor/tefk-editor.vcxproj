@@ -130,9 +130,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cmdinter.h" />
-    <ClInclude Include="file.h" />
-    <ClInclude Include="keypresshandler.h" />
+    <ClInclude Include="cmdinter.hpp" />
+    <ClInclude Include="file.hpp" />
+    <ClInclude Include="keypresshandler.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
