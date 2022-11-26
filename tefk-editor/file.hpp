@@ -14,7 +14,11 @@ public:
 		_content = "";
 	}
 
-	std::string content() {
+	std::string filename() const {
+		return _filename;
+	}
+
+	std::string content() const {
 		return _content;
 	}
 
