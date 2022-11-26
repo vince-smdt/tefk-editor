@@ -6,12 +6,11 @@ namespace tefk {
 
 class File {
 private:
-	std::ofstream _file;
 	std::string _filename,
-		_content;
+				_content;
 public:
 	File(const std::string& filename) {
-		_filename = filename;
+		_filename = filename; // TODO - check if we have write access to file
 		_content = "";
 	}
 
@@ -20,9 +19,9 @@ public:
 	}
 
 	void save() {
-		_file.open(_filename, std::ios::trunc);
-		_file << _content;
-		_file.close();
+		std::ofstream file(_filename);
+		file << _content;
+		file.close();
 	}
 
 	void keypress(char ch) {

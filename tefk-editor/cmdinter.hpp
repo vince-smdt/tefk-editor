@@ -1,17 +1,16 @@
 #pragma once
-#include <iostream>
-#include <math.h>
+#include "editor.hpp"
 
 namespace tefk {
 
 class CommandLineArgsInterpreter {
 private:
-	CommandLineArgsInterpreter(){}
+	CommandLineArgsInterpreter() = delete;
+	CommandLineArgsInterpreter(const CommandLineArgsInterpreter&) = delete;
 public:
 	static void interpret(int argc, char** argv) {
-		for (int i = 0; i < argc; i++) {
-			std::cout << argv[i];
-		}
+		if (argc > 1) Editor::openOrCreateFiles(argc, argv);
+		else Editor::newFile();
 	}
 };
 

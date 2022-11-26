@@ -1,11 +1,11 @@
 #include <conio.h>
-#include "file.hpp"
+#include <iostream>
 #include "cmdinter.hpp"
 
 int main(int argc, char** argv) {
 	tefk::CommandLineArgsInterpreter::interpret(argc, argv);
 
-	tefk::File file("C://temp/test.txt");
+	tefk::File file = tefk::Editor::Files()[0]; // TODO - use index for current selected file (in case multiple files open)
 	
 	while (true) {
 		if (_kbhit()) {

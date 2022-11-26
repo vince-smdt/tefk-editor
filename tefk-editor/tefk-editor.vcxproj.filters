@@ -29,5 +29,8 @@
     <ClInclude Include="cmdinter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="editor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

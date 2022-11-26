@@ -5,7 +5,8 @@ namespace tefk {
 
 class KeyPressHandler {
 private :
-	KeyPressHandler(){}
+	KeyPressHandler() = delete;
+	KeyPressHandler(const KeyPressHandler&) = delete;
 public:
 	static void handleKeyPress(char ch, std::string& filecontent) {
 		switch (ch) {
