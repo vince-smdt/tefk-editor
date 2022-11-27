@@ -8,18 +8,19 @@ class ConsoleManager {
 private:
 	ConsoleManager() = delete;
 	ConsoleManager(const ConsoleManager&) = delete;
+
+	static CONSOLE_SCREEN_BUFFER_INFO _csbi;
 public:
 	static int Rows() {
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-		return csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		return _csbi.srWindow.Bottom - _csbi.srWindow.Top + 1;
 	}
 
 	static int Columns() {
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-		return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		return _csbi.srWindow.Right - _csbi.srWindow.Left + 1;
 	}
 };
+CONSOLE_SCREEN_BUFFER_INFO ConsoleManager::_csbi;
 
 }

@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 
 	while (true) {
 		if (_kbhit()) {
-			file->keypress(_getche());
+			file->keypress(_getch());
 			tefk::Editor::print();
 			file->save();
 		}
