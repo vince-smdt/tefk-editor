@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "file.hpp"
+#include "consolemanager.hpp"
 
 namespace tefk {
 
@@ -33,6 +34,16 @@ public:
 		for (int i = 1; i < filecount; i++)
 			s_files.push_back(File(filenames[i]));
 		s_file_index = s_files.size() - (filecount + 1);
+	}
+
+	static void print() {
+		system("cls");
+		std::cout
+			<< CurrentFile().filename() << " " << s_file_index + 1 << "/" << s_files.size()
+			<< std::endl << std::endl
+			<< CurrentFile().content()
+			<< std::endl << std::endl
+			<< "Rows = " << ConsoleManager::Rows() << ", Cols = " << ConsoleManager::Columns();
 	}
 };
 std::vector<File> Editor::s_files;

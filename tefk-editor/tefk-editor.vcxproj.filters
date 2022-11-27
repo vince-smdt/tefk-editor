@@ -32,5 +32,8 @@
     <ClInclude Include="editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="consolemanager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
