@@ -9,10 +9,8 @@ private:
 	std::string _filename,
 				_content;
 public:
-	File(const std::string& filename) {
-		_filename = filename; // TODO - check if we have write access to file
-		_content = "";
-	}
+	// TODO - check if we have write access to file
+	File(const std::string& filename) : _filename(filename), _content("") {}
 
 	std::string filename() const {
 		return _filename;
