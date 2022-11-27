@@ -1,5 +1,5 @@
 #pragma once
-#include <Windows.h>
+#include <iostream>
 #include "editor.hpp"
 
 namespace tefk {
@@ -19,6 +19,16 @@ public:
 	static int Columns() {
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
 		return _csbi.srWindow.Right - _csbi.srWindow.Left + 1;
+	}
+
+	static void refreshConsole() {
+		system("cls");
+		std::cout
+			<< Editor::CurrentFile().filename() << " " << Editor::FileIndex() + 1 << "/" << Editor::Files().size()
+			<< std::endl << std::endl
+			<< Editor::CurrentFile().content()
+			<< std::endl << std::endl
+			<< "Rows = " << ConsoleManager::Rows() << ", Cols = " << ConsoleManager::Columns();
 	}
 };
 CONSOLE_SCREEN_BUFFER_INFO ConsoleManager::_csbi;

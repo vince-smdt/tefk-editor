@@ -1,6 +1,6 @@
 #include <conio.h>
-#include <iostream>
 #include "cmdinter.hpp"
+#include "consolemanager.hpp"
 
 int main(int argc, char** argv) {
 	tefk::CommandLineArgsInterpreter::interpret(argc, argv);
@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
 	while (true) {
 		if (_kbhit()) {
 			file->keypress(_getch());
-			tefk::Editor::print();
+			tefk::ConsoleManager::refreshConsole();
 			file->save();
 		}
 	}
