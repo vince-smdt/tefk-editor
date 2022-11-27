@@ -6,6 +6,7 @@ int main(int argc, char** argv) {
 	tefk::CommandLineArgsInterpreter::interpret(argc, argv);
 
 	tefk::File *file = &tefk::Editor::CurrentFile();
+	tefk::ConsoleManager::refreshConsole();
 
 	while (true) {
 		if (_kbhit()) {
