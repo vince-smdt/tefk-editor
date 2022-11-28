@@ -15,6 +15,4 @@ int main(int argc, char** argv) {
 			file->save();
 		}
 	}
-
-	return 0;
 }
