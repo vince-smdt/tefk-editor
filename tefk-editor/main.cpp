@@ -11,8 +11,11 @@ int main(int argc, char** argv) {
 	while (true) {
 		if (_kbhit()) {
 			file->keypress(_getch());
-			tefk::ConsoleManager::refreshConsole();
 			file->save();
+			tefk::ConsoleManager::refreshConsole();
+		}
+		if (tefk::ConsoleManager::consoleSizeChanged()) {
+			tefk::ConsoleManager::refreshConsole();
 		}
 	}
 }

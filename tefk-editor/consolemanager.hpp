@@ -10,6 +10,8 @@ private:
 	ConsoleManager(const ConsoleManager&) = delete;
 
 	static CONSOLE_SCREEN_BUFFER_INFO _csbi;
+	static int _currRows;
+	static int _currCols;
 public:
 	static int Rows() {
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
@@ -21,7 +23,14 @@ public:
 		return _csbi.srWindow.Right - _csbi.srWindow.Left + 1;
 	}
 
+	static bool consoleSizeChanged() {
+		return _currRows != Rows() || _currCols != Columns();
+	}
+
 	static void refreshConsole() {
+		_currRows = Rows();
+		_currCols = Columns();
+
 		system("cls");
 		std::cout
 			<< Editor::CurrentFile().filename() << " " << Editor::FileIndex() + 1 << "/" << Editor::Files().size()
@@ -32,5 +41,7 @@ public:
 	}
 };
 CONSOLE_SCREEN_BUFFER_INFO ConsoleManager::_csbi;
+int ConsoleManager::_currRows = 0;
+int ConsoleManager::_currCols = 0;
 
 }
