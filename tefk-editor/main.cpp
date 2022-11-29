@@ -3,6 +3,8 @@
 #include "consolemanager.hpp"
 
 int main(int argc, char** argv) {
+	SetConsoleCtrlHandler(NULL, TRUE);
+
 	tefk::CommandLineArgsInterpreter::interpret(argc, argv);
 
 	tefk::File *file = &tefk::Editor::CurrentFile();
@@ -10,7 +12,7 @@ int main(int argc, char** argv) {
 
 	while (true) {
 		if (_kbhit()) {
-			file->keypress(_getch());
+			file->keypress(_getch()); // Change _getch() for function that can properly read Fn keys
 			file->save();
 			tefk::ConsoleManager::refreshConsole();
 		}
