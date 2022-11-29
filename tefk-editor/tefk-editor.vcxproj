@@ -130,6 +130,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="app.hpp" />
     <ClInclude Include="cmdinter.hpp" />
     <ClInclude Include="consolemanager.hpp" />
     <ClInclude Include="editor.hpp" />
