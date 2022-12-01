@@ -27,17 +27,38 @@ public:
 		return _currRows != Rows() || _currCols != Columns();
 	}
 
+	static void SetCursorPosition(int row, int col) {
+		COORD pos = { col, row };
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+	}
+
+	static void PrintHeader() {
+		SetCursorPosition(0, 0);
+		std::cout 
+			<< Editor::CurrentFile().GetFilename() << " " 
+			<< Editor::FileIndex() + 1 << "/" 
+			<< Editor::Files().size();
+	}
+
+	static void PrintContent() {
+		SetCursorPosition(2, 0);
+		std::cout << Editor::CurrentFile().GetContent();
+	}
+
+	static void PrintFooter() {
+		SetCursorPosition(Rows() - 1, 0);
+		std::cout << "Rows = " << ConsoleManager::Rows() << ", Cols = " << ConsoleManager::Columns();
+	}
+
 	static void RefreshConsole() {
 		_currRows = Rows();
 		_currCols = Columns();
 
 		system("cls");
-		std::cout
-			<< Editor::CurrentFile().GetFilename() << " " << Editor::FileIndex() + 1 << "/" << Editor::Files().size()
-			<< std::endl << std::endl
-			<< Editor::CurrentFile().GetContent()
-			<< std::endl << std::endl
-			<< "Rows = " << ConsoleManager::Rows() << ", Cols = " << ConsoleManager::Columns();
+
+		PrintHeader();
+		PrintContent();
+		PrintFooter();
 	}
 };
 CONSOLE_SCREEN_BUFFER_INFO ConsoleManager::_csbi;
