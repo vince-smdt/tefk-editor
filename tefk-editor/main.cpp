@@ -1,6 +1,6 @@
 #include "app.hpp"
 
 int main(int argc, char** argv) {
-	tefk::Application::init(argc, argv);
-	tefk::Application::run();
+	tefk::Application::Init(argc, argv);
+	tefk::Application::Run();
 }

@@ -21,22 +21,22 @@ public:
 		}
 	}
 
-	std::string filename() const {
+	std::string GetFilename() const {
 		return _filename;
 	}
 
-	std::string content() const {
+	std::string GetContent() const {
 		return _content;
 	}
 
-	void save() {
+	void Save() {
 		std::ofstream file(_filename);
 		file << _content;
 		file.close();
 	}
 
-	void keypress(char ch) {
-		tefk::KeyPressHandler::handleKeyPress(ch, _content);
+	void Keypress(char ch) {
+		tefk::KeyPressHandler::HandleKeyPress(ch, _content);
 	}
 };
 

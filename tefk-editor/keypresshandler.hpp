@@ -8,7 +8,7 @@ private :
 	KeyPressHandler() = delete;
 	KeyPressHandler(const KeyPressHandler&) = delete;
 public:
-	static void handleKeyPress(char ch, std::string& filecontent) {
+	static void HandleKeyPress(char ch, std::string& filecontent) {
 		switch (ch) {
 		case VK_BACK:
 			if (filecontent.size()) filecontent.erase(filecontent.size() - 1);

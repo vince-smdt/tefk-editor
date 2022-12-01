@@ -23,19 +23,19 @@ public:
 		return _csbi.srWindow.Right - _csbi.srWindow.Left + 1;
 	}
 
-	static bool consoleSizeChanged() {
+	static bool ConsoleSizeChanged() {
 		return _currRows != Rows() || _currCols != Columns();
 	}
 
-	static void refreshConsole() {
+	static void RefreshConsole() {
 		_currRows = Rows();
 		_currCols = Columns();
 
 		system("cls");
 		std::cout
-			<< Editor::CurrentFile().filename() << " " << Editor::FileIndex() + 1 << "/" << Editor::Files().size()
+			<< Editor::CurrentFile().GetFilename() << " " << Editor::FileIndex() + 1 << "/" << Editor::Files().size()
 			<< std::endl << std::endl
-			<< Editor::CurrentFile().content()
+			<< Editor::CurrentFile().GetContent()
 			<< std::endl << std::endl
 			<< "Rows = " << ConsoleManager::Rows() << ", Cols = " << ConsoleManager::Columns();
 	}

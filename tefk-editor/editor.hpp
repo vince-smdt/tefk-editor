@@ -24,12 +24,12 @@ public:
 		return s_file_index;
 	}
 
-	static void newFile() {
+	static void NewFile() {
 		s_files.push_back(File("new.txt")); // TODO - prompt user to enter filename
 		s_file_index = s_files.size() - 1;
 	}
 
-	static void openOrCreateFiles(int filecount, char** filenames) {
+	static void OpenOrCreateFiles(int filecount, char** filenames) {
 		for (int i = 1; i < filecount; i++)
 			s_files.push_back(File(filenames[i]));
 		s_file_index = s_files.size() - (filecount + 1);

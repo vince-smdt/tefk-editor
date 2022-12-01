@@ -9,23 +9,23 @@ class Application {
 private:
 	static tefk::File* _currFile;
 public:
-	static void init(int argc, char** argv) {
+	static void Init(int argc, char** argv) {
 		SetConsoleCtrlHandler(NULL, TRUE);
-		CommandLineArgsInterpreter::interpret(argc, argv);
+		CommandLineArgsInterpreter::Interpret(argc, argv);
 
 		_currFile = &tefk::Editor::CurrentFile();
 	}
 
-	static void run() {
-		ConsoleManager::refreshConsole();
+	static void Run() {
+		ConsoleManager::RefreshConsole();
 		while (true) {
 			if (_kbhit()) {
-				_currFile->keypress(_getch()); // Change _getch() for function that can properly read Fn keys
-				_currFile->save();
-				tefk::ConsoleManager::refreshConsole();
+				_currFile->Keypress(_getch()); // Change _getch() for function that can properly read Fn keys
+				_currFile->Save();
+				tefk::ConsoleManager::RefreshConsole();
 			}
-			if (tefk::ConsoleManager::consoleSizeChanged()) {
-				tefk::ConsoleManager::refreshConsole();
+			if (tefk::ConsoleManager::ConsoleSizeChanged()) {
+				tefk::ConsoleManager::RefreshConsole();
 			}
 		}
 	}
