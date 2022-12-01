@@ -1,5 +1,5 @@
 #pragma once
-#include <Windows.h>
+#include "editor.hpp"
 
 namespace tefk {
 
@@ -8,7 +8,9 @@ private :
 	KeyPressHandler() = delete;
 	KeyPressHandler(const KeyPressHandler&) = delete;
 public:
-	static void HandleKeyPress(char ch, std::string& filecontent) {
+	static void HandleKeyPress(char ch) {
+		std::string filecontent = Editor::CurrentFile().GetContent();
+
 		switch (ch) {
 		case VK_BACK:
 			if (filecontent.size()) filecontent.erase(filecontent.size() - 1);
@@ -20,6 +22,8 @@ public:
 			filecontent += ch;
 			break;
 		}
+
+		Editor::CurrentFile().SetContent(filecontent);
 	}
 };
 

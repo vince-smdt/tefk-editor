@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <Windows.h>
 #include "file.hpp"
 
 namespace tefk { 

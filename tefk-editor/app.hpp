@@ -2,6 +2,7 @@
 #include <conio.h>
 #include "cmdinter.hpp"
 #include "consolemanager.hpp"
+#include "keypresshandler.hpp"
 
 namespace tefk {
 
@@ -20,7 +21,7 @@ public:
 		ConsoleManager::RefreshConsole();
 		while (true) {
 			if (_kbhit()) {
-				_currFile->Keypress(_getch()); // Change _getch() for function that can properly read Fn keys
+				tefk::KeyPressHandler::HandleKeyPress(_getch()); // Change _getch() for function that can properly read Fn keys
 				_currFile->Save();
 				tefk::ConsoleManager::RefreshConsole();
 			}
