@@ -33,21 +33,32 @@ private:
 		BRIGHT_WHITE =	0x0f,
 	};
 public:
-	static int Rows() {
+	// TODO - Find way to avoid redundant GetConsoleScreenBufferInfo function calls, decorators?
+	static int RowCount() {
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
 		return _csbi.srWindow.Bottom - _csbi.srWindow.Top + 1;
 	}
 
-	static int Columns() {
+	static int ColCount() {
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
 		return _csbi.srWindow.Right - _csbi.srWindow.Left + 1;
 	}
 
-	static bool ConsoleSizeChanged() {
-		return _currRows != Rows() || _currCols != Columns();
+	static int CursorRowPos() {
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		return _csbi.dwCursorPosition.Y;
 	}
 
-	static void SetCursorPosition(int row, int col) {
+	static int CursorColPos() {
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		return _csbi.dwCursorPosition.X;
+	}
+
+	static bool ConsoleSizeChanged() {
+		return _currRows != RowCount() || _currCols != ColCount();
+	}
+
+	static void SetCursorPos(int row, int col) {
 		COORD pos = { col, row };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 	}
@@ -59,30 +70,36 @@ public:
 
 	static void PrintHeader() {
 		SetTextColor(WHITE, BLACK);
-		SetCursorPosition(0, 0);
-		std::cout 
-			<< Editor::CurrentFile().GetFilename() << " " 
-			<< Editor::FileIndex() + 1 << "/" 
+		SetCursorPos(0, 0);
+		std::cout
+			<< Editor::CurrentFile().GetFilename() << " "
+			<< Editor::FileIndex() + 1 << "/"
 			<< Editor::Files().size();
+		FillRow();
 		SetTextColor(BLACK, WHITE);
 	}
 
 	static void PrintContent() {
-		SetCursorPosition(2, 0);
+		SetCursorPos(2, 0);
 		std::cout << Editor::CurrentFile().GetContent();
 	}
 
 	static void PrintFooter() {
 		SetTextColor(WHITE, BLACK);
-		SetCursorPosition(Rows() - 1, 0);
-		std::cout << "Rows = " << ConsoleManager::Rows() << ", Cols = " << ConsoleManager::Columns();
+		SetCursorPos(RowCount() - 1, 0);
+		std::cout << "Rows = " << ConsoleManager::RowCount() << ", Cols = " << ConsoleManager::ColCount();
+		FillRow();
 		SetTextColor(BLACK, WHITE);
+	}
+
+	static void FillRow() {
+		std::cout << std::string(ColCount() - CursorColPos(), ' ');
 	}
 
 	static void RefreshConsole() {
 		// TODO - Reset entire console color in case previous color before app starts
-		_currRows = Rows();
-		_currCols = Columns();
+		_currRows = RowCount();
+		_currCols = ColCount();
 
 		// TODO - Code more efficient function to clear console
 		system("cls");
