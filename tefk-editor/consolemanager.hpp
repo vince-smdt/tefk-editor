@@ -34,6 +34,7 @@ private:
 	};
 public:
 	// TODO - Find way to avoid redundant GetConsoleScreenBufferInfo function calls, decorators?
+	// TODO - Make GetStdHandle(STD_OUTPUT_HANDLE) into a constant if it doesn't change during runtime
 	static int RowCount() {
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
 		return _csbi.srWindow.Bottom - _csbi.srWindow.Top + 1;
@@ -69,6 +70,7 @@ public:
 	}
 
 	static void PrintHeader() {
+		// TODO - Only print content that fits in the console, rest can be seen by scrolling
 		SetTextColor(WHITE, BLACK);
 		SetCursorPos(0, 0);
 		std::cout
@@ -100,6 +102,15 @@ public:
 		// TODO - Reset entire console color in case previous color before app starts
 		_currRows = RowCount();
 		_currCols = ColCount();
+
+		COORD consoleSize;
+		consoleSize.X = _currCols;
+		consoleSize.Y = _currRows;
+		if (!SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), consoleSize)) {
+			// TODO - Proper error handling / implement log system?
+			std::cout << "SetConsoleScreenBufferSize() failed! Reason : " << GetLastError() << std::endl;
+			exit(0);
+		}
 
 		// TODO - Code more efficient function to clear console
 		system("cls");
