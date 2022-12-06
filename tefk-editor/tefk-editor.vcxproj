@@ -136,6 +136,7 @@
     <ClInclude Include="editor.hpp" />
     <ClInclude Include="file.hpp" />
     <ClInclude Include="keypresshandler.hpp" />
+    <ClInclude Include="logger.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

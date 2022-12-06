@@ -39,7 +39,6 @@ public:
 	void Save() {
 		std::ofstream file(_filename);
 		file << _content;
-		file.close();
 	}
 };
 

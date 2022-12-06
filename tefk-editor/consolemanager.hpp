@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "editor.hpp"
+#include "logger.hpp"
 
 namespace tefk {
 
@@ -108,7 +109,7 @@ public:
 		consoleSize.Y = _currRows;
 		if (!SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), consoleSize)) {
 			// TODO - Proper error handling / implement log system?
-			std::cout << "SetConsoleScreenBufferSize() failed! Reason : " << GetLastError() << std::endl;
+			tefk::Logger::Log("SetConsoleScreenBufferSize() failed! Reason : ..."); // TODO - include GetLastError() when log func takes formatted const char* as param
 			exit(0);
 		}
 
