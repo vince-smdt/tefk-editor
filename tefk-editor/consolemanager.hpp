@@ -97,8 +97,8 @@ public:
 		SetTextColor(BLACK, WHITE);
 	}
 
-	static void FillRow(std::ostream stream) {
-		stream << std::string(ColCount() - CursorColPos(), ' ');
+	static std::ostream& FillRow(std::ostream& stream) {
+		return stream << std::string(ColCount() - CursorColPos(), ' ');
 	}
 
 	static void RefreshConsole() {
