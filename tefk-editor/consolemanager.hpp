@@ -77,8 +77,8 @@ public:
 		std::cout
 			<< Editor::CurrentFile().GetFilename() << " "
 			<< Editor::FileIndex() + 1 << "/"
-			<< Editor::Files().size();
-		FillRow();
+			<< Editor::Files().size()
+			<< FillRow;
 		SetTextColor(BLACK, WHITE);
 	}
 
@@ -90,13 +90,15 @@ public:
 	static void PrintFooter() {
 		SetTextColor(WHITE, BLACK);
 		SetCursorPos(RowCount() - 1, 0);
-		std::cout << "Rows = " << ConsoleManager::RowCount() << ", Cols = " << ConsoleManager::ColCount();
-		FillRow();
+		std::cout
+			<< "Rows = " << ConsoleManager::RowCount() 
+			<< ", Cols = " << ConsoleManager::ColCount()
+			<< FillRow;
 		SetTextColor(BLACK, WHITE);
 	}
 
-	static void FillRow() {
-		std::cout << std::string(ColCount() - CursorColPos(), ' ');
+	static void FillRow(std::ostream stream) {
+		stream << std::string(ColCount() - CursorColPos(), ' ');
 	}
 
 	static void RefreshConsole() {
