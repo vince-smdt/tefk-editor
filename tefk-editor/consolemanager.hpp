@@ -110,8 +110,7 @@ public:
 		consoleSize.X = _currCols;
 		consoleSize.Y = _currRows;
 		if (!SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), consoleSize)) {
-			// TODO - Proper error handling / implement log system?
-			tefk::Logger::Log("SetConsoleScreenBufferSize() failed! Reason : ..."); // TODO - include GetLastError() when log func takes formatted const char* as param
+			tefk::Logger::Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
 			exit(0);
 		}
 
