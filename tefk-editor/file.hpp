@@ -1,16 +1,17 @@
 #pragma once
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 namespace tefk {
 
 class File {
 private:
-	std::string _filename,
-				_content;
+	std::filesystem::path _filename;
+	std::string _content;
 public:
 	// TODO - check if we have write access to file
-	File(const std::string& filename) : _filename(filename) {
+	File(std::filesystem::path& filename) : _filename(filename) {
 		std::ifstream file(filename);
 		if (file) {
 			// TODO - (maybe) optimize to avoid redundant copy https://stackoverflow.com/questions/116038/how-do-i-read-an-entire-file-into-a-stdstring-in-c
@@ -20,11 +21,11 @@ public:
 		}
 	}
 
-	std::string GetFilename() {
+	std::filesystem::path GetFilename() {
 		return _filename;
 	}
 
-	void SetFilename(std::string filename) {
+	void SetFilename(std::filesystem::path& filename) {
 		_filename = filename;
 	}
 

@@ -25,14 +25,17 @@ public:
 		return s_file_index;
 	}
 
-	static void NewFile() {
-		s_files.push_back(File("new.txt")); // TODO - prompt user to enter filename
+	static void NewFile() { // rename functions or fuse newfile with openorcreatefiles
+		std::filesystem::path filepath("new.txt");
+		s_files.push_back(File(filepath)); // TODO - prompt user to enter filename
 		s_file_index = s_files.size() - 1;
 	}
 
 	static void OpenOrCreateFiles(int filecount, char** filenames) {
-		for (int i = 1; i < filecount; i++)
-			s_files.push_back(File(filenames[i]));
+		for (int i = 1; i < filecount; i++) {
+			std::filesystem::path filepath(filenames[i]);
+			s_files.push_back(File(filepath));
+		}
 		s_file_index = s_files.size() - (filecount + 1);
 	}
 };

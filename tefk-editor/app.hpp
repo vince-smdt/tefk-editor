@@ -21,7 +21,9 @@ public:
 		ConsoleManager::RefreshConsole();
 		while (true) {
 			if (_kbhit()) {
-				tefk::KeyPressHandler::HandleKeyPress(_getch()); // Change _getch() for function that can properly read Fn keys
+				// Change _getch() for function that can properly read Fn keys
+				// Change _getch() for function that can read letters with accents (Ex. é, è, ô, ï, ...)
+				tefk::KeyPressHandler::HandleKeyPress(_getch());
 				_currFile->Save();
 				tefk::ConsoleManager::RefreshConsole();
 			}
