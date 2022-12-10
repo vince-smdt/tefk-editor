@@ -8,13 +8,23 @@ namespace tefk {
 
 class Logger {
 private:
-	Logger() = delete;
-	Logger(const Logger&) = delete;
+	std::ofstream file = {};
+	std::ostream& stream;
 public:
-	template <class... FormatArgs>
-	static void Log(const std::string_view format, FormatArgs&&... args) {
-		std::ofstream logfile("log.txt", std::ios::app);
-		logfile << std::vformat(format, std::make_format_args(args...)) << std::endl;
+	explicit Logger(std::ostream& os)
+		: stream{os}
+	{}
+
+	explicit Logger(std::filesystem::path& filename)
+		: file(filename, std::ios::app),
+		  stream{file}
+	{}
+
+	template <typename... Args>
+	// TODO - change std::_Fmt_string<Args...> to std::format_string<Args...>
+	void Log(const std::_Fmt_string<Args...> format, Args&&... args) {
+		stream << std::format(format, std::forward<Args>(args)...) 
+		       << std::endl;
 	}
 };
 
