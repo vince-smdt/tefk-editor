@@ -10,6 +10,7 @@ private:
 	ConsoleManager() = delete;
 	ConsoleManager(const ConsoleManager&) = delete;
 
+	static HANDLE _handle;
 	static CONSOLE_SCREEN_BUFFER_INFO _csbi;
 	static int _currRows;
 	static int _currCols;
@@ -35,24 +36,23 @@ private:
 	};
 public:
 	// TODO - Find way to avoid redundant GetConsoleScreenBufferInfo function calls, decorators?
-	// TODO - Make GetStdHandle(STD_OUTPUT_HANDLE) into a constant if it doesn't change during runtime
 	static int RowCount() {
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		GetConsoleScreenBufferInfo(_handle, &_csbi);
 		return _csbi.srWindow.Bottom - _csbi.srWindow.Top + 1;
 	}
 
 	static int ColCount() {
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		GetConsoleScreenBufferInfo(_handle, &_csbi);
 		return _csbi.srWindow.Right - _csbi.srWindow.Left + 1;
 	}
 
 	static int CursorRowPos() {
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		GetConsoleScreenBufferInfo(_handle, &_csbi);
 		return _csbi.dwCursorPosition.Y;
 	}
 
 	static int CursorColPos() {
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &_csbi);
+		GetConsoleScreenBufferInfo(_handle, &_csbi);
 		return _csbi.dwCursorPosition.X;
 	}
 
@@ -62,12 +62,12 @@ public:
 
 	static void SetCursorPos(int row, int col) {
 		COORD pos = { col, row };
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+		SetConsoleCursorPosition(_handle, pos);
 	}
 
 	static void SetTextColor(WinConsoleTextColor backgroundColor, WinConsoleTextColor foregroundColor) {
 		int color = foregroundColor + backgroundColor * 0x10;
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+		SetConsoleTextAttribute(_handle, color);
 	}
 
 	static void PrintHeader() {
@@ -109,7 +109,7 @@ public:
 		COORD consoleSize;
 		consoleSize.X = _currCols;
 		consoleSize.Y = _currRows;
-		if (!SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), consoleSize)) {
+		if (!SetConsoleScreenBufferSize(_handle, consoleSize)) {
 			// TODO - make logger callable from anywhere without having to initialize logger object
 			std::filesystem::path filename = { "log.txt" };
 			tefk::Logger logger(filename);
@@ -125,6 +125,7 @@ public:
 		PrintFooter();
 	}
 };
+HANDLE ConsoleManager::_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_SCREEN_BUFFER_INFO ConsoleManager::_csbi;
 int ConsoleManager::_currRows = 0;
 int ConsoleManager::_currCols = 0;
