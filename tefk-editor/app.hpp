@@ -8,13 +8,13 @@ namespace tefk {
 
 class Application {
 private:
-	static tefk::File* _currFile;
+	static tefk::File* s_currFile;
 public:
 	static void Init(int argc, char** argv) {
 		SetConsoleCtrlHandler(NULL, TRUE);
 		CommandLineArgsInterpreter::Interpret(argc, argv);
 
-		_currFile = &tefk::Editor::CurrentFile();
+		s_currFile = &tefk::Editor::CurrentFile();
 	}
 
 	static void Run() {
@@ -24,7 +24,7 @@ public:
 				// Change _getch() for function that can properly read Fn keys
 				// Change _getch() for function that can read letters with accents (Ex. é, è, ô, ï, ...)
 				tefk::KeyPressHandler::HandleKeyPress(_getch());
-				_currFile->Save();
+				s_currFile->Save();
 				tefk::ConsoleManager::RefreshConsole();
 			}
 			if (tefk::ConsoleManager::ConsoleSizeChanged()) {
@@ -33,6 +33,6 @@ public:
 		}
 	}
 };
-tefk::File* Application::_currFile;
+tefk::File* Application::s_currFile;
 
 }

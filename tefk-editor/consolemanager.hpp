@@ -111,9 +111,7 @@ public:
 		consoleSize.Y = _currRows;
 		if (!SetConsoleScreenBufferSize(_handle, consoleSize)) {
 			// TODO - make logger callable from anywhere without having to initialize logger object
-			std::filesystem::path filename = { "log.txt" };
-			tefk::Logger logger(filename);
-			logger.Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
+			Logger::instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
 			exit(0);
 		}
 

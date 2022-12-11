@@ -8,23 +8,35 @@ namespace tefk {
 
 class Logger {
 private:
-	std::ofstream file = {};
-	std::ostream& stream;
-public:
-	explicit Logger(std::ostream& os)
-		: stream{os}
-	{}
+	std::ofstream _file;
+	std::ostream& _stream;
 
 	explicit Logger(std::filesystem::path& filename)
-		: file(filename, std::ios::app),
-		  stream{file}
+		: _file(filename, std::ios::app),
+		  _stream{_file}
 	{}
+public:
+	static Logger& instance() {
+		static std::filesystem::path filename("log.txt");
+		static Logger instance(filename);
+		return instance;
+	}
 
 	template <typename... Args>
-	// TODO - change std::_Fmt_string<Args...> to std::format_string<Args...>
 	void Log(const std::_Fmt_string<Args...> format, Args&&... args) {
-		stream << std::format(format, std::forward<Args>(args)...) 
-		       << std::endl;
+		try {
+			_stream << std::format(format, std::forward<Args>(args)...) 
+			        << std::endl;
+		}
+		catch (std::format_error ex) {
+			// TODO - Show error in console
+		}
+		catch (std::ios_base::failure) {
+			// ...
+		}
+		catch (std::bad_alloc) {
+			// ...
+		}
 	}
 };
 
