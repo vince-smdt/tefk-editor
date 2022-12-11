@@ -16,7 +16,7 @@ private:
 		  _stream{_file}
 	{}
 public:
-	static Logger& instance() {
+	static Logger& Instance() {
 		static std::filesystem::path filename("log.txt");
 		static Logger instance(filename);
 		return instance;

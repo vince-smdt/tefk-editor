@@ -34,6 +34,10 @@ private:
 		LIGHT_YELLOW =  0x0e,
 		BRIGHT_WHITE =  0x0f,
 	};
+
+	static const WinConsoleTextColor DEFAULT_BG_COLOR = BLACK;
+	static const WinConsoleTextColor DEFAULT_FG_COLOR = WHITE;
+
 public:
 	// TODO - Find way to avoid redundant GetConsoleScreenBufferInfo function calls, decorators?
 	static int RowCount() {
@@ -70,31 +74,42 @@ public:
 		SetConsoleTextAttribute(_handle, color);
 	}
 
+	static void Print(std::string text, WinConsoleTextColor backgroundColor = DEFAULT_BG_COLOR, WinConsoleTextColor foregroundColor = DEFAULT_FG_COLOR) {
+		SetTextColor(backgroundColor, foregroundColor);
+
+		if (text.size() > ColCount())
+			text = text.substr(0, ColCount() - 1);
+		std::cout << text << FillRow;
+
+		SetTextColor(DEFAULT_BG_COLOR, DEFAULT_FG_COLOR);
+	}
+
 	static void PrintHeader() {
-		// TODO - Only print content that fits in the console, rest can be seen by scrolling
-		SetTextColor(WHITE, BLACK);
 		SetCursorPos(0, 0);
-		std::cout
-			<< Editor::CurrentFile().GetFilename() << " "
-			<< Editor::FileIndex() + 1 << "/"
-			<< Editor::Files().size()
-			<< FillRow;
-		SetTextColor(BLACK, WHITE);
+
+		std::stringstream ss;
+		ss << Editor::CurrentFile().GetFilename() << " "
+		   << Editor::FileIndex() + 1 << "/"
+		   << Editor::Files().size();
+		Print(ss.str(), WHITE, BLACK);
 	}
 
 	static void PrintContent() {
+		// TODO - Only print content that fits in the console, rest can be seen by scrolling
 		SetCursorPos(2, 0);
-		std::cout << Editor::CurrentFile().GetContent();
+
+		std::stringstream ss;
+		ss << Editor::CurrentFile().GetContent();
+		Print(ss.str());
 	}
 
 	static void PrintFooter() {
-		SetTextColor(WHITE, BLACK);
 		SetCursorPos(RowCount() - 1, 0);
-		std::cout
-			<< "Rows = " << ConsoleManager::RowCount() 
-			<< ", Cols = " << ConsoleManager::ColCount()
-			<< FillRow;
-		SetTextColor(BLACK, WHITE);
+
+		std::stringstream ss;
+		ss << "Rows = " << ConsoleManager::RowCount() 
+		   << ", Cols = " << ConsoleManager::ColCount();
+		Print(ss.str(), WHITE, BLACK);
 	}
 
 	static std::ostream& FillRow(std::ostream& stream) {
@@ -111,7 +126,7 @@ public:
 		consoleSize.Y = _currRows;
 		if (!SetConsoleScreenBufferSize(_handle, consoleSize)) {
 			// TODO - make logger callable from anywhere without having to initialize logger object
-			Logger::instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
+			Logger::Instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
 			exit(0);
 		}
 
