@@ -28,11 +28,8 @@ public:
 			_stream << std::format(format, std::forward<Args>(args)...) 
 			        << std::endl;
 		}
-		catch (std::format_error ex) {
-			// TODO - Show error in console
-		}
 		catch (std::ios_base::failure) {
-			// ...
+			// TODO - Show error in console
 		}
 		catch (std::bad_alloc) {
 			// ...
