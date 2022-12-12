@@ -40,8 +40,13 @@ private:
 		WinConsoleTextColor foregroundColor;
 	} TextColor;
 
+	static TextColor _defaultColor;
+
+	static TextColor _headerColor;
+	static TextColor _contentColor;
+	static TextColor _footerColor;
+
 public:
-	// TODO - Find way to avoid redundant GetConsoleScreenBufferInfo function calls, decorators?
 	static int RowCount() {
 		GetConsoleScreenBufferInfo(_handle, &_csbi);
 		return _csbi.srWindow.Bottom - _csbi.srWindow.Top + 1;
@@ -76,14 +81,14 @@ public:
 		SetConsoleTextAttribute(_handle, colorCode);
 	}
 
-	static void Print(std::string text, TextColor color = { BLACK, WHITE }) {
+	static void Print(std::string text, TextColor color) {
 		SetTextColor(color);
 
 		if (text.size() > ColCount())
 			text = text.substr(0, ColCount() - 1);
 		std::cout << text << FillRow;
 
-		SetTextColor({ BLACK, WHITE });
+		SetTextColor(_defaultColor);
 	}
 
 	static void PrintHeader() {
@@ -93,7 +98,7 @@ public:
 		ss << Editor::CurrentFile().GetFilename() << " "
 		   << Editor::FileIndex() + 1 << "/"
 		   << Editor::Files().size();
-		Print(ss.str(), { WHITE, BLACK });
+		Print(ss.str(), _headerColor);
 	}
 
 	static void PrintContent() {
@@ -102,7 +107,7 @@ public:
 
 		std::stringstream ss;
 		ss << Editor::CurrentFile().GetContent();
-		Print(ss.str());
+		Print(ss.str(), _contentColor);
 	}
 
 	static void PrintFooter() {
@@ -111,7 +116,7 @@ public:
 		std::stringstream ss;
 		ss << "Rows = " << ConsoleManager::RowCount() 
 		   << ", Cols = " << ConsoleManager::ColCount();
-		Print(ss.str(), { WHITE, BLACK });
+		Print(ss.str(), _footerColor);
 	}
 
 	static std::ostream& FillRow(std::ostream& stream) {
@@ -142,5 +147,9 @@ HANDLE ConsoleManager::_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_SCREEN_BUFFER_INFO ConsoleManager::_csbi;
 int ConsoleManager::_currRows = 0;
 int ConsoleManager::_currCols = 0;
+ConsoleManager::TextColor ConsoleManager::_defaultColor = { BLACK, WHITE };
+ConsoleManager::TextColor ConsoleManager::_headerColor = { WHITE, BLACK };
+ConsoleManager::TextColor ConsoleManager::_contentColor = { BLACK, WHITE };
+ConsoleManager::TextColor ConsoleManager::_footerColor = { WHITE, BLACK };
 
 }
