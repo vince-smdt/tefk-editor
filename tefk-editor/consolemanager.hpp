@@ -35,8 +35,10 @@ private:
 		BRIGHT_WHITE =  0x0f,
 	};
 
-	static const WinConsoleTextColor DEFAULT_BG_COLOR = BLACK;
-	static const WinConsoleTextColor DEFAULT_FG_COLOR = WHITE;
+	typedef struct TextColor {
+		WinConsoleTextColor backgroundColor;
+		WinConsoleTextColor foregroundColor;
+	} TextColor;
 
 public:
 	// TODO - Find way to avoid redundant GetConsoleScreenBufferInfo function calls, decorators?
@@ -69,19 +71,19 @@ public:
 		SetConsoleCursorPosition(_handle, pos);
 	}
 
-	static void SetTextColor(WinConsoleTextColor backgroundColor, WinConsoleTextColor foregroundColor) {
-		int color = foregroundColor + backgroundColor * 0x10;
-		SetConsoleTextAttribute(_handle, color);
+	static void SetTextColor(TextColor color) {
+		int colorCode = color.foregroundColor + color.backgroundColor * 0x10;
+		SetConsoleTextAttribute(_handle, colorCode);
 	}
 
-	static void Print(std::string text, WinConsoleTextColor backgroundColor = DEFAULT_BG_COLOR, WinConsoleTextColor foregroundColor = DEFAULT_FG_COLOR) {
-		SetTextColor(backgroundColor, foregroundColor);
+	static void Print(std::string text, TextColor color = { BLACK, WHITE }) {
+		SetTextColor(color);
 
 		if (text.size() > ColCount())
 			text = text.substr(0, ColCount() - 1);
 		std::cout << text << FillRow;
 
-		SetTextColor(DEFAULT_BG_COLOR, DEFAULT_FG_COLOR);
+		SetTextColor({ BLACK, WHITE });
 	}
 
 	static void PrintHeader() {
@@ -91,7 +93,7 @@ public:
 		ss << Editor::CurrentFile().GetFilename() << " "
 		   << Editor::FileIndex() + 1 << "/"
 		   << Editor::Files().size();
-		Print(ss.str(), WHITE, BLACK);
+		Print(ss.str(), { WHITE, BLACK });
 	}
 
 	static void PrintContent() {
@@ -109,7 +111,7 @@ public:
 		std::stringstream ss;
 		ss << "Rows = " << ConsoleManager::RowCount() 
 		   << ", Cols = " << ConsoleManager::ColCount();
-		Print(ss.str(), WHITE, BLACK);
+		Print(ss.str(), { WHITE, BLACK });
 	}
 
 	static std::ostream& FillRow(std::ostream& stream) {
@@ -121,9 +123,7 @@ public:
 		_currRows = RowCount();
 		_currCols = ColCount();
 
-		COORD consoleSize;
-		consoleSize.X = _currCols;
-		consoleSize.Y = _currRows;
+		COORD consoleSize = { _currCols, _currRows };
 		if (!SetConsoleScreenBufferSize(_handle, consoleSize)) {
 			// TODO - make logger callable from anywhere without having to initialize logger object
 			Logger::Instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
