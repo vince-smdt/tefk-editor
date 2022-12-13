@@ -41,5 +41,8 @@
     <ClInclude Include="logger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="consoleapi.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
