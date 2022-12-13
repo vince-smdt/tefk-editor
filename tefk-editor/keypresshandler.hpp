@@ -18,6 +18,9 @@ public:
 		case VK_RETURN:
 			filecontent += '\n';
 			break;
+		case VK_PAUSE: // ctrl + s - TODO - Make macro with better name / implement better shortcut key system
+			Editor::CurrentFile().Save();
+			break;
 		default:
 			filecontent += ch;
 			break;

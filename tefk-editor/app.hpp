@@ -24,7 +24,6 @@ public:
 				// Change _getch() for function that can properly read Fn keys
 				// Change _getch() for function that can read letters with accents (Ex. é, è, ô, ï, ...)
 				tefk::KeyPressHandler::HandleKeyPress(_getch());
-				s_currFile->Save();
 				tefk::ConsoleManager::RefreshConsole();
 			}
 			if (tefk::ConsoleManager::ConsoleSizeChanged()) {
