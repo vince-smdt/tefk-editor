@@ -1,34 +1,9 @@
 #pragma once
 #include <Windows.h>
+#include "color.h"
 #include "logger.hpp"
 
 namespace tefk {
-
-// TODO - Move this to another file
-enum WinConsoleTextColor {
-	BLACK = 0x00,
-	BLUE = 0x01,
-	GREEN = 0x02,
-	AQUA = 0x03,
-	RED = 0x04,
-	PURPLE = 0x05,
-	YELLOW = 0x06,
-	WHITE = 0x07,
-	GRAY = 0x08,
-	LIGHT_BLUE = 0x09,
-	LIGHT_GREEN = 0x0a,
-	LIGHT_AQUA = 0x0b,
-	LIGHT_RED = 0x0c,
-	LIGHT_PURPLE = 0x0d,
-	LIGHT_YELLOW = 0x0e,
-	BRIGHT_WHITE = 0x0f,
-};
-
-// TODO - Move this to another file
-typedef struct TextColor {
-	WinConsoleTextColor backgroundColor;
-	WinConsoleTextColor foregroundColor;
-} TextColor;
 
 class ConsoleAPI {
 private:
@@ -64,7 +39,7 @@ public:
 	}
 
 	static void SetTextColor(TextColor color) {
-		int colorCode = color.foregroundColor + color.backgroundColor * 0x10;
+		int colorCode = color.fgColor + color.bgColor * 0x10;
 		SetConsoleTextAttribute(s_handle, colorCode);
 	}
 

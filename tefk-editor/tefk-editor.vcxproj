@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="app.hpp" />
     <ClInclude Include="cmdinter.hpp" />
+    <ClInclude Include="color.h" />
     <ClInclude Include="consoleapi.hpp" />
     <ClInclude Include="consolemanager.hpp" />
     <ClInclude Include="editor.hpp" />
