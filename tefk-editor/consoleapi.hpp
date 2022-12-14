@@ -58,7 +58,7 @@ public:
 		return s_csbi.dwCursorPosition.X;
 	}
 
-	static void SetCursorPos(int row, int col) {
+	static void SetCursorPos(SHORT row, SHORT col) {
 		COORD pos = { col, row };
 		SetConsoleCursorPosition(s_handle, pos);
 	}
@@ -68,7 +68,7 @@ public:
 		SetConsoleTextAttribute(s_handle, colorCode);
 	}
 
-	static void SetConsoleSize(int row, int col) {
+	static void SetConsoleSize(SHORT row, SHORT col) {
 		COORD size = { col, row };
 		if (!SetConsoleScreenBufferSize(s_handle, size)) {
 			Logger::Instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
