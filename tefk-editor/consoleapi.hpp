@@ -50,6 +50,12 @@ public:
 			exit(0);
 		}
 	}
+
+	static void ClearConsole() {
+		SetTextColor({ BLACK, WHITE }); // Get default text color from variable
+		SetCursorPos(0, 0);
+		std::cout << std::string(' ', RowCount() * ColCount());
+	}
 };
 HANDLE ConsoleAPI::s_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_SCREEN_BUFFER_INFO ConsoleAPI::s_csbi;

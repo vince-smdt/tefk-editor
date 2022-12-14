@@ -25,8 +25,6 @@ public:
 			ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
 			std::cout << std::string(_size.X, ' ');
 		}
-
-		ConsoleAPI::SetTextColor({BLACK, WHITE});
 	}
 };
 

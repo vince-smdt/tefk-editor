@@ -2,6 +2,7 @@
 #include <iostream>
 #include "consoleapi.hpp"
 #include "editor.hpp"
+#include "panel.hpp"
 
 namespace tefk {
 
@@ -73,8 +74,7 @@ public:
 
 		ConsoleAPI::SetConsoleSize(s_currRows, s_currCols);
 
-		// TODO - Code more efficient function to clear console
-		system("cls");
+		ConsoleAPI::ClearConsole();
 
 		PrintHeader();
 		PrintContent();
