@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include "consoleapi.hpp"
 #include "editor.hpp"
 #include "panel.hpp"
 
@@ -72,6 +71,7 @@ public:
 		s_currRows = ConsoleAPI::RowCount();
 		s_currCols = ConsoleAPI::ColCount();
 
+		// TODO - Maybe resize console after clearing it to avoid console resize error
 		ConsoleAPI::SetConsoleSize(s_currRows, s_currCols);
 
 		ConsoleAPI::ClearConsole();

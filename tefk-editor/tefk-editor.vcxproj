@@ -138,6 +138,7 @@
     <ClInclude Include="consolemanager.hpp" />
     <ClInclude Include="editor.hpp" />
     <ClInclude Include="file.hpp" />
+    <ClInclude Include="guicomponent.hpp" />
     <ClInclude Include="keypresshandler.hpp" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="panel.hpp" />

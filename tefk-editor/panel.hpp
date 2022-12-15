@@ -1,21 +1,13 @@
 #pragma once
 #include <iostream>
-#include <Windows.h>
-#include "color.h"
-#include "consoleapi.hpp"
+#include "guicomponent.hpp"
 
 namespace tefk {
 
-class Panel {
-private:
-	COORD _pos;
-	COORD _size;
-	TextColor _color;
+class Panel : public GUIComponent {
 public:
-	Panel(COORD pos, COORD size, TextColor color) 
-		: _pos{pos},
-		  _size{size},
-		  _color{color}
+	Panel(COORD pos, COORD size, TextColor color)
+		: GUIComponent(pos, size, color)
 	{}
 
 	void Print() {
