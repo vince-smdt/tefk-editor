@@ -52,9 +52,18 @@ public:
 	}
 
 	static void ClearConsole() {
+		DWORD written;
+
 		SetTextColor({ BLACK, WHITE }); // Get default text color from variable
+		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
+		FillConsoleOutputCharacterA(
+			s_handle, ' ', s_csbi.dwSize.X * s_csbi.dwSize.Y, {0, 0}, &written
+		);
+		FillConsoleOutputAttribute(
+			s_handle, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
+			s_csbi.dwSize.X * s_csbi.dwSize.Y, {0, 0}, &written
+		);
 		SetCursorPos(0, 0);
-		std::cout << std::string(' ', RowCount() * ColCount());
 	}
 };
 HANDLE ConsoleAPI::s_handle = GetStdHandle(STD_OUTPUT_HANDLE);
