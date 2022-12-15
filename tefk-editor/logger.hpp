@@ -12,7 +12,7 @@ private:
 	std::ostream& _stream;
 
 	explicit Logger(std::filesystem::path& filename)
-		: _file(filename, std::ios::app),
+		: _file{ filename, std::ios::app },
 		  _stream{_file}
 	{}
 public:

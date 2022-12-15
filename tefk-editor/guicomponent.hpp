@@ -10,14 +10,16 @@ protected:
 	COORD _pos;
 	COORD _size;
 	TextColor _color;
+	GUIComponent* _parent;
 public:
 	GUIComponent(COORD pos, COORD size, TextColor color)
 		: _pos{ pos },
 		_size{ size },
-		_color{ color }
+		_color{ color },
+		_parent{ nullptr }
 	{}
 
-	virtual void Print() = 0;
+	virtual void Print() {}
 };
 
 }

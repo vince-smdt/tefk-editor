@@ -13,22 +13,22 @@ private:
 	static HANDLE s_handle;
 	static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
 public:
-	static int RowCount() {
+	static SHORT RowCount() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.srWindow.Bottom - s_csbi.srWindow.Top + 1;
 	}
 
-	static int ColCount() {
+	static SHORT ColCount() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.srWindow.Right - s_csbi.srWindow.Left + 1;
 	}
 
-	static int CursorRowPos() {
+	static SHORT CursorRowPos() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.dwCursorPosition.Y;
 	}
 
-	static int CursorColPos() {
+	static SHORT CursorColPos() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.dwCursorPosition.X;
 	}
