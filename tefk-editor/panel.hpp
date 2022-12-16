@@ -15,7 +15,7 @@ public:
 		ConsoleAPI::SetTextColor(_color);
 
 		// Print panel
-		for (SHORT currRow = 0; currRow < _size.Y; currRow++) {
+		for (short currRow = 0; currRow < _size.Y; currRow++) {
 			ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
 			std::cout << std::string(_size.X, ' ');
 		}

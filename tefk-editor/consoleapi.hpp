@@ -1,9 +1,11 @@
 #pragma once
-#include <Windows.h>
+//#include <Windows.h>
 #include "color.h"
 #include "logger.hpp"
 
 namespace tefk {
+
+typedef COORD Coord;
 
 class ConsoleAPI {
 private:
@@ -13,27 +15,27 @@ private:
 	static HANDLE s_handle;
 	static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
 public:
-	static SHORT RowCount() {
+	static short RowCount() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.srWindow.Bottom - s_csbi.srWindow.Top + 1;
 	}
 
-	static SHORT ColCount() {
+	static short ColCount() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.srWindow.Right - s_csbi.srWindow.Left + 1;
 	}
 
-	static SHORT CursorRowPos() {
+	static short CursorRowPos() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.dwCursorPosition.Y;
 	}
 
-	static SHORT CursorColPos() {
+	static short CursorColPos() {
 		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
 		return s_csbi.dwCursorPosition.X;
 	}
 
-	static void SetCursorPos(SHORT row, SHORT col) {
+	static void SetCursorPos(short row, short col) {
 		COORD pos = { col, row };
 		SetConsoleCursorPosition(s_handle, pos);
 	}
@@ -43,7 +45,7 @@ public:
 		SetConsoleTextAttribute(s_handle, colorCode);
 	}
 
-	static void SetConsoleSize(SHORT row, SHORT col) {
+	static void SetConsoleSize(short row, short col) {
 		COORD size = { col, row };
 		if (!SetConsoleScreenBufferSize(s_handle, size)) {
 			Logger::Instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());

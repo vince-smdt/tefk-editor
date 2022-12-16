@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <Windows.h>
 #include "file.hpp"
 
 namespace tefk { 
@@ -25,7 +24,7 @@ public:
 		return s_file_index;
 	}
 
-	static void NewFile() { // rename functions or fuse newfile with openorcreatefiles
+	static void NewFile() { // TODO - rename functions or fuse newfile with openorcreatefiles
 		std::filesystem::path filepath("new.txt");
 		s_files.push_back(File(filepath)); // TODO - prompt user to enter filename
 		s_file_index = s_files.size() - 1;

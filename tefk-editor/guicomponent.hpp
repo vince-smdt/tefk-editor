@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 #include "color.h"
 #include "consoleapi.hpp"
 
@@ -9,8 +8,8 @@ class Container;
 
 class GUIComponent {
 protected:
-	COORD _pos;
-	COORD _size;
+	Coord _pos;
+	Coord _size;
 	TextColor _color;
 	Container* _parent;
 public:
@@ -21,13 +20,13 @@ public:
 		  _parent{ nullptr }
 	{}
 
-	COORD GetPosition() { return _pos; }
-	COORD GetSize() { return _size; }
+	Coord GetPosition() { return _pos; }
+	Coord GetSize() { return _size; }
 	TextColor GetColor() { return _color; }
 	Container* GetParent() { return _parent; }
 
-	void SetPosition(COORD pos) { _pos = pos; }
-	void SetSize(COORD size) { _size = size; }
+	void SetPosition(Coord pos) { _pos = pos; }
+	void SetSize(Coord size) { _size = size; }
 	void SetColor(TextColor color) { _color = color; }
 	void SetParent(Container *component) { _parent = component; }
 	
