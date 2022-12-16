@@ -53,5 +53,8 @@
     <ClInclude Include="guicomponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="container.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

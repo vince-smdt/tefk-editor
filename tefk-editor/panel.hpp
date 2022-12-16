@@ -1,17 +1,14 @@
 #pragma once
 #include <iostream>
-#include <vector>
-#include "guicomponent.hpp"
+#include "container.hpp"
 
 namespace tefk {
 
-class Panel : public GUIComponent {
-private:
-	std::vector<GUIComponent*> _children;
+class Panel : public GUIComponent, public Container {
 public:
-	Panel(COORD pos, COORD size, TextColor color)
-		: GUIComponent{ pos, size, color },
-		  _children{}
+	Panel()
+		: GUIComponent{},
+		  Container{}
 	{}
 
 	void Print() override {
@@ -27,11 +24,6 @@ public:
 		for (auto &child : _children) {
 			child->Print();
 		}
-	}
-
-	// TODO - prevent circular parent/child connections
-	void AddComponent(GUIComponent &component) {
-		_children.push_back(&component);
 	}
 };
 

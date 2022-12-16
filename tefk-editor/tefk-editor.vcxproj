@@ -136,6 +136,7 @@
     <ClInclude Include="color.h" />
     <ClInclude Include="consoleapi.hpp" />
     <ClInclude Include="consolemanager.hpp" />
+    <ClInclude Include="container.hpp" />
     <ClInclude Include="editor.hpp" />
     <ClInclude Include="file.hpp" />
     <ClInclude Include="guicomponent.hpp" />
