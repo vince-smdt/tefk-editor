@@ -39,7 +39,7 @@ public:
 	}
 
 	static void SetTextColor(TextColor color) {
-		int colorCode = color.fgColor + color.bgColor * 0x10;
+		WORD colorCode = color.fgColor + color.bgColor * 0x10;
 		SetConsoleTextAttribute(s_handle, colorCode);
 	}
 
