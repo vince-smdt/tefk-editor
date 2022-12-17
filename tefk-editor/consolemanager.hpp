@@ -2,6 +2,7 @@
 #include <iostream>
 #include "editor.hpp"
 #include "gui-components/panel.hpp"
+#include "gui-components/label.hpp"
 
 namespace tefk {
 
@@ -81,22 +82,17 @@ public:
 		PrintFooter();
 
 		Panel p;
-		p.SetSize({ 10, 5 });
+		p.SetSize({ 20, 5 });
 		p.SetColor({ BLUE, WHITE });
 		p.SetPosition({ 40, 20 });
 		
-		Panel q;
-		q.SetSize({ 4, 2 });
-		q.SetColor({ RED, BLACK });
-		q.SetPosition({ 0, 0 });
+		Label t;
+		t.SetSize({ 20, 5 });
+		t.SetColor({ BLUE, WHITE });
+		t.SetPosition({ 0, 0 });
+		t.SetText("This is a test to test labels and if their text wraps correctly in a container too small to fully display them.");
 
-		Panel r;
-		r.SetSize({ 4, 2 });
-		r.SetColor({ GREEN, BLACK });
-		r.SetPosition({ 1, 1 });
-		
-		p.AddComponent(q);
-		p.AddComponent(r);
+		p.AddComponent(t);
 		p.Print();
 	}
 };

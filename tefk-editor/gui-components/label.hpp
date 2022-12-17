@@ -1,22 +1,27 @@
 #pragma once
-#include <algorithm>
-#include <iostream>
+#include <string>
 #include "guicomponent.hpp"
 
 namespace tefk {
 
-class Panel : public GUIComponent {
+class Label : public GUIComponent {
+private:
+	std::string _text;
 public:
-	Panel()
+	Label()
 		: GUIComponent{}
 	{}
+
+	std::string GetText() { return _text; }
+
+	void SetText(std::string text) { _text = text; }
 
 	void Print() override {
 		ConsoleAPI::SetTextColor(_color);
 
 		// Get position relative to parent, else origin
-		Coord relPos = (_parent) 
-			? _parent->GetPosition() 
+		Coord relPos = (_parent)
+			? _parent->GetPosition()
 			: _ORIGIN;
 
 		// Calculate real/current position
@@ -24,20 +29,20 @@ public:
 
 		// Row size to print, exclude overflow from console window
 		short rowSize = (std::min)(
-			_size.X, 
+			_size.X,
 			(short)(ConsoleAPI::ColCount() - currPos.X)
 		);
 
-		// Print panel
+		// Print label
 		if (rowSize > 0) {
-			for (short currRow = 0; currRow < _size.Y && currRow + currPos.Y < ConsoleAPI::RowCount(); currRow++) {
+			for (short currRow = 0; currRow < _size.Y && currRow + currPos.Y < ConsoleAPI::RowCount() && (int)(rowSize * currRow) < _text.size(); currRow++) {
 				ConsoleAPI::SetCursorPos(currPos.Y + currRow, currPos.X);
-				std::cout << std::string(rowSize, ' ');
+				std::cout << _text.substr((int)(currRow * rowSize), rowSize);
 			}
 		}
 
-		// Print children elements of panel
-		for (auto &child : _children) {
+		// Print children elements of label
+		for (auto& child : _children) {
 			child->Print();
 		}
 	}

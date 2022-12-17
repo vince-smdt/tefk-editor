@@ -16,8 +16,8 @@ protected:
 	const Coord _ORIGIN = { 0, 0 };
 public:
 	GUIComponent()
-		: _pos{ 0, 0 },
-		  _size{ 0, 0 },
+		: _pos{ _ORIGIN },
+		  _size{ _ORIGIN },
 		  _color{ BLACK, BLACK }, // TODO - set to default component color?
 		  _parent{ nullptr }
 	{}
