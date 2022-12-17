@@ -5,7 +5,6 @@
 
 namespace tefk {
 
-
 class GUIComponent {
 protected:
 	Coord _pos;

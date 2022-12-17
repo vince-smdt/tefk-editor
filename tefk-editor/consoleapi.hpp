@@ -1,4 +1,5 @@
 #pragma once
+#include <system_error>
 #include <Windows.h>
 #include "color.h"
 #include "logger.hpp"
@@ -18,49 +19,67 @@ private:
 	static HANDLE s_handle;
 	static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
 public:
+	static void GetConsoleBufferInfo() {
+		if (!GetConsoleScreenBufferInfo(s_handle, &s_csbi)) {
+			std::string message = std::system_category().message(GetLastError());
+			Logger::Instance().Log("GetConsoleBufferInfo() failed! Reason : {}", message);
+			exit(0);
+		}
+	}
+
 	static short RowCount() {
-		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
+		GetConsoleBufferInfo();
 		return s_csbi.srWindow.Bottom - s_csbi.srWindow.Top + 1;
 	}
 
 	static short ColCount() {
-		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
+		GetConsoleBufferInfo();
 		return s_csbi.srWindow.Right - s_csbi.srWindow.Left + 1;
 	}
 
 	static short CursorRowPos() {
-		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
+		GetConsoleBufferInfo();
 		return s_csbi.dwCursorPosition.Y;
 	}
 
 	static short CursorColPos() {
-		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
+		GetConsoleBufferInfo();
 		return s_csbi.dwCursorPosition.X;
 	}
 
 	static void SetCursorPos(short row, short col) {
 		COORD pos = { col, row };
-		SetConsoleCursorPosition(s_handle, pos);
+		if (!SetConsoleCursorPosition(s_handle, pos)) {
+			std::string message = std::system_category().message(GetLastError());
+			Logger::Instance().Log("SetConsoleCursorPosition() failed! Reason : {}", message);
+			exit(0);
+		}
 	}
 
 	static void SetTextColor(TextColor color) {
 		WORD colorCode = color.fgColor + color.bgColor * 0x10;
-		SetConsoleTextAttribute(s_handle, colorCode);
+		if (!SetConsoleTextAttribute(s_handle, colorCode)) {
+			std::string message = std::system_category().message(GetLastError());
+			Logger::Instance().Log("SetConsoleTextAttribute() failed! Reason : {}", message);
+			exit(0);
+		}
 	}
 
 	static void SetConsoleSize(short row, short col) {
 		COORD size = { col, row };
 		if (!SetConsoleScreenBufferSize(s_handle, size)) {
-			Logger::Instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
+			std::string message = std::system_category().message(GetLastError());
+			Logger::Instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", message);
 			exit(0);
 		}
 	}
 
 	static void ClearConsole() {
 		DWORD written;
+		SetTextColor({ BLACK, WHITE }); // TODO - Get default text color from variable
+		GetConsoleBufferInfo();
 
-		SetTextColor({ BLACK, WHITE }); // Get default text color from variable
-		GetConsoleScreenBufferInfo(s_handle, &s_csbi);
+		// TODO - Error check these functions in readable and concise way
 		FillConsoleOutputCharacterA(
 			s_handle, ' ', s_csbi.dwSize.X * s_csbi.dwSize.Y, {0, 0}, &written
 		);
@@ -68,6 +87,7 @@ public:
 			s_handle, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
 			s_csbi.dwSize.X * s_csbi.dwSize.Y, {0, 0}, &written
 		);
+
 		SetCursorPos(0, 0);
 	}
 };
