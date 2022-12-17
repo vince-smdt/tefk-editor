@@ -25,7 +25,7 @@ public:
 		// Row size to print, exclude overflow from console window
 		short rowSize = (std::min)(
 			_size.X, 
-			(short)(ConsoleAPI::ColCount() - _pos.X)
+			(short)(ConsoleAPI::ColCount() - currPos.X)
 		);
 
 		// Print panel
