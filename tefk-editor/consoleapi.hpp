@@ -5,7 +5,10 @@
 
 namespace tefk {
 
-typedef COORD Coord;
+typedef struct {
+	short X;
+	short Y;
+} Coord;
 
 class ConsoleAPI {
 private:
