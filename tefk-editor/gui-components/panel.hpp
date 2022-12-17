@@ -1,19 +1,26 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
-#include "gui-components/container.hpp"
+#include "guicomponent.hpp"
 
 namespace tefk {
 
-class Panel : public GUIComponent, public Container {
+class Panel : public GUIComponent {
 public:
 	Panel()
-		: GUIComponent{},
-		  Container{}
+		: GUIComponent{}
 	{}
 
 	void Print() override {
 		ConsoleAPI::SetTextColor(_color);
+
+		// Get position relative to parent, else origin
+		Coord relPos = (_parent) 
+			? _parent->GetPosition() 
+			: _ORIGIN;
+
+		// Calculate real/current position
+		Coord currPos = { _pos.X + relPos.X, _pos.Y + relPos.Y };
 
 		// Row size to print, exclude overflow from console window
 		short rowSize = (std::min)(
@@ -22,9 +29,10 @@ public:
 		);
 
 		// Print panel
+		// TODO - hide children element overflow
 		if (rowSize > 0) {
-			for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
-				ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
+			for (short currRow = 0; currRow < _size.Y && currRow + currPos.Y < ConsoleAPI::RowCount(); currRow++) {
+				ConsoleAPI::SetCursorPos(currPos.Y + currRow, currPos.X);
 				std::cout << std::string(rowSize, ' ');
 			}
 		}

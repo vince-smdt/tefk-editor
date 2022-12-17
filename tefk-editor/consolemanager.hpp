@@ -79,6 +79,25 @@ public:
 		PrintHeader();
 		PrintContent();
 		PrintFooter();
+
+		Panel p;
+		p.SetSize({ 10, 5 });
+		p.SetColor({ BLUE, WHITE });
+		p.SetPosition({ 40, 20 });
+		
+		Panel q;
+		q.SetSize({ 4, 2 });
+		q.SetColor({ RED, BLACK });
+		q.SetPosition({ 0, 0 });
+
+		Panel r;
+		r.SetSize({ 4, 2 });
+		r.SetColor({ GREEN, BLACK });
+		r.SetPosition({ 1, 1 });
+		
+		p.AddComponent(q);
+		p.AddComponent(r);
+		p.Print();
 	}
 };
 int ConsoleManager::s_currRows = 0;

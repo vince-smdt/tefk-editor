@@ -50,18 +50,6 @@
     <ClInclude Include="color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="panel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="guicomponent.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="container.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gui-components\container.hpp">
-      <Filter>Header Files\gui-components</Filter>
-    </ClInclude>
     <ClInclude Include="gui-components\guicomponent.hpp">
       <Filter>Header Files\gui-components</Filter>
     </ClInclude>
