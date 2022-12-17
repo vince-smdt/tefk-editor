@@ -139,6 +139,9 @@
     <ClInclude Include="container.hpp" />
     <ClInclude Include="editor.hpp" />
     <ClInclude Include="file.hpp" />
+    <ClInclude Include="gui-components\container.hpp" />
+    <ClInclude Include="gui-components\guicomponent.hpp" />
+    <ClInclude Include="gui-components\panel.hpp" />
     <ClInclude Include="guicomponent.hpp" />
     <ClInclude Include="keypresshandler.hpp" />
     <ClInclude Include="logger.hpp" />

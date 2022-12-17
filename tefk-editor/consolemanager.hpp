@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "editor.hpp"
-#include "panel.hpp"
+#include "gui-components/panel.hpp"
 
 namespace tefk {
 
