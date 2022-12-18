@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include "editor.hpp"
 #include "gui-components/panel.hpp"
 #include "gui-components/label.hpp"
 
 namespace tefk {
+
 
 class ConsoleManager {
 private:
@@ -14,12 +16,29 @@ private:
 	static int s_currRows;
 	static int s_currCols;
 
+	static std::shared_ptr<Panel> s_header;
+
 	// TODO - make these constants
 	static TextColor _defaultColor;
 	static TextColor _headerColor;
 	static TextColor _contentColor;
 	static TextColor _footerColor;
 public:
+	static void Init() {
+		s_header = std::make_shared<Panel>();
+		s_header->SetSize({ 26, 4 });
+		s_header->SetColor({ BLUE, WHITE });
+		s_header->SetPosition({ 40, 20 });
+		
+		std::shared_ptr<Label> t = std::make_shared<Label>();
+		t->SetSize({ 26, 4 });
+		t->SetColor({ BLUE, WHITE });
+		t->SetPosition({ 0, 0 });
+		t->SetText("This is a test to test labels and if their text wraps correctly in a container too small to fully display them.");
+
+		s_header->AddComponent(t);
+	}
+
 	static bool ConsoleSizeChanged() {
 		return s_currRows != ConsoleAPI::RowCount() || s_currCols != ConsoleAPI::ColCount();
 	}
@@ -81,23 +100,12 @@ public:
 		PrintContent();
 		PrintFooter();
 
-		Panel p;
-		p.SetSize({ 20, 5 });
-		p.SetColor({ BLUE, WHITE });
-		p.SetPosition({ 40, 20 });
-		
-		Label t;
-		t.SetSize({ 20, 5 });
-		t.SetColor({ BLUE, WHITE });
-		t.SetPosition({ 0, 0 });
-		t.SetText("This is a test to test labels and if their text wraps correctly in a container too small to fully display them.");
-
-		p.AddComponent(t);
-		p.Print();
+		s_header->Print();
 	}
 };
 int ConsoleManager::s_currRows = 0;
 int ConsoleManager::s_currCols = 0;
+std::shared_ptr<Panel> ConsoleManager::s_header;
 TextColor ConsoleManager::_defaultColor = { BLACK, WHITE };
 TextColor ConsoleManager::_headerColor = { WHITE, BLACK };
 TextColor ConsoleManager::_contentColor = { BLACK, WHITE };

@@ -15,6 +15,8 @@ public:
 		CommandLineArgsInterpreter::Interpret(argc, argv);
 
 		s_currFile = &tefk::Editor::CurrentFile();
+
+		ConsoleManager::Init();
 	}
 
 	static void Run() {
