@@ -59,5 +59,8 @@
     <ClInclude Include="gui-components\label.hpp">
       <Filter>Header Files\gui-components</Filter>
     </ClInclude>
+    <ClInclude Include="gui-components\textfield.hpp">
+      <Filter>Header Files\gui-components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -141,6 +141,7 @@
     <ClInclude Include="gui-components\guicomponent.hpp" />
     <ClInclude Include="gui-components\panel.hpp" />
     <ClInclude Include="gui-components\label.hpp" />
+    <ClInclude Include="gui-components\textfield.hpp" />
     <ClInclude Include="keypresshandler.hpp" />
     <ClInclude Include="logger.hpp" />
   </ItemGroup>

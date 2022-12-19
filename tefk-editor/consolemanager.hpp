@@ -4,6 +4,7 @@
 #include "editor.hpp"
 #include "gui-components/panel.hpp"
 #include "gui-components/label.hpp"
+#include "gui-components/textfield.hpp"
 
 namespace tefk {
 
@@ -16,7 +17,7 @@ private:
 	static int s_currRows;
 	static int s_currCols;
 
-	static std::shared_ptr<Panel> s_header;
+	static std::shared_ptr<Panel> s_guitest;
 
 	// TODO - make these constants
 	static TextColor _defaultColor;
@@ -25,18 +26,25 @@ private:
 	static TextColor _footerColor;
 public:
 	static void Init() {
-		s_header = std::make_shared<Panel>();
-		s_header->SetSize({ 26, 4 });
-		s_header->SetColor({ BLUE, WHITE });
-		s_header->SetPosition({ 40, 20 });
+		s_guitest = std::make_shared<Panel>();
+		s_guitest->SetSize({ 26, 4 });
+		s_guitest->SetColor({ BLUE, WHITE });
+		s_guitest->SetPosition({ 40, 20 });
 		
-		std::shared_ptr<Label> t = std::make_shared<Label>();
-		t->SetSize({ 26, 4 });
-		t->SetColor({ BLUE, WHITE });
-		t->SetPosition({ 0, 0 });
-		t->SetText("This is a test to test labels and if their text wraps correctly in a container too small to fully display them.");
+		std::shared_ptr<Label> lbl = std::make_shared<Label>();
+		lbl->SetSize({ 26, 2 });
+		lbl->SetColor({ BLUE, WHITE });
+		lbl->SetPosition({ 0, 0 });
+		lbl->SetText("This is a test label.");
 
-		s_header->AddComponent(t);
+		std::shared_ptr<TextField> txt = std::make_shared<TextField>();
+		txt->SetSize({ 26, 2 });
+		txt->SetColor({ BLUE, WHITE });
+		txt->SetPosition({ 0, 2 });
+		txt->AddText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbccc");
+
+		s_guitest->AddComponent(lbl);
+		s_guitest->AddComponent(txt);
 	}
 
 	static bool ConsoleSizeChanged() {
@@ -100,12 +108,12 @@ public:
 		PrintContent();
 		PrintFooter();
 
-		s_header->Print();
+		s_guitest->Print();
 	}
 };
 int ConsoleManager::s_currRows = 0;
 int ConsoleManager::s_currCols = 0;
-std::shared_ptr<Panel> ConsoleManager::s_header;
+std::shared_ptr<Panel> ConsoleManager::s_guitest;
 TextColor ConsoleManager::_defaultColor = { BLACK, WHITE };
 TextColor ConsoleManager::_headerColor = { WHITE, BLACK };
 TextColor ConsoleManager::_contentColor = { BLACK, WHITE };
