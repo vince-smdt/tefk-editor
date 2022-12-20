@@ -22,8 +22,7 @@ public:
 	GUIComponent()
 		: _pos{ _ORIGIN },
 		  _size{ _ORIGIN },
-		  _color{ BLACK, BLACK }, // TODO - set to default component color?
-		  _parent{ nullptr }
+		  _color{ BLACK, BLACK } // TODO - set to default component color?
 	{}
 
 	Coord GetPosition() { return _pos; }
