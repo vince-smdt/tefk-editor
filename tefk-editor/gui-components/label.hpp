@@ -19,31 +19,21 @@ public:
 	void Print() override {
 		ConsoleAPI::SetTextColor(_color);
 
-		// Get position relative to parent, else origin
-		Coord relPos = (_parent)
-			? _parent->GetPosition()
-			: _ORIGIN;
-
-		// Calculate real/current position
-		Coord currPos = { _pos.X + relPos.X, _pos.Y + relPos.Y };
-
 		// Row size to print, exclude overflow from console window
 		short rowSize = (std::min)(
 			_size.X,
-			(short)(ConsoleAPI::ColCount() - currPos.X)
+			(short)(ConsoleAPI::ColCount() - _pos.X)
 		);
+
+		if (rowSize == 0)
+			return;
 
 		// Print label
 		if (rowSize > 0) {
-			for (short currRow = 0; currRow < _size.Y && currRow + currPos.Y < ConsoleAPI::RowCount() && (int)(rowSize * currRow) < _text.size(); currRow++) {
-				ConsoleAPI::SetCursorPos(currPos.Y + currRow, currPos.X);
+			for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount() && (int)(rowSize * currRow) < _text.size(); currRow++) {
+				ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
 				std::cout << _text.substr((int)(currRow * rowSize), rowSize);
 			}
-		}
-
-		// Print children elements of label
-		for (auto& child : _children) {
-			child->Print();
 		}
 	}
 };

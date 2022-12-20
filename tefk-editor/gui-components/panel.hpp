@@ -14,31 +14,19 @@ public:
 	void Print() override {
 		ConsoleAPI::SetTextColor(_color);
 
-		// Get position relative to parent, else origin
-		Coord relPos = (_parent) 
-			? _parent->GetPosition() 
-			: _ORIGIN;
-
-		// Calculate real/current position
-		Coord currPos = { _pos.X + relPos.X, _pos.Y + relPos.Y };
-
 		// Row size to print, exclude overflow from console window
 		short rowSize = (std::min)(
 			_size.X, 
-			(short)(ConsoleAPI::ColCount() - currPos.X)
+			(short)(ConsoleAPI::ColCount() - _pos.X)
 		);
 
-		// Print panel
-		if (rowSize > 0) {
-			for (short currRow = 0; currRow < _size.Y && currRow + currPos.Y < ConsoleAPI::RowCount(); currRow++) {
-				ConsoleAPI::SetCursorPos(currPos.Y + currRow, currPos.X);
-				std::cout << std::string(rowSize, ' ');
-			}
-		}
+		if (rowSize == 0)
+			return;
 
-		// Print children elements of panel
-		for (auto &child : _children) {
-			child->Print();
+		// Print panel
+		for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
+			ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
+			std::cout << std::string(rowSize, ' ');
 		}
 	}
 };
