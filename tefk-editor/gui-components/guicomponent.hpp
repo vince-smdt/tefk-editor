@@ -20,10 +20,11 @@ protected:
 
 	// Row size that can be printed, excludes overflow
 	short RowSize() {
-		return (std::min)(
+		short size = (std::min)(
 			_size.X,
 			(short)(ConsoleAPI::ColCount() - _pos.X)
 		);
+		return (size < 0) ? 0 : size;
 	}
 
 	// TODO - Find better name
