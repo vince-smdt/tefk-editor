@@ -17,6 +17,14 @@ protected:
 	std::shared_ptr<Window> _parent;
 	
 	const Coord _ORIGIN = { 0, 0 };
+
+	// Row size that can be printed, excludes overflow
+	short RowSize() {
+		return (std::min)(
+			_size.X,
+			(short)(ConsoleAPI::ColCount() - _pos.X)
+		);
+	}
 public:
 	GUIComponent()
 		: _pos{ _ORIGIN },
@@ -34,7 +42,17 @@ public:
 	void SetColor(TextColor color) { _color = color; }
 	void SetParent(std::shared_ptr<Window> window) { _parent = window; }
 
-	virtual void Print() {}
+	void Print() {
+		if (RowSize() == 0)
+			return;
+
+		ConsoleAPI::SetTextColor(_color);
+
+		PrintContent();
+	}
+
+	// TODO - Find better name
+	virtual void PrintContent() = 0;
 };
 
 }
