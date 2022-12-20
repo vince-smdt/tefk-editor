@@ -25,6 +25,9 @@ protected:
 			(short)(ConsoleAPI::ColCount() - _pos.X)
 		);
 	}
+
+	// TODO - Find better name
+	virtual void PrintContent() = 0;
 public:
 	GUIComponent()
 		: _pos{ _ORIGIN },
@@ -50,9 +53,6 @@ public:
 
 		PrintContent();
 	}
-
-	// TODO - Find better name
-	virtual void PrintContent() = 0;
 };
 
 }

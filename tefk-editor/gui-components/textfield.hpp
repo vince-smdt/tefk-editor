@@ -7,14 +7,6 @@ namespace tefk {
 class TextField : public GUIComponent {
 private:
 	std::string _input;
-public:
-	TextField()
-		: GUIComponent{}
-	{}
-
-	void AddText(std::string text) {
-		_input += text;
-	}
 
 	void PrintContent() override {
 		// If input text can't fit in parent component, shorten string
@@ -27,6 +19,14 @@ public:
 			ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
 			std::cout << truncatedText.substr((int)(currRow * RowSize()), RowSize());
 		}
+	}
+public:
+	TextField()
+		: GUIComponent{}
+	{}
+
+	void AddText(std::string text) {
+		_input += text;
 	}
 };
 

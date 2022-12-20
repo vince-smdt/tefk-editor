@@ -6,11 +6,7 @@
 namespace tefk {
 
 class Panel : public GUIComponent {
-public:
-	Panel()
-		: GUIComponent{}
-	{}
-
+private:
 	void PrintContent() override {
 		// Print panel
 		for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
@@ -18,6 +14,10 @@ public:
 			std::cout << std::string(RowSize(), ' ');
 		}
 	}
+public:
+	Panel()
+		: GUIComponent{}
+	{}
 };
 
 }
