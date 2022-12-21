@@ -6,6 +6,7 @@
 
 namespace tefk {
 
+// TODO - make implementation file, deal with Log method Args template
 class Logger {
 private:
 	std::ofstream _file;

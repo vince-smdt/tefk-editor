@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <memory>
 #include <vector>
-#include "color.h"
-#include "consoleapi.hpp"
+#include "../color.h"
+#include "../consoleapi.hpp"
 
 namespace tefk {
 
@@ -14,41 +14,24 @@ protected:
 	TextColor _color;
 	
 	const Coord _ORIGIN = { 0, 0 };
+public:
+	GUIComponent();
 
+	Coord GetPosition();
+	Coord GetSize();
+	TextColor GetColor();
+
+	void SetPosition(Coord pos);
+	void SetSize(Coord size);
+	void SetColor(TextColor color);
+
+	void Print();
+protected:
 	// Row size that can be printed, excludes overflow
-	short RowSize() {
-		short size = (std::min)(
-			_size.X,
-			(short)(ConsoleAPI::ColCount() - _pos.X)
-		);
-		return (size < 0) ? 0 : size;
-	}
+	short RowSize();
 
 	// TODO - Find better name
 	virtual void PrintContent() = 0;
-public:
-	GUIComponent()
-		: _pos{ _ORIGIN },
-		  _size{ _ORIGIN },
-		  _color{ BLACK, BLACK } // TODO - set to default component color?
-	{}
-
-	Coord GetPosition() { return _pos; }
-	Coord GetSize() { return _size; }
-	TextColor GetColor() { return _color; }
-
-	void SetPosition(Coord pos) { _pos = pos; }
-	void SetSize(Coord size) { _size = size; }
-	void SetColor(TextColor color) { _color = color; }
-
-	void Print() {
-		if (RowSize() == 0)
-			return;
-
-		ConsoleAPI::SetTextColor(_color);
-
-		PrintContent();
-	}
 };
 
 }
