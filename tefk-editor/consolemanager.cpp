@@ -14,18 +14,24 @@ void ConsoleManager::Init() {
 	s_window = std::make_shared<Window>();
 
 	std::shared_ptr<Panel> pan = std::make_shared<Panel>();
-	pan->SetSize({ 26, 4 });
+	pan->SetSize({ 30, 4 });
 	pan->SetColor({ BLUE, WHITE });
 	pan->SetPosition({ 40, 20 });
 
 	std::shared_ptr<Label> lbl = std::make_shared<Label>();
-	lbl->SetSize({ 26, 2 });
+	lbl->SetSize({ 30, 2 });
 	lbl->SetColor({ BLUE, LIGHT_GREEN });
 	lbl->SetPosition({ 40, 20 });
-	lbl->SetText("This is a test label.");
+	lbl->SetDynamicText([]() -> std::string {
+		return "This is a test label, there are " 
+				+ std::to_string(ConsoleAPI::RowCount()) + 
+				" rows and "
+				+ std::to_string(ConsoleAPI::ColCount()) +
+				" columns.";
+	});
 
 	std::shared_ptr<TextField> txt = std::make_shared<TextField>();
-	txt->SetSize({ 26, 2 });
+	txt->SetSize({ 30, 2 });
 	txt->SetColor({ BLUE, LIGHT_YELLOW });
 	txt->SetPosition({ 40, 22 });
 	txt->AddText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbccc");
