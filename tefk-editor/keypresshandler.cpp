@@ -1,8 +1,8 @@
 #include "keypresshandler.hpp"
 
-namespace tefk {
+namespace tefk::KeyPressHandler {
 
-void KeyPressHandler::HandleKeyPress(char ch) {
+void HandleKeyPress(char ch) {
 	std::string filecontent = Editor::CurrentFile().GetContent();
 
 	// TODO - implement better shortcut key system without if/else if/else conditions
