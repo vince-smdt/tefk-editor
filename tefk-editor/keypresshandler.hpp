@@ -8,4 +8,17 @@
 
 namespace tefk::KeyPressHandler {
 	void HandleKeyPress(char ch);
+
+	// Delete
+	void DeleteChar();
+	void DeleteWord();
+
+	// New line
+	void NewLine();
+	
+	// File
+	void SaveFile();
+
+	// Write
+	void AddChar(char ch);
 }
