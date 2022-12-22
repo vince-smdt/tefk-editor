@@ -134,6 +134,9 @@
     <ClCompile Include="editor.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="gui-components\guicomponent.cpp" />
+    <ClCompile Include="gui-components\label.cpp" />
+    <ClCompile Include="gui-components\panel.cpp" />
+    <ClCompile Include="gui-components\textfield.cpp" />
     <ClCompile Include="gui-components\window.cpp" />
     <ClCompile Include="keypresshandler.cpp" />
     <ClCompile Include="main.cpp" />

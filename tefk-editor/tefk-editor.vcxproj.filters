@@ -16,10 +16,46 @@
     <Filter Include="Header Files\gui-components">
       <UniqueIdentifier>{d8cf357a-8231-47c2-85cf-6813c8ea3c77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui-components">
+      <UniqueIdentifier>{f0cb694f-3b2d-466e-b597-061a274143c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="app.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="consoleapi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="consolemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="editor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="keypresshandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui-components\window.cpp">
+      <Filter>Source Files\gui-components</Filter>
+    </ClCompile>
+    <ClCompile Include="gui-components\guicomponent.cpp">
+      <Filter>Source Files\gui-components</Filter>
+    </ClCompile>
+    <ClCompile Include="gui-components\label.cpp">
+      <Filter>Source Files\gui-components</Filter>
+    </ClCompile>
+    <ClCompile Include="gui-components\panel.cpp">
+      <Filter>Source Files\gui-components</Filter>
+    </ClCompile>
+    <ClCompile Include="gui-components\textfield.cpp">
+      <Filter>Source Files\gui-components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
