@@ -14,6 +14,10 @@ protected:
 	Coord _pos;
 	Coord _size;
 	TextColor _color;
+
+	std::function<Coord(void)> _dynamicPositionSetter;
+	std::function<Coord(void)> _dynamicSizeSetter;
+	std::function<TextColor(void)> _dynamicColorSetter;
 	
 	const Coord _ORIGIN = { 0, 0 };
 public:
@@ -26,6 +30,10 @@ public:
 	void SetPosition(Coord pos);
 	void SetSize(Coord size);
 	void SetColor(TextColor color);
+
+	void SetDynamicPosition(std::function<Coord(void)> func);
+	void SetDynamicSize(std::function<Coord(void)> func);
+	void SetDynamicColor(std::function<TextColor(void)> func);
 
 	void Print();
 protected:
