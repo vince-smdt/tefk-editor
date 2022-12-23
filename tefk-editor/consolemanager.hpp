@@ -1,11 +1,7 @@
 #pragma once
 #include <iostream>
-#include <memory>
 #include "editor.hpp"
-#include "gui-components/window.hpp"
-#include "gui-components/panel.hpp"
-#include "gui-components/label.hpp"
-#include "gui-components/textfield.hpp"
+#include "designer.hpp"
 
 namespace tefk {
 

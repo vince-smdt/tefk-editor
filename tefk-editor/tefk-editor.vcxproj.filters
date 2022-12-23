@@ -57,6 +57,9 @@
     <ClCompile Include="gui-components\textfield.cpp">
       <Filter>Source Files\gui-components</Filter>
     </ClCompile>
+    <ClCompile Include="designer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="gui-components\window.hpp">
       <Filter>Header Files\gui-components</Filter>
+    </ClInclude>
+    <ClInclude Include="designer.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
