@@ -5,10 +5,6 @@ namespace tefk {
 int ConsoleManager::s_currRows = 0;
 int ConsoleManager::s_currCols = 0;
 std::shared_ptr<Window> ConsoleManager::s_window;
-TextColor ConsoleManager::_defaultColor = { BLACK, WHITE };
-TextColor ConsoleManager::_headerColor = { WHITE, BLACK };
-TextColor ConsoleManager::_contentColor = { BLACK, WHITE };
-TextColor ConsoleManager::_footerColor = { WHITE, BLACK };
 
 void ConsoleManager::Init() {
 	s_window = Designer::Editor();

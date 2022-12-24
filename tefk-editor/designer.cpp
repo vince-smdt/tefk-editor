@@ -1,4 +1,3 @@
-#include <iostream> // TODO - maybe remove when centralized cout calls to gui component files
 #include "designer.hpp"
 
 namespace tefk::Designer {
