@@ -14,14 +14,7 @@ private:
 	static std::shared_ptr<Window> s_window;
 public:
 	static void Init();
-
 	static bool ConsoleSizeChanged();
-
-	static void Print(std::string text, TextColor color);
-	static void PrintHeader();
-	static void PrintContent();
-	static void PrintFooter();
-	static std::ostream& FillRow(std::ostream& stream);
 	static void RefreshConsole();
 };
 
