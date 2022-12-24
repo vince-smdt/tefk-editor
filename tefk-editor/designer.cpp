@@ -1,3 +1,4 @@
+#include <iostream> // TODO - maybe remove when centralized cout calls to gui component files
 #include "designer.hpp"
 
 namespace tefk::Designer {
@@ -5,48 +6,79 @@ namespace tefk::Designer {
 std::shared_ptr<Window> Editor() {
 	std::shared_ptr<Window> window = std::make_shared<Window>();
 
-	std::shared_ptr<Panel> pan = std::make_shared<Panel>();
-	pan->SetDynamicSize([pan]() -> Coord {
-		return { (short)(ConsoleAPI::ColCount() - 5 - pan.get()->GetPosition().X), 4 };
-		});
-	pan->SetColor({ BLUE, WHITE });
-	pan->SetDynamicPosition([]() -> Coord {
-		if (ConsoleAPI::ColCount() > 75)
-		return { 40, 20 };
-		else
-			return { 40, 30 };
-		});
+	/**********************************/
+	/*             HEADER             */
+	/**********************************/
+	std::shared_ptr<Panel> panHeader = std::make_shared<Panel>();
+	panHeader->SetColor({ WHITE, BLACK });
+	panHeader->SetDynamicSize([]() -> Coord {
+		return { ConsoleAPI::ColCount(), 1 };
+	});
 
-	std::shared_ptr<Label> lbl = std::make_shared<Label>();
-	lbl->SetDynamicSize([lbl]() -> Coord {
-		return { (short)(ConsoleAPI::ColCount() - 5 - lbl.get()->GetPosition().X), 2 };
-		});
-	lbl->SetColor({ BLUE, LIGHT_GREEN });
-	lbl->SetPosition({ 40, 20 });
-	lbl->SetDynamicText([]() -> std::string {
-		return "This is a test label, there are "
-		+ std::to_string(ConsoleAPI::RowCount()) +
-		" rows and "
-		+ std::to_string(ConsoleAPI::ColCount()) +
-		" columns.";
-		});
+	std::shared_ptr<Label> lblHeader = std::make_shared<Label>();
+	lblHeader->SetColor({ WHITE, BLACK });
+	lblHeader->SetDynamicSize([]() -> Coord {
+		return { ConsoleAPI::ColCount(), 1 };
+	});
+	lblHeader->SetDynamicText([]() -> std::string {
+		return Editor::CurrentFile().GetFilename().generic_string() + " " // TODO - Find cleaner way of printing info without having
+			+ std::to_string(Editor::FileIndex() + 1) + "/"			  //		to call std::to_string() everytime
+			+ std::to_string(Editor::Files().size()) + " "
+			+ "Press Ctrl+S to save!";
+	});
 
-	std::shared_ptr<TextField> txt = std::make_shared<TextField>();
-	txt->SetDynamicSize([txt]() -> Coord {
-		return { (short)(ConsoleAPI::ColCount() - 5 - txt.get()->GetPosition().X), 2 };
-		});
-	txt->SetDynamicColor([]() -> TextColor {
-		if (ConsoleAPI::ColCount() > 75)
-		return { BLUE, LIGHT_YELLOW };
-		else
-			return { BLUE, LIGHT_RED };
-		});
-	txt->SetPosition({ 40, 22 });
-	txt->AddText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbccc");
+	/**********************************/
+	/*            CONTENT             */
+	/**********************************/
+	std::shared_ptr<Panel> panEditor = std::make_shared<Panel>();
+	panEditor->SetColor({ BLACK, WHITE });
+	panEditor->SetPosition({ 0, 1 });
+	panEditor->SetDynamicSize([]() -> Coord {
+		return { ConsoleAPI::ColCount(), (short)(ConsoleAPI::RowCount() - 2) };
+	});
 
-	window->AddComponent(pan);
-	window->AddComponent(lbl);
-	window->AddComponent(txt);
+	// TODO - Maybe use text field here instead
+	std::shared_ptr<Label> lblEditor = std::make_shared<Label>();
+	lblEditor->SetColor({ BLACK, WHITE });
+	lblEditor->SetPosition({ 0, 2 });
+	lblEditor->SetDynamicSize([]() -> Coord {
+		return { ConsoleAPI::ColCount(), (short)(ConsoleAPI::RowCount() - 3) };
+	});
+	lblEditor->SetDynamicText([]() -> std::string {
+		return Editor::CurrentFile().GetContent();
+	});
+
+	/**********************************/
+	/*             FOOTER             */
+	/**********************************/
+	std::shared_ptr<Panel> panFooter = std::make_shared<Panel>();
+	panFooter->SetColor({ WHITE, BLACK });
+	panFooter->SetDynamicPosition([]() -> Coord {
+		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
+	});
+	panFooter->SetDynamicSize([]() -> Coord {
+		return { ConsoleAPI::ColCount(), 1 };
+	});
+
+	std::shared_ptr<Label> lblFooter = std::make_shared<Label>();
+	lblFooter->SetColor({ WHITE, BLACK });
+	lblFooter->SetDynamicPosition([]() -> Coord {
+		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
+	});
+	lblFooter->SetDynamicSize([]() -> Coord {
+		return { ConsoleAPI::ColCount(), 1 };
+	});
+	lblFooter->SetDynamicText([]() -> std::string {
+		return "Rows = " + std::to_string(ConsoleAPI::RowCount())
+			+ ", Cols = " + std::to_string(ConsoleAPI::ColCount());
+	});
+
+	window->AddComponent(panHeader);
+	window->AddComponent(lblHeader);
+	window->AddComponent(panEditor);
+	window->AddComponent(lblEditor);
+	window->AddComponent(panFooter);
+	window->AddComponent(lblFooter);
 
 	return window;
 }

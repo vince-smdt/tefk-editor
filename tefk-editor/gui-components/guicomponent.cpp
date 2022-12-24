@@ -3,8 +3,8 @@
 namespace tefk {
 
 GUIComponent::GUIComponent()
-	: _pos{ _ORIGIN },
-	  _size{ _ORIGIN },
+	: _pos{ 0, 0 },
+	  _size{ 0, 0 },
 	  _color{ BLACK, BLACK }, // TODO - set to default component color?
 	  _dynamicPositionSetter{ nullptr },
 	  _dynamicSizeSetter{ nullptr },

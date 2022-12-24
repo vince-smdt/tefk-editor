@@ -18,8 +18,6 @@ protected:
 	std::function<Coord(void)> _dynamicPositionSetter;
 	std::function<Coord(void)> _dynamicSizeSetter;
 	std::function<TextColor(void)> _dynamicColorSetter;
-	
-	const Coord _ORIGIN = { 0, 0 };
 public:
 	GUIComponent();
 

@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include "editor.hpp"
 #include "designer.hpp"
 
 namespace tefk {

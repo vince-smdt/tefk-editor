@@ -1,5 +1,5 @@
 #pragma once
-#include "gui-components/window.hpp"
+#include "editor.hpp"
 #include "gui-components/window.hpp"
 #include "gui-components/panel.hpp"
 #include "gui-components/label.hpp"
