@@ -13,11 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\gui-components">
-      <UniqueIdentifier>{d8cf357a-8231-47c2-85cf-6813c8ea3c77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui-components">
+    <Filter Include="Source Files\gui">
       <UniqueIdentifier>{f0cb694f-3b2d-466e-b597-061a274143c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui">
+      <UniqueIdentifier>{d8cf357a-8231-47c2-85cf-6813c8ea3c77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,19 +46,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="gui\window.cpp">
-      <Filter>Source Files\gui-components</Filter>
+      <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="gui\textfield.cpp">
-      <Filter>Source Files\gui-components</Filter>
+      <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="gui\panel.cpp">
-      <Filter>Source Files\gui-components</Filter>
+      <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="gui\label.cpp">
-      <Filter>Source Files\gui-components</Filter>
+      <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="gui\guicomponent.cpp">
-      <Filter>Source Files\gui-components</Filter>
+      <Filter>Source Files\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,19 +93,19 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gui\window.hpp">
-      <Filter>Header Files\gui-components</Filter>
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="gui\textfield.hpp">
-      <Filter>Header Files\gui-components</Filter>
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="gui\panel.hpp">
-      <Filter>Header Files\gui-components</Filter>
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="gui\label.hpp">
-      <Filter>Header Files\gui-components</Filter>
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="gui\guicomponent.hpp">
-      <Filter>Header Files\gui-components</Filter>
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

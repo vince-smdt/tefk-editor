@@ -7,8 +7,7 @@ GUIComponent::GUIComponent()
 	  _size{ 0, 0 },
 	  _color{ BLACK, BLACK }, // TODO - set to default component color?
 	  _dynamicPositionSetter{ nullptr },
-	  _dynamicHeightSetter{ nullptr },
-	  _dynamicColorSetter{ nullptr }
+	  _dynamicHeightSetter{ nullptr }
 {}
 
 void GUIComponent::SetPosition(Coord pos) { 
@@ -38,9 +37,6 @@ void GUIComponent::Print() {
 	_size.X = ConsoleAPI::ColCount();
 	if (_dynamicHeightSetter)
 		_size.Y = _dynamicHeightSetter();
-
-	if (_dynamicColorSetter)
-		_color = _dynamicColorSetter();
 
 	if (RowSize() == 0)
 		return;

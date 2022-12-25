@@ -16,7 +16,6 @@ protected:
 
 	std::function<Coord(void)> _dynamicPositionSetter;
 	std::function<short(void)> _dynamicHeightSetter;
-	std::function<TextColor(void)> _dynamicColorSetter;
 public:
 	GUIComponent();
 
@@ -29,7 +28,7 @@ public:
 
 	void Print();
 protected:
-	// Row size that can be printed, excludes overflow
+	// Size of row that can be printed, excludes overflow
 	short RowSize();
 
 	// TODO - Find better name
