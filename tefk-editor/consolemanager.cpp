@@ -19,7 +19,6 @@ void ConsoleManager::RefreshConsole() {
 	s_currRows = ConsoleAPI::RowCount();
 	s_currCols = ConsoleAPI::ColCount();
 
-	ConsoleAPI::ClearConsole();
 	ConsoleAPI::SetConsoleSize(s_currRows, s_currCols);
 
 	s_window->Print();

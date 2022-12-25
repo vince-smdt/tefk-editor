@@ -56,21 +56,4 @@ void ConsoleAPI::SetConsoleSize(short row, short col) {
 	}
 }
 
-void ConsoleAPI::ClearConsole() {
-	DWORD written;
-	SetTextColor({ BLACK, WHITE }); // TODO - Get default text color from variable
-	GetConsoleBufferInfo();
-
-	// TODO - Error check these functions in readable and concise way
-	FillConsoleOutputCharacterA(
-		s_handle, ' ', s_csbi.dwSize.X * s_csbi.dwSize.Y, { 0, 0 }, &written
-	);
-	FillConsoleOutputAttribute(
-		s_handle, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
-		s_csbi.dwSize.X * s_csbi.dwSize.Y, { 0, 0 }, &written
-	);
-
-	SetCursorPos(0, 0);
-}
-
 }

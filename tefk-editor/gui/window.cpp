@@ -9,6 +9,7 @@ void Window::AddComponent(std::shared_ptr<GUIComponent> component) {
 void Window::Print() {
 	for (auto& child : _children)
 		child->Print();
+	std::cout.flush();
 }
 
 }
