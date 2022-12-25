@@ -19,6 +19,12 @@
     <Filter Include="Header Files\gui">
       <UniqueIdentifier>{d8cf357a-8231-47c2-85cf-6813c8ea3c77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\components">
+      <UniqueIdentifier>{4596f9cb-c8aa-43b4-b349-453af3c1a57f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\components">
+      <UniqueIdentifier>{946b3045-eb45-4c54-b9ce-e70eff4132c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,20 +51,20 @@
     <ClCompile Include="designer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gui\window.cpp">
-      <Filter>Source Files\gui</Filter>
+    <ClCompile Include="gui\components\guicomponent.cpp">
+      <Filter>Source Files\gui\components</Filter>
     </ClCompile>
-    <ClCompile Include="gui\textfield.cpp">
-      <Filter>Source Files\gui</Filter>
+    <ClCompile Include="gui\components\label.cpp">
+      <Filter>Source Files\gui\components</Filter>
     </ClCompile>
-    <ClCompile Include="gui\panel.cpp">
-      <Filter>Source Files\gui</Filter>
+    <ClCompile Include="gui\components\panel.cpp">
+      <Filter>Source Files\gui\components</Filter>
     </ClCompile>
-    <ClCompile Include="gui\label.cpp">
-      <Filter>Source Files\gui</Filter>
+    <ClCompile Include="gui\components\textfield.cpp">
+      <Filter>Source Files\gui\components</Filter>
     </ClCompile>
-    <ClCompile Include="gui\guicomponent.cpp">
-      <Filter>Source Files\gui</Filter>
+    <ClCompile Include="gui\components\window.cpp">
+      <Filter>Source Files\gui\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,20 +98,20 @@
     <ClInclude Include="color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gui\window.hpp">
-      <Filter>Header Files\gui</Filter>
+    <ClInclude Include="gui\components\guicomponent.hpp">
+      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
-    <ClInclude Include="gui\textfield.hpp">
-      <Filter>Header Files\gui</Filter>
+    <ClInclude Include="gui\components\label.hpp">
+      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
-    <ClInclude Include="gui\panel.hpp">
-      <Filter>Header Files\gui</Filter>
+    <ClInclude Include="gui\components\panel.hpp">
+      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
-    <ClInclude Include="gui\label.hpp">
-      <Filter>Header Files\gui</Filter>
+    <ClInclude Include="gui\components\textfield.hpp">
+      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
-    <ClInclude Include="gui\guicomponent.hpp">
-      <Filter>Header Files\gui</Filter>
+    <ClInclude Include="gui\components\window.hpp">
+      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

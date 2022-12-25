@@ -134,11 +134,11 @@
     <ClCompile Include="designer.cpp" />
     <ClCompile Include="editor.cpp" />
     <ClCompile Include="file.cpp" />
-    <ClCompile Include="gui\guicomponent.cpp" />
-    <ClCompile Include="gui\label.cpp" />
-    <ClCompile Include="gui\panel.cpp" />
-    <ClCompile Include="gui\textfield.cpp" />
-    <ClCompile Include="gui\window.cpp" />
+    <ClCompile Include="gui\components\guicomponent.cpp" />
+    <ClCompile Include="gui\components\label.cpp" />
+    <ClCompile Include="gui\components\panel.cpp" />
+    <ClCompile Include="gui\components\textfield.cpp" />
+    <ClCompile Include="gui\components\window.cpp" />
     <ClCompile Include="keypresshandler.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -151,11 +151,11 @@
     <ClInclude Include="designer.hpp" />
     <ClInclude Include="editor.hpp" />
     <ClInclude Include="file.hpp" />
-    <ClInclude Include="gui\guicomponent.hpp" />
-    <ClInclude Include="gui\panel.hpp" />
-    <ClInclude Include="gui\label.hpp" />
-    <ClInclude Include="gui\textfield.hpp" />
-    <ClInclude Include="gui\window.hpp" />
+    <ClInclude Include="gui\components\guicomponent.hpp" />
+    <ClInclude Include="gui\components\label.hpp" />
+    <ClInclude Include="gui\components\panel.hpp" />
+    <ClInclude Include="gui\components\textfield.hpp" />
+    <ClInclude Include="gui\components\window.hpp" />
     <ClInclude Include="keypresshandler.hpp" />
     <ClInclude Include="logger.hpp" />
   </ItemGroup>
