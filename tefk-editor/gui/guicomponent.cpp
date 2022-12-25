@@ -12,7 +12,7 @@ GUIComponent::GUIComponent()
 {}
 
 void GUIComponent::SetPosition(Coord pos) { 
-	_pos = pos; 
+	_pos = pos;
 }
 
 void GUIComponent::SetHeight(short height) {

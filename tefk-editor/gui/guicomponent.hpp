@@ -3,7 +3,6 @@
 #include <functional>
 #include <iostream>
 #include <memory>
-#include <vector>
 #include "../color.hpp"
 #include "../consoleapi.hpp"
 

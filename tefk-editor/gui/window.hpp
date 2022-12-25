@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "guicomponent.hpp"
 
 namespace tefk {

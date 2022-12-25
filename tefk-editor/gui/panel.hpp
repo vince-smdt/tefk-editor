@@ -1,6 +1,4 @@
 #pragma once
-#include <algorithm>
-#include <iostream>
 #include "guicomponent.hpp"
 
 namespace tefk {
