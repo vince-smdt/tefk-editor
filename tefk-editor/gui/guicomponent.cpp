@@ -7,28 +7,16 @@ GUIComponent::GUIComponent()
 	  _size{ 0, 0 },
 	  _color{ BLACK, BLACK }, // TODO - set to default component color?
 	  _dynamicPositionSetter{ nullptr },
-	  _dynamicSizeSetter{ nullptr },
+	  _dynamicHeightSetter{ nullptr },
 	  _dynamicColorSetter{ nullptr }
 {}
-
-Coord GUIComponent::GetPosition() { 
-	return _pos; 
-}
-
-Coord GUIComponent::GetSize() { 
-	return _size; 
-}
-
-TextColor GUIComponent::GetColor() { 
-	return _color;
-}
 
 void GUIComponent::SetPosition(Coord pos) { 
 	_pos = pos; 
 }
 
-void GUIComponent::SetSize(Coord size) {
-	_size = size; 
+void GUIComponent::SetHeight(short height) {
+	_size.Y = height;
 }
 
 void GUIComponent::SetColor(TextColor color) { 
@@ -39,20 +27,17 @@ void GUIComponent::SetDynamicPosition(std::function<Coord(void)> func) {
 	_dynamicPositionSetter = func;
 }
 
-void GUIComponent::SetDynamicSize(std::function<Coord(void)> func) {
-	_dynamicSizeSetter = func;
-}
-
-void GUIComponent::SetDynamicColor(std::function<TextColor(void)> func) {
-	_dynamicColorSetter = func;
+void GUIComponent::SetDynamicHeight(std::function<short(void)> func) {
+	_dynamicHeightSetter = func;
 }
 
 void GUIComponent::Print() {
 	if (_dynamicPositionSetter)
 		_pos = _dynamicPositionSetter();
 
-	if (_dynamicSizeSetter)
-		_size = _dynamicSizeSetter();
+	_size.X = ConsoleAPI::ColCount();
+	if (_dynamicHeightSetter)
+		_size.Y = _dynamicHeightSetter();
 
 	if (_dynamicColorSetter)
 		_color = _dynamicColorSetter();

@@ -16,22 +16,17 @@ protected:
 	TextColor _color;
 
 	std::function<Coord(void)> _dynamicPositionSetter;
-	std::function<Coord(void)> _dynamicSizeSetter;
+	std::function<short(void)> _dynamicHeightSetter;
 	std::function<TextColor(void)> _dynamicColorSetter;
 public:
 	GUIComponent();
 
-	Coord GetPosition();
-	Coord GetSize();
-	TextColor GetColor();
-
 	void SetPosition(Coord pos);
-	void SetSize(Coord size);
+	void SetHeight(short height);
 	void SetColor(TextColor color);
 
 	void SetDynamicPosition(std::function<Coord(void)> func);
-	void SetDynamicSize(std::function<Coord(void)> func);
-	void SetDynamicColor(std::function<TextColor(void)> func);
+	void SetDynamicHeight(std::function<short(void)> func);
 
 	void Print();
 protected:

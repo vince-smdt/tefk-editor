@@ -10,15 +10,11 @@ std::shared_ptr<Window> Editor() {
 	/**********************************/
 	std::shared_ptr<Panel> panHeader = std::make_shared<Panel>();
 	panHeader->SetColor({ WHITE, BLACK });
-	panHeader->SetDynamicSize([]() -> Coord {
-		return { ConsoleAPI::ColCount(), 1 };
-	});
+	panHeader->SetHeight(1);
 
 	std::shared_ptr<Label> lblHeader = std::make_shared<Label>();
 	lblHeader->SetColor({ WHITE, BLACK });
-	lblHeader->SetDynamicSize([]() -> Coord {
-		return { ConsoleAPI::ColCount(), 1 };
-	});
+	lblHeader->SetHeight(1);
 	lblHeader->SetDynamicText([]() -> std::string {
 		return Editor::CurrentFile().GetFilename().generic_string() + " " // TODO - Find cleaner way of printing info without having
 			+ std::to_string(Editor::FileIndex() + 1) + "/"			  //		to call std::to_string() everytime
@@ -32,16 +28,16 @@ std::shared_ptr<Window> Editor() {
 	std::shared_ptr<Panel> panEditor = std::make_shared<Panel>();
 	panEditor->SetColor({ BLACK, WHITE });
 	panEditor->SetPosition({ 0, 1 });
-	panEditor->SetDynamicSize([]() -> Coord {
-		return { ConsoleAPI::ColCount(), (short)(ConsoleAPI::RowCount() - 2) };
+	panEditor->SetDynamicHeight([]() -> short {
+		return (short)(ConsoleAPI::RowCount() - 2);
 	});
 
 	// TODO - Maybe use text field here instead
 	std::shared_ptr<Label> lblEditor = std::make_shared<Label>();
 	lblEditor->SetColor({ BLACK, WHITE });
 	lblEditor->SetPosition({ 0, 2 });
-	lblEditor->SetDynamicSize([]() -> Coord {
-		return { ConsoleAPI::ColCount(), (short)(ConsoleAPI::RowCount() - 3) };
+	lblEditor->SetDynamicHeight([]() -> short {
+		return (short)(ConsoleAPI::RowCount() - 3);
 	});
 	lblEditor->SetDynamicText([]() -> std::string {
 		return Editor::CurrentFile().GetContent();
@@ -55,18 +51,14 @@ std::shared_ptr<Window> Editor() {
 	panFooter->SetDynamicPosition([]() -> Coord {
 		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
 	});
-	panFooter->SetDynamicSize([]() -> Coord {
-		return { ConsoleAPI::ColCount(), 1 };
-	});
+	panFooter->SetHeight(1);
 
 	std::shared_ptr<Label> lblFooter = std::make_shared<Label>();
 	lblFooter->SetColor({ WHITE, BLACK });
 	lblFooter->SetDynamicPosition([]() -> Coord {
 		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
 	});
-	lblFooter->SetDynamicSize([]() -> Coord {
-		return { ConsoleAPI::ColCount(), 1 };
-	});
+	lblFooter->SetHeight(1);
 	lblFooter->SetDynamicText([]() -> std::string {
 		return "Rows = " + std::to_string(ConsoleAPI::RowCount())
 			+ ", Cols = " + std::to_string(ConsoleAPI::ColCount());
