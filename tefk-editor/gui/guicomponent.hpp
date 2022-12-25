@@ -4,7 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include "../color.h"
+#include "../color.hpp"
 #include "../consoleapi.hpp"
 
 namespace tefk {

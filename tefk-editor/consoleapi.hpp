@@ -1,7 +1,7 @@
 #pragma once
 #include <system_error>
 #include <Windows.h>
-#include "color.h"
+#include "color.hpp"
 #include "logger.hpp"
 
 namespace tefk {
