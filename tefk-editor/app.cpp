@@ -5,7 +5,7 @@ namespace tefk {
 tefk::File* Application::s_currFile;
 
 void Application::Init(int argc, char** argv) {
-	SetConsoleCtrlHandler(NULL, TRUE);
+	ConsoleAPI::Init();
 	CommandLineArgsInterpreter::Interpret(argc, argv);
 
 	s_currFile = &tefk::Editor::CurrentFile();

@@ -12,14 +12,13 @@ typedef struct {
 } Coord;
 
 class ConsoleAPI {
-private:
 	ConsoleAPI() = delete;
 	ConsoleAPI(const ConsoleAPI&) = delete;
 
 	static HANDLE s_handle;
 	static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
 public:
-	static void GetConsoleBufferInfo();
+	static void Init();
 	static short RowCount();
 	static short ColCount();
 	static short CursorRowPos();
@@ -28,8 +27,8 @@ public:
 	static void SetCursorPos(short row, short col);
 	static void SetTextColor(TextColor color);
 	static void SetConsoleSize(short row, short col);
-
-	static void ClearConsole();
+private:
+	static void GetConsoleBufferInfo();
 };
 
 }
