@@ -32,8 +32,7 @@ std::shared_ptr<Window> Editor() {
 		return (short)(ConsoleAPI::RowCount() - 2);
 	});
 
-	// TODO - Maybe use text field here instead
-	std::shared_ptr<Label> lblEditor = std::make_shared<Label>();
+	std::shared_ptr<TextEditor> lblEditor = std::make_shared<TextEditor>();
 	lblEditor->SetColor({ BLACK, WHITE });
 	lblEditor->SetPosition({ 0, 2 });
 	lblEditor->SetDynamicHeight([]() -> short {

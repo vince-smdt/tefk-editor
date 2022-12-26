@@ -136,6 +136,7 @@
     <ClCompile Include="gui\components\guicomponent.cpp" />
     <ClCompile Include="gui\components\label.cpp" />
     <ClCompile Include="gui\components\panel.cpp" />
+    <ClCompile Include="gui\components\texteditor.cpp" />
     <ClCompile Include="gui\components\textfield.cpp" />
     <ClCompile Include="gui\components\window.cpp" />
     <ClCompile Include="gui\consoleapi.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="gui\components\guicomponent.hpp" />
     <ClInclude Include="gui\components\label.hpp" />
     <ClInclude Include="gui\components\panel.hpp" />
+    <ClInclude Include="gui\components\texteditor.hpp" />
     <ClInclude Include="gui\components\textfield.hpp" />
     <ClInclude Include="gui\components\window.hpp" />
     <ClInclude Include="gui\consoleapi.hpp" />

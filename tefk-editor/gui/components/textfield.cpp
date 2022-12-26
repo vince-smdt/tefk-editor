@@ -6,10 +6,6 @@ TextField::TextField()
 	: GUIComponent{}
 {}
 
-void TextField::AddText(std::string text) {
-	_input += text;
-}
-
 void TextField::PrintContent() {
 	// If input text can't fit in parent component, shorten string
 	std::string truncatedText = (_input.size() > _size.X * _size.Y)

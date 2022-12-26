@@ -39,9 +39,6 @@
     <ClCompile Include="app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="consoleapi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="consolemanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,6 +69,12 @@
     <ClCompile Include="designer\editor.designer.cpp">
       <Filter>Source Files\designer</Filter>
     </ClCompile>
+    <ClCompile Include="gui\consoleapi.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\components\texteditor.cpp">
+      <Filter>Source Files\gui\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -95,12 +98,6 @@
     <ClInclude Include="logger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="consoleapi.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="color.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gui\components\guicomponent.hpp">
       <Filter>Header Files\gui\components</Filter>
     </ClInclude>
@@ -118,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="designer\editor.designer.hpp">
       <Filter>Header Files\designer</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\consoleapi.hpp">
+      <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\color.hpp">
+      <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\components\texteditor.hpp">
+      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
