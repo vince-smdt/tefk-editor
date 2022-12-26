@@ -1,4 +1,4 @@
-#include "designer.hpp"
+#include "editor.designer.hpp"
 
 namespace tefk::Designer {
 

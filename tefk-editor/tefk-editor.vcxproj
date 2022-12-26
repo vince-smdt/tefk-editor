@@ -131,7 +131,7 @@
     <ClCompile Include="app.cpp" />
     <ClCompile Include="consoleapi.cpp" />
     <ClCompile Include="consolemanager.cpp" />
-    <ClCompile Include="designer.cpp" />
+    <ClCompile Include="designer\editor.designer.cpp" />
     <ClCompile Include="editor.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="gui\components\guicomponent.cpp" />
@@ -148,7 +148,7 @@
     <ClInclude Include="color.hpp" />
     <ClInclude Include="consoleapi.hpp" />
     <ClInclude Include="consolemanager.hpp" />
-    <ClInclude Include="designer.hpp" />
+    <ClInclude Include="designer\editor.designer.hpp" />
     <ClInclude Include="editor.hpp" />
     <ClInclude Include="file.hpp" />
     <ClInclude Include="gui\components\guicomponent.hpp" />

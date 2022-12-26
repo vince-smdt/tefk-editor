@@ -1,5 +1,5 @@
 #pragma once
-#include "designer.hpp"
+#include "designer/editor.designer.hpp"
 
 namespace tefk {
 
