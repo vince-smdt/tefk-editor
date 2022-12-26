@@ -1,4 +1,5 @@
 #include "app.hpp"
+#include "designer/editor.designer.hpp"
 
 namespace tefk {
 
@@ -10,15 +11,15 @@ void Application::Init(int argc, char** argv) {
 
 	s_currFile = &tefk::Editor::CurrentFile();
 
-	ConsoleManager::Init();
+	ConsoleManager::Init(Designer::Editor()); // TODO - maybe move designer file initialization somewhere else
 }
 
 void Application::Run() {
 	ConsoleManager::RefreshConsole();
 	while (true) {
 		if (_kbhit()) {
-			// Change _getch() for function that can properly read Fn keys
-			// Change _getch() for function that can read letters with accents (Ex. é, è, ô, ï, ...)
+			// TODO - Change _getch() for function that can properly read Fn keys
+			// TODO - Change _getch() for function that can read letters with accents (Ex. é, è, ô, ï, ...)
 			tefk::KeyPressHandler::HandleKeyPress(_getch());
 			tefk::ConsoleManager::RefreshConsole();
 		}

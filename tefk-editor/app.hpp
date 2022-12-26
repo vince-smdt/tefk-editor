@@ -1,7 +1,7 @@
 #pragma once
 #include <conio.h>
 #include "cmdinter.hpp"
-#include "consolemanager.hpp"
+#include "gui/consolemanager.hpp"
 #include "keypresshandler.hpp"
 
 namespace tefk {

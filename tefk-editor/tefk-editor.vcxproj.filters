@@ -39,9 +39,6 @@
     <ClCompile Include="app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="consolemanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="editor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,6 +72,9 @@
     <ClCompile Include="gui\components\texteditor.cpp">
       <Filter>Source Files\gui\components</Filter>
     </ClCompile>
+    <ClCompile Include="gui\consolemanager.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -87,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="editor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="consolemanager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="app.hpp">
@@ -124,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="gui\components\texteditor.hpp">
       <Filter>Header Files\gui\components</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\consolemanager.hpp">
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

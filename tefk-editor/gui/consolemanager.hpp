@@ -1,5 +1,5 @@
 #pragma once
-#include "designer/editor.designer.hpp"
+#include "components/window.hpp"
 
 namespace tefk {
 
@@ -13,7 +13,7 @@ private:
 
 	static std::shared_ptr<Window> s_window;
 public:
-	static void Init();
+	static void Init(std::shared_ptr<Window> window); // TODO - set target window in some other place than the constructor
 	static bool ConsoleSizeChanged();
 	static void RefreshConsole();
 };
