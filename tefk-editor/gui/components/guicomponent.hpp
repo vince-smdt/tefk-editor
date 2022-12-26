@@ -3,8 +3,8 @@
 #include <functional>
 #include <iostream>
 #include <memory>
-#include "../../color.hpp"
-#include "../../consoleapi.hpp"
+#include "../color.hpp"
+#include "../consoleapi.hpp"
 
 namespace tefk {
 

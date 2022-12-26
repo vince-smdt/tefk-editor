@@ -2,7 +2,7 @@
 #include <system_error>
 #include <Windows.h>
 #include "color.hpp"
-#include "logger.hpp"
+#include "../logger.hpp" // TODO - maybe move logger inside gui, own folder/projet? (remove gui folder dependency on external file)
 
 namespace tefk {
 
