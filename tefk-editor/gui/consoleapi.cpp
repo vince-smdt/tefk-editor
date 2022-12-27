@@ -39,7 +39,11 @@ short ConsoleAPI::CursorColPos() {
 void ConsoleAPI::SetCursorPos(short row, short col) {
 	COORD pos = { col, row };
 	if (!SetConsoleCursorPosition(s_handle, pos)) {
-		Logger::Instance().Log("SetConsoleCursorPosition() failed! Position : ({}, {}), Reason : {}", pos.X, pos.Y, GetLastError());
+		Logger::Instance().Log(
+			Logger::LogLevel::ERR, 
+			"SetConsoleCursorPosition() failed! Position : ({}, {}), Reason : {}", 
+			pos.X, pos.Y, GetLastError()
+		);
 		exit(0);
 	}
 }
@@ -47,7 +51,11 @@ void ConsoleAPI::SetCursorPos(short row, short col) {
 void ConsoleAPI::SetTextColor(TextColor color) {
 	WORD colorCode = color.fgColor + color.bgColor * 0x10;
 	if (!SetConsoleTextAttribute(s_handle, colorCode)) {
-		Logger::Instance().Log("SetConsoleTextAttribute() failed! Reason : {}", GetLastError());
+		Logger::Instance().Log(
+			Logger::LogLevel::ERR,
+			"SetConsoleTextAttribute() failed! Reason : {}", 
+			GetLastError()
+		);
 		exit(0);
 	}
 }
@@ -55,14 +63,22 @@ void ConsoleAPI::SetTextColor(TextColor color) {
 void ConsoleAPI::SetConsoleSize(short row, short col) {
 	COORD size = { col, row };
 	if (!SetConsoleScreenBufferSize(s_handle, size)) {
-		Logger::Instance().Log("SetConsoleScreenBufferSize() failed! Reason : {}", GetLastError());
+		Logger::Instance().Log(
+			Logger::LogLevel::ERR,
+			"SetConsoleScreenBufferSize() failed! Reason : {}", 
+			GetLastError()
+		);
 		exit(0);
 	}
 }
 
 void ConsoleAPI::GetConsoleBufferInfo() {
 	if (!GetConsoleScreenBufferInfo(s_handle, &s_csbi)) {
-		Logger::Instance().Log("GetConsoleBufferInfo() failed! Reason : {}", GetLastError());
+		Logger::Instance().Log(
+			Logger::LogLevel::ERR,
+			"GetConsoleBufferInfo() failed! Reason : {}", 
+			GetLastError()
+		);
 		exit(0);
 	}
 }
