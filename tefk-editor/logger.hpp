@@ -22,64 +22,32 @@ private:
 	std::ofstream _file;
 	std::ostream& _stream;
 
-	explicit Logger(std::filesystem::path& filename)
-		: _file{ filename, std::ios::app },
-		  _stream{_file}
-	{}
+	explicit Logger(std::filesystem::path& filename);
 
-	std::string LogLevelStr(LogLevel level) {
-		switch (level) {
-
-		case LogLevel::FATAL:
-			return "FATAL";
-
-		case LogLevel::ERR:
-			return "ERROR";
-
-		case LogLevel::WARN:
-			return "WARN";
-
-		case LogLevel::INFO:
-			return "INFO";
-
-		case LogLevel::DEBUG:
-			return "DEBUG";
-
-		case LogLevel::TRACE:
-			return "TRACE";
-
-		}
-
-		return "";
-	}
-
-	const std::string CurrentDateTime() {
-		using namespace std::chrono;
-		auto local = zoned_time{ current_zone(), system_clock::now() };
-		return std::format("{:%F %T}", local);
-	}
+	std::string LogLevelStr(LogLevel level);
+	const std::string CurrentDateTime();
 public:
-	static Logger& Instance() {
-		static std::filesystem::path filename("log.txt");
-		static Logger instance(filename);
-		return instance;
-	}
+	static Logger& Instance();
 
 	template <typename... Args>
-	void Log(LogLevel level, const std::_Fmt_string<Args...> format, Args&&... args) {
-		try {
-			_stream << CurrentDateTime() << " "
-					<< std::setw(5) << std::left << LogLevelStr(level) << " "
-					<< std::format(format, std::forward<Args>(args)...) 
-			        << std::endl;
-		}
-		catch (std::ios_base::failure) {
-			// TODO - Show error in console
-		}
-		catch (std::bad_alloc) {
-			// ...
-		}
-	}
+	void Log(LogLevel level, const std::_Fmt_string<Args...> format, Args&&... args);
 };
+
+
+template <typename... Args>
+inline void Logger::Log(LogLevel level, const std::_Fmt_string<Args...> format, Args&&... args) {
+	try {
+		_stream << CurrentDateTime() << " "
+			<< std::setw(5) << std::left << LogLevelStr(level) << " "
+			<< std::format(format, std::forward<Args>(args)...)
+			<< std::endl;
+	}
+	catch (std::ios_base::failure) {
+		// TODO - Show error in console
+	}
+	catch (std::bad_alloc) {
+		// ...
+	}
+}
 
 }

@@ -141,6 +141,7 @@
     <ClCompile Include="gui\consoleapi.cpp" />
     <ClCompile Include="gui\consolemanager.cpp" />
     <ClCompile Include="keypresshandler.cpp" />
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
