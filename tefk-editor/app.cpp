@@ -11,7 +11,7 @@ void Application::Init(int argc, char** argv) {
 
 	s_currFile = &tefk::Editor::CurrentFile();
 
-	ConsoleManager::Init(Designer::Editor()); // TODO - maybe move designer file initialization somewhere else
+	ConsoleManager::OpenWindow(Designer::Editor());
 }
 
 void Application::Run() {
