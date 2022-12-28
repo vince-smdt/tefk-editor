@@ -6,6 +6,10 @@ TextEditor::TextEditor()
 	: GUIComponent{}
 {}
 
+TextEditor::TextEditor(Coord pos, Coord size, TextColor color)
+	: GUIComponent{ pos, size, color }
+{}
+
 void TextEditor::SetDynamicText(std::function<std::string(void)> func) {
 	_dynamicTextSetter = func;
 }

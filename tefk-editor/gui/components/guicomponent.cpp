@@ -5,7 +5,15 @@ namespace tefk {
 GUIComponent::GUIComponent()
 	: _pos{ 0, 0 },
 	  _size{ 0, 0 },
-	  _color{ BLACK, BLACK }, // TODO - set to default component color?
+	  _color{ BLACK, WHITE }, // TODO - set to default color?
+	  _dynamicPositionSetter{ nullptr },
+	  _dynamicHeightSetter{ nullptr }
+{}
+
+GUIComponent::GUIComponent(Coord pos, Coord size, TextColor color)
+	: _pos{ pos },
+	  _size{ size },
+	  _color{ color },
 	  _dynamicPositionSetter{ nullptr },
 	  _dynamicHeightSetter{ nullptr }
 {}

@@ -8,13 +8,9 @@ std::shared_ptr<Window> Editor() {
 	/**********************************/
 	/*             HEADER             */
 	/**********************************/
-	std::shared_ptr<Panel> panHeader = std::make_shared<Panel>();
-	panHeader->SetColor({ WHITE, BLACK });
-	panHeader->SetHeight(1);
+	std::shared_ptr<Panel> panHeader = std::make_shared<Panel>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
 
-	std::shared_ptr<Label> lblHeader = std::make_shared<Label>();
-	lblHeader->SetColor({ WHITE, BLACK });
-	lblHeader->SetHeight(1);
+	std::shared_ptr<Label> lblHeader = std::make_shared<Label>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
 	lblHeader->SetDynamicText([]() -> std::string {
 		return Editor::CurrentFile().GetFilename().generic_string() + " " // TODO - Find cleaner way of printing info without having
 			+ std::to_string(Editor::FileIndex() + 1) + "/"			  //		to call std::to_string() everytime
@@ -25,16 +21,12 @@ std::shared_ptr<Window> Editor() {
 	/**********************************/
 	/*            CONTENT             */
 	/**********************************/
-	std::shared_ptr<Panel> panEditor = std::make_shared<Panel>();
-	panEditor->SetColor({ BLACK, WHITE });
-	panEditor->SetPosition({ 0, 1 });
+	std::shared_ptr<Panel> panEditor = std::make_shared<Panel>(Coord(0, 1), Coord(0, 0), TextColor(BLACK, WHITE));
 	panEditor->SetDynamicHeight([]() -> short {
 		return (short)(ConsoleAPI::RowCount() - 2);
 	});
 
-	std::shared_ptr<TextEditor> lblEditor = std::make_shared<TextEditor>();
-	lblEditor->SetColor({ BLACK, WHITE });
-	lblEditor->SetPosition({ 0, 2 });
+	std::shared_ptr<TextEditor> lblEditor = std::make_shared<TextEditor>(Coord(0, 2), Coord(0, 0), TextColor(BLACK, WHITE));
 	lblEditor->SetDynamicHeight([]() -> short {
 		return (short)(ConsoleAPI::RowCount() - 3);
 	});
@@ -45,19 +37,15 @@ std::shared_ptr<Window> Editor() {
 	/**********************************/
 	/*             FOOTER             */
 	/**********************************/
-	std::shared_ptr<Panel> panFooter = std::make_shared<Panel>();
-	panFooter->SetColor({ WHITE, BLACK });
+	std::shared_ptr<Panel> panFooter = std::make_shared<Panel>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
 	panFooter->SetDynamicPosition([]() -> Coord {
 		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
 	});
-	panFooter->SetHeight(1);
 
-	std::shared_ptr<Label> lblFooter = std::make_shared<Label>();
-	lblFooter->SetColor({ WHITE, BLACK });
+	std::shared_ptr<Label> lblFooter = std::make_shared<Label>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
 	lblFooter->SetDynamicPosition([]() -> Coord {
 		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
 	});
-	lblFooter->SetHeight(1);
 	lblFooter->SetDynamicText([]() -> std::string {
 		return "Rows = " + std::to_string(ConsoleAPI::RowCount())
 			+ ", Cols = " + std::to_string(ConsoleAPI::ColCount());

@@ -7,6 +7,11 @@ Label::Label()
 	  _dynamicTextSetter{ nullptr }
 {}
 
+Label::Label(Coord pos, Coord size, TextColor color)
+	: GUIComponent{ pos, size, color },
+	  _dynamicTextSetter{ nullptr }
+{}
+
 std::string Label::GetText() {
 	return _text;
 }

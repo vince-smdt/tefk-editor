@@ -18,6 +18,7 @@ protected:
 	std::function<short(void)> _dynamicHeightSetter;
 public:
 	GUIComponent();
+	GUIComponent(Coord pos, Coord size, TextColor color);
 
 	void SetPosition(Coord pos);
 	void SetHeight(short height);
