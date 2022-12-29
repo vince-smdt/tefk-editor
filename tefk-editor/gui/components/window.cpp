@@ -2,8 +2,8 @@
 
 namespace tefk {
 
-void Window::AddComponent(std::shared_ptr<GUIComponent> component) {
-	_children.push_back(std::move(component));
+void Window::AddComponent(GUIComponent& component) {
+	_children.push_back(&component);
 }
 
 void Window::Print() {

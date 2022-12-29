@@ -8,20 +8,20 @@ Editor& Editor::Instance() {
 }
 
 void Editor::Update() {
-	_lblHeader->SetText(
+	_lblHeader.SetText(
 		Editor::Instance().CurrentFile().GetFilename().generic_string() + " " // TODO - Find cleaner way of printing info without having
 		+ std::to_string(Editor::Instance().FileIndex() + 1) + "/"	           //        to call std::to_string() everytime
 		+ std::to_string(Editor::Instance().Files().size()) + " "
 		+ "Press Ctrl+S to save!"
 	);
 
-	_ediEditor->SetHeight((short)(ConsoleAPI::RowCount() - 2));
-	_ediEditor->SetText(Editor::Instance().CurrentFile().GetContent());
+	_ediEditor.SetHeight((short)(ConsoleAPI::RowCount() - 2));
+	_ediEditor.SetText(Editor::Instance().CurrentFile().GetContent());
 
-	_panFooter->SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
+	_panFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
 
-	_lblFooter->SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
-	_lblFooter->SetText(
+	_lblFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
+	_lblFooter.SetText(
 		"Rows = " + std::to_string(ConsoleAPI::RowCount())
 		+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
 	);

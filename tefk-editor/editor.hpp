@@ -11,11 +11,11 @@ namespace tefk {
 
 class Editor : public Window {
 public:
-	std::shared_ptr<Panel> _panHeader;
-	std::shared_ptr<Label> _lblHeader;
-	std::shared_ptr<TextEditor> _ediEditor;
-	std::shared_ptr<Panel> _panFooter;
-	std::shared_ptr<Label> _lblFooter;
+	Panel _panHeader;
+	Label _lblHeader;
+	TextEditor _ediEditor;
+	Panel _panFooter;
+	Label _lblFooter;
 private:
 	std::vector<File> _files;
 	std::vector<File>::size_type _file_index;
