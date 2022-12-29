@@ -8,7 +8,7 @@
 
 namespace tefk {
 
-class GUIComponent : public std::enable_shared_from_this<GUIComponent> {
+class GUIComponent {
 protected:
 	Coord _pos;
 	Coord _size;
