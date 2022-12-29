@@ -1,4 +1,4 @@
-#include "../editor.hpp"
+#include "editor.hpp"
 
 namespace tefk {
 

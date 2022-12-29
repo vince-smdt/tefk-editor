@@ -25,8 +25,11 @@
     <Filter Include="Source Files\gui\components">
       <UniqueIdentifier>{946b3045-eb45-4c54-b9ce-e70eff4132c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\designer">
-      <UniqueIdentifier>{c92b8c36-42da-42f2-a9e1-7b97c0d31cfb}</UniqueIdentifier>
+    <Filter Include="Source Files\windows">
+      <UniqueIdentifier>{1bcd29f9-f457-4026-95ce-baeb406d9b15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\windows">
+      <UniqueIdentifier>{688baf94-1c43-4161-b576-435dc9009561}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,9 +37,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="app.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="editor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="file.cpp">
@@ -72,8 +72,11 @@
     <ClCompile Include="logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="designer\editor.designer.cpp">
-      <Filter>Source Files\designer</Filter>
+    <ClCompile Include="windows\editor.cpp">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\editor.designer.cpp">
+      <Filter>Source Files\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cmdinter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="app.hpp">
@@ -121,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="gui\consolemanager.hpp">
       <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\editor.hpp">
+      <Filter>Header Files\windows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

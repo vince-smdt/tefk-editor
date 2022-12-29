@@ -1,5 +1,5 @@
 #pragma once
-#include "editor.hpp"
+#include "windows/editor.hpp" // TODO - include this logic in editor class or make editor class dependant of cmdinter namespace
 
 namespace tefk::CommandLineArgsInterpreter {
 

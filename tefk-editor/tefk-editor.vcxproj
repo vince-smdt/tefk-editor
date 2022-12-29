@@ -129,8 +129,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
-    <ClCompile Include="designer\editor.designer.cpp" />
-    <ClCompile Include="editor.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="gui\components\guicomponent.cpp" />
     <ClCompile Include="gui\components\label.cpp" />
@@ -143,11 +141,12 @@
     <ClCompile Include="keypresshandler.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="windows\editor.cpp" />
+    <ClCompile Include="windows\editor.designer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.hpp" />
     <ClInclude Include="cmdinter.hpp" />
-    <ClInclude Include="editor.hpp" />
     <ClInclude Include="file.hpp" />
     <ClInclude Include="gui\color.hpp" />
     <ClInclude Include="gui\components\guicomponent.hpp" />
@@ -160,6 +159,7 @@
     <ClInclude Include="gui\consolemanager.hpp" />
     <ClInclude Include="keypresshandler.hpp" />
     <ClInclude Include="logger.hpp" />
+    <ClInclude Include="windows\editor.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

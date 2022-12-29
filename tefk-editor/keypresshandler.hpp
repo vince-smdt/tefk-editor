@@ -1,5 +1,5 @@
 #pragma once
-#include "editor.hpp"
+#include "windows/editor.hpp" // TODO - include logic in editor class or make editor class dependant of keypresshandler
 
 #define VK_BACK 0x08
 #define VK_RETURN 0x0D

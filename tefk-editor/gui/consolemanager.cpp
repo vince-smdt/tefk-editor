@@ -4,10 +4,10 @@ namespace tefk {
 
 int ConsoleManager::s_currRows = 0;
 int ConsoleManager::s_currCols = 0;
-std::stack<std::shared_ptr<Window>> ConsoleManager::s_windows;
+std::stack<Window*> ConsoleManager::s_windows;
 
-void ConsoleManager::OpenWindow(std::shared_ptr<Window> window) {
-	s_windows.push(window);
+void ConsoleManager::OpenWindow(Window& window) {
+	s_windows.push(&window);
 }
 
 void ConsoleManager::CloseWindow() {

@@ -2,16 +2,10 @@
 
 namespace tefk {
 
-tefk::File* Application::s_currFile;
-
 void Application::Init(int argc, char** argv) {
 	ConsoleAPI::Init();
 	CommandLineArgsInterpreter::Interpret(argc, argv);
-
-	s_currFile = &tefk::Editor::Instance().CurrentFile();
-
-	std::shared_ptr<Editor> editor = std::make_shared<Editor>(); // TODO - make it so we don't have to instantiate a window shared_ptr here
-	ConsoleManager::OpenWindow(editor);
+	ConsoleManager::OpenWindow(_editor);
 }
 
 void Application::Run() {

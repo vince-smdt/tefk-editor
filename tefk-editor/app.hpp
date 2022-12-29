@@ -7,11 +7,10 @@
 namespace tefk {
 
 class Application {
-private:
-	static tefk::File* s_currFile;
+	Editor _editor;
 public:
-	static void Init(int argc, char** argv);
-	static void Run();
+	void Init(int argc, char** argv);
+	void Run();
 };
 
 }
