@@ -9,6 +9,8 @@ class Window {
 public:
 	void AddComponent(std::shared_ptr<GUIComponent> component);
 	void Print();
+
+	virtual void Update() {};
 };
 
 }

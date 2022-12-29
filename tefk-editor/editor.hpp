@@ -23,6 +23,8 @@ private:
 public:
 	Editor();
 	static Editor& Instance(); // TODO - Make class instantiable, not a singleton when possible
+	
+	void Update() override;
 
 	std::vector<File>& Files();
 	File& CurrentFile();

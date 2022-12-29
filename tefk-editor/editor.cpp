@@ -7,6 +7,28 @@ Editor& Editor::Instance() {
 	return editor;
 }
 
+void Editor::Update() {
+	_lblHeader->SetText(
+		Editor::Instance().CurrentFile().GetFilename().generic_string() + " " // TODO - Find cleaner way of printing info without having
+		+ std::to_string(Editor::Instance().FileIndex() + 1) + "/"	           //        to call std::to_string() everytime
+		+ std::to_string(Editor::Instance().Files().size()) + " "
+		+ "Press Ctrl+S to save!"
+	);
+
+	_panEditor->SetHeight((short)(ConsoleAPI::RowCount() - 2));
+
+	_ediEditor->SetHeight((short)(ConsoleAPI::RowCount() - 3));
+	_ediEditor->SetText(Editor::Instance().CurrentFile().GetContent());
+
+	_panFooter->SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
+
+	_lblFooter->SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
+	_lblFooter->SetText(
+		"Rows = " + std::to_string(ConsoleAPI::RowCount())
+		+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
+	);
+}
+
 std::vector<File>& Editor::Files() {
 	return _files;
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include <algorithm>
-#include <functional>
 #include <iostream>
 #include <memory>
 #include "../color.hpp"
@@ -13,9 +12,6 @@ protected:
 	Coord _pos;
 	Coord _size;
 	TextColor _color;
-
-	std::function<Coord(void)> _dynamicPositionSetter;
-	std::function<short(void)> _dynamicHeightSetter;
 public:
 	GUIComponent();
 	GUIComponent(Coord pos, Coord size, TextColor color);
@@ -23,9 +19,6 @@ public:
 	void SetPosition(Coord pos);
 	void SetHeight(short height);
 	void SetColor(TextColor color);
-
-	void SetDynamicPosition(std::function<Coord(void)> func);
-	void SetDynamicHeight(std::function<short(void)> func);
 
 	void Print();
 protected:

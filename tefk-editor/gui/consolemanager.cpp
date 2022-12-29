@@ -48,6 +48,7 @@ void ConsoleManager::RefreshConsole() {
 		CloseApp();
 	}
 
+	s_windows.top()->Update();
 	s_windows.top()->Print();
 }
 
