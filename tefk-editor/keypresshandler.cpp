@@ -23,14 +23,14 @@ void HandleKeyPress(char ch) {
 }
 
 void DeleteChar() {
-	std::string filecontent = Editor::CurrentFile().GetContent();
+	std::string filecontent = Editor::Instance().CurrentFile().GetContent();
 	if (filecontent.size()) 
 		filecontent.erase(filecontent.size() - 1);
-	Editor::CurrentFile().SetContent(filecontent);
+	Editor::Instance().CurrentFile().SetContent(filecontent);
 }
 
 void DeleteWord() {
-	std::string filecontent = Editor::CurrentFile().GetContent();
+	std::string filecontent = Editor::Instance().CurrentFile().GetContent();
 	// TODO - when cursor implemented, make it so only the part of the string behind current cursor position is modified
 	// Trim leading spaces
 	std::string trimmed = filecontent.substr(0, filecontent.find_last_not_of(' '));
@@ -41,23 +41,23 @@ void DeleteWord() {
 	filecontent = lastspace == std::string::npos
 		? ""
 		: filecontent.substr(0, lastspace + 1);
-	Editor::CurrentFile().SetContent(filecontent);
+	Editor::Instance().CurrentFile().SetContent(filecontent);
 }
 
 void NewLine() {
-	std::string filecontent = Editor::CurrentFile().GetContent();
+	std::string filecontent = Editor::Instance().CurrentFile().GetContent();
 	filecontent += '\n';
-	Editor::CurrentFile().SetContent(filecontent);
+	Editor::Instance().CurrentFile().SetContent(filecontent);
 }
 
 void SaveFile() {
-	Editor::CurrentFile().Save();
+	Editor::Instance().CurrentFile().Save();
 }
 
 void AddChar(char ch) {
-	std::string filecontent = Editor::CurrentFile().GetContent();
+	std::string filecontent = Editor::Instance().CurrentFile().GetContent();
 	filecontent += ch;
-	Editor::CurrentFile().SetContent(filecontent);
+	Editor::Instance().CurrentFile().SetContent(filecontent);
 }
 
 }

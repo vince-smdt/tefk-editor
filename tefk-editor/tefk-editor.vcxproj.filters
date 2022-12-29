@@ -26,10 +26,7 @@
       <UniqueIdentifier>{946b3045-eb45-4c54-b9ce-e70eff4132c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\designer">
-      <UniqueIdentifier>{e1e65217-bea6-40c0-b1df-61c0dc763331}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\designer">
-      <UniqueIdentifier>{03846380-becf-45da-9f64-20031cbc636f}</UniqueIdentifier>
+      <UniqueIdentifier>{c92b8c36-42da-42f2-a9e1-7b97c0d31cfb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +60,6 @@
     <ClCompile Include="gui\components\window.cpp">
       <Filter>Source Files\gui\components</Filter>
     </ClCompile>
-    <ClCompile Include="designer\editor.designer.cpp">
-      <Filter>Source Files\designer</Filter>
-    </ClCompile>
     <ClCompile Include="gui\consoleapi.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
@@ -77,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="designer\editor.designer.cpp">
+      <Filter>Source Files\designer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="gui\components\window.hpp">
       <Filter>Header Files\gui\components</Filter>
-    </ClInclude>
-    <ClInclude Include="designer\editor.designer.hpp">
-      <Filter>Header Files\designer</Filter>
     </ClInclude>
     <ClInclude Include="gui\consoleapi.hpp">
       <Filter>Header Files\gui</Filter>

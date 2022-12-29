@@ -1,64 +1,72 @@
-#include "editor.designer.hpp"
+#include "../editor.hpp"
 
-namespace tefk::Designer {
+namespace tefk {
 
-std::shared_ptr<Window> Editor() {
-	std::shared_ptr<Window> window = std::make_shared<Window>();
-
+Editor::Editor() {
 	/**********************************/
 	/*             HEADER             */
 	/**********************************/
-	std::shared_ptr<Panel> panHeader = std::make_shared<Panel>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
+	_panHeader = std::make_shared<Panel>();
+	_panHeader->SetHeight(1);
+	_panHeader->SetColor({ WHITE, BLACK });
 
-	std::shared_ptr<Label> lblHeader = std::make_shared<Label>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
-	lblHeader->SetDynamicText([]() -> std::string {
-		return Editor::CurrentFile().GetFilename().generic_string() + " " // TODO - Find cleaner way of printing info without having
-			+ std::to_string(Editor::FileIndex() + 1) + "/"			  //		to call std::to_string() everytime
-			+ std::to_string(Editor::Files().size()) + " "
-			+ "Press Ctrl+S to save!";
-	});
+	_lblHeader = std::make_shared<Label>();
+	_lblHeader->SetHeight(1);
+	_lblHeader->SetColor({ WHITE, BLACK });
+	_lblHeader->SetDynamicText([]() -> std::string {
+		return Editor::Instance().CurrentFile().GetFilename().generic_string() + " " // TODO - Find cleaner way of printing info without having
+		+ std::to_string(Editor::Instance().FileIndex() + 1) + "/"	         //        to call std::to_string() everytime
+		+ std::to_string(Editor::Instance().Files().size()) + " "
+		+ "Press Ctrl+S to save!";
+		});
 
 	/**********************************/
 	/*            CONTENT             */
 	/**********************************/
-	std::shared_ptr<Panel> panEditor = std::make_shared<Panel>(Coord(0, 1), Coord(0, 0), TextColor(BLACK, WHITE));
-	panEditor->SetDynamicHeight([]() -> short {
+	_panEditor = std::make_shared<Panel>();
+	_panEditor->SetPosition({ 0, 1 });
+	_panEditor->SetColor({ BLACK, WHITE });
+	_panEditor->SetDynamicHeight([]() -> short {
 		return (short)(ConsoleAPI::RowCount() - 2);
-	});
+		});
 
-	std::shared_ptr<TextEditor> lblEditor = std::make_shared<TextEditor>(Coord(0, 2), Coord(0, 0), TextColor(BLACK, WHITE));
-	lblEditor->SetDynamicHeight([]() -> short {
+	_ediEditor = std::make_shared<TextEditor>();
+	_ediEditor->SetPosition({ 0, 2 });
+	_ediEditor->SetColor({ BLACK, WHITE });
+	_ediEditor->SetDynamicHeight([]() -> short {
 		return (short)(ConsoleAPI::RowCount() - 3);
-	});
-	lblEditor->SetDynamicText([]() -> std::string {
-		return Editor::CurrentFile().GetContent();
-	});
+		});
+	_ediEditor->SetDynamicText([]() -> std::string {
+		return Editor::Instance().CurrentFile().GetContent();
+		});
 
 	/**********************************/
 	/*             FOOTER             */
 	/**********************************/
-	std::shared_ptr<Panel> panFooter = std::make_shared<Panel>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
-	panFooter->SetDynamicPosition([]() -> Coord {
+	_panFooter = std::make_shared<Panel>();
+	_panFooter->SetHeight(1);
+	_panFooter->SetColor({ WHITE, BLACK });
+	_panFooter->SetDynamicPosition([]() -> Coord {
 		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
-	});
+		});
 
-	std::shared_ptr<Label> lblFooter = std::make_shared<Label>(Coord(0, 0), Coord(0, 1), TextColor(WHITE, BLACK));
-	lblFooter->SetDynamicPosition([]() -> Coord {
+	_lblFooter = std::make_shared<Label>();
+	_lblFooter->SetHeight(1);
+	_lblFooter->SetColor({ WHITE, BLACK });
+	_lblFooter->SetDynamicPosition([]() -> Coord {
 		return { 0, (short)(ConsoleAPI::RowCount() - 1) };
-	});
-	lblFooter->SetDynamicText([]() -> std::string {
+		});
+	_lblFooter->SetDynamicText([]() -> std::string {
 		return "Rows = " + std::to_string(ConsoleAPI::RowCount())
-			+ ", Cols = " + std::to_string(ConsoleAPI::ColCount());
-	});
+		+ ", Cols = " + std::to_string(ConsoleAPI::ColCount());
+		});
 
-	window->AddComponent(panHeader);
-	window->AddComponent(lblHeader);
-	window->AddComponent(panEditor);
-	window->AddComponent(lblEditor);
-	window->AddComponent(panFooter);
-	window->AddComponent(lblFooter);
-
-	return window;
+	AddComponent(_panHeader);
+	AddComponent(_lblHeader);
+	AddComponent(_panEditor);
+	AddComponent(_ediEditor);
+	AddComponent(_panFooter);
+	AddComponent(_lblFooter);
 }
 
 }

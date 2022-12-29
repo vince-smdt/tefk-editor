@@ -1,5 +1,4 @@
 #include "app.hpp"
-#include "designer/editor.designer.hpp"
 
 namespace tefk {
 
@@ -9,9 +8,10 @@ void Application::Init(int argc, char** argv) {
 	ConsoleAPI::Init();
 	CommandLineArgsInterpreter::Interpret(argc, argv);
 
-	s_currFile = &tefk::Editor::CurrentFile();
+	s_currFile = &tefk::Editor::Instance().CurrentFile();
 
-	ConsoleManager::OpenWindow(Designer::Editor());
+	std::shared_ptr<Editor> editor = std::make_shared<Editor>(); // TODO - make it so we don't have to instantiate a window shared_ptr here
+	ConsoleManager::OpenWindow(editor);
 }
 
 void Application::Run() {
