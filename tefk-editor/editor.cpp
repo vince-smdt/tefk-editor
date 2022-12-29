@@ -15,9 +15,7 @@ void Editor::Update() {
 		+ "Press Ctrl+S to save!"
 	);
 
-	_panEditor->SetHeight((short)(ConsoleAPI::RowCount() - 2));
-
-	_ediEditor->SetHeight((short)(ConsoleAPI::RowCount() - 3));
+	_ediEditor->SetHeight((short)(ConsoleAPI::RowCount() - 2));
 	_ediEditor->SetText(Editor::Instance().CurrentFile().GetContent());
 
 	_panFooter->SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });

@@ -13,7 +13,6 @@ class Editor : public Window {
 public:
 	std::shared_ptr<Panel> _panHeader;
 	std::shared_ptr<Label> _lblHeader;
-	std::shared_ptr<Panel> _panEditor;
 	std::shared_ptr<TextEditor> _ediEditor;
 	std::shared_ptr<Panel> _panFooter;
 	std::shared_ptr<Label> _lblFooter;
