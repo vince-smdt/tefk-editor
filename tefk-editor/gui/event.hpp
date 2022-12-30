@@ -5,14 +5,14 @@ namespace tefk {
 class Event {
 public:
 	enum class Type {
-		CHARACTER,
+		KEYPRESS,
 		CONSOLE_SIZE_CHANGE
 	};
 
 	char input;
 	Type type;
 
-	static Event Character(char input);
+	static Event Keypress(char input);
 	static Event ConsoleSizeChange();
 };
 

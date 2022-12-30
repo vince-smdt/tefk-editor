@@ -28,7 +28,7 @@ void Editor::Update() {
 }
 
 void Editor::CatchEvent(Event& event) {
-	if (event.type == Event::Type::CHARACTER)
+	if (event.type == Event::Type::KEYPRESS)
 		KeyPressHandler::HandleKeyPress(event.input);
 }
 
