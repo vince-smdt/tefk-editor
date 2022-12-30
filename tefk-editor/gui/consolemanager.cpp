@@ -4,52 +4,16 @@ namespace tefk {
 
 int ConsoleManager::s_currRows = 0;
 int ConsoleManager::s_currCols = 0;
-std::stack<Window*> ConsoleManager::s_windows;
-
-void ConsoleManager::OpenWindow(Window& window) {
-	s_windows.push(&window);
-}
-
-void ConsoleManager::CloseWindow() {
-	s_windows.pop();
-	if (s_windows.empty()) {
-		Logger::Instance().Log(
-			Logger::LogLevel::TRACE,
-			"Window stack empty. Proceeding to termination of application."
-		);
-		CloseApp();
-	}
-}
-
-void ConsoleManager::CloseApp() {
-	Logger::Instance().Log(
-		Logger::LogLevel::INFO,
-		"Closing application."
-	);
-	exit(0);
-}
 
 bool ConsoleManager::ConsoleSizeChanged() {
 	return s_currRows != ConsoleAPI::RowCount() || s_currCols != ConsoleAPI::ColCount();
 }
 
-void ConsoleManager::RefreshConsole() {
-	// TODO - Reset entire console color in case previous color before app starts
+void ConsoleManager::ResizeConsole() {
 	s_currRows = ConsoleAPI::RowCount();
 	s_currCols = ConsoleAPI::ColCount();
 
 	ConsoleAPI::SetConsoleSize(s_currRows, s_currCols);
-
-	if (s_windows.empty()) {
-		Logger::Instance().Log(
-			Logger::LogLevel::WARN,
-			"Cannot print current window, window stack empty. Proceeding to termination of application."
-		);
-		CloseApp();
-	}
-
-	s_windows.top()->Update();
-	s_windows.top()->Print();
 }
 
 }

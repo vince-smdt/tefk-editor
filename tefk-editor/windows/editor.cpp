@@ -27,6 +27,11 @@ void Editor::Update() {
 	);
 }
 
+void Editor::CatchEvent(Event& event) {
+	if (event.type == Event::Type::CHARACTER)
+		KeyPressHandler::HandleKeyPress(event.input);
+}
+
 std::vector<File>& Editor::Files() {
 	return _files;
 }

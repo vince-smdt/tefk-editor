@@ -6,6 +6,7 @@
 #include "../gui/components/texteditor.hpp"
 #include "../gui/components/textfield.hpp"
 #include "../gui/components/window.hpp"
+#include "../keypresshandler.hpp"
 
 namespace tefk { 
 
@@ -24,6 +25,7 @@ public:
 	static Editor& Instance(); // TODO - Make class instantiable, not a singleton when possible
 	
 	void Update() override;
+	void CatchEvent(Event& event) override; // TODO - maybe make event param const ref
 
 	std::vector<File>& Files();
 	File& CurrentFile();

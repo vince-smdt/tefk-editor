@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "../event.hpp"
 #include "guicomponent.hpp"
 
 namespace tefk {
@@ -11,6 +12,7 @@ public:
 	void Print();
 
 	virtual void Update() {};
+	virtual void CatchEvent(Event& event) {};
 };
 
 }

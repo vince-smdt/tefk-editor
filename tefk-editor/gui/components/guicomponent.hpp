@@ -1,7 +1,6 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
-#include <memory>
 #include "../color.hpp"
 #include "../consoleapi.hpp"
 
