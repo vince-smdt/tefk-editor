@@ -1,8 +1,7 @@
 #pragma once
 #include <conio.h>
-#include "cmdinter.hpp"
 #include "gui/appmanager.hpp"
-#include "keypresshandler.hpp"
+#include "windows/editor.hpp"
 
 namespace tefk {
 
@@ -11,6 +10,8 @@ class Application {
 public:
 	void Init(int argc, char** argv);
 	void Run();
+private:
+	void InterpretCommandLineArgs(int argc, char** argv);
 };
 
 }

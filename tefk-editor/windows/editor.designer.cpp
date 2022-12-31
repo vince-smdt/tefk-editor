@@ -2,7 +2,9 @@
 
 namespace tefk {
 
-Editor::Editor() {
+Editor::Editor()
+	: _fileIndex{ 0 }
+{
 	/**********************************/
 	/*             HEADER             */
 	/**********************************/

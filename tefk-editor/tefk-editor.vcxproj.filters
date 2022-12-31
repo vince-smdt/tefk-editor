@@ -42,9 +42,6 @@
     <ClCompile Include="file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="keypresshandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gui\components\guicomponent.cpp">
       <Filter>Source Files\gui\components</Filter>
     </ClCompile>
@@ -90,12 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="keypresshandler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cmdinter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="app.hpp">
