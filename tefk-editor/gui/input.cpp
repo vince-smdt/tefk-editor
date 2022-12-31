@@ -1,3 +1,4 @@
+#include "consoleapi.hpp"
 #include "input.hpp"
 
 namespace tefk::Input {
@@ -5,7 +6,7 @@ namespace tefk::Input {
 Event CatchInput() {
 	// TODO - Change _getch() for function that can properly read Fn keys
 	// TODO - Change _getch() for function that can read letters with accents (Ex. é, è, ô, ï, ...)
-	return Event::Keypress(_getch());
+	return Event::Keypress(ConsoleAPI::ReadKeypress());
 }
 
 }

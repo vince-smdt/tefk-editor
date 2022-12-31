@@ -1,5 +1,5 @@
 #pragma once
-#include <system_error>
+#include <conio.h>
 #include <Windows.h>
 #include "color.hpp"
 #include "../logger.hpp" // TODO - maybe move logger inside gui, own folder/projet? (remove gui folder dependency on external file)
@@ -27,6 +27,8 @@ public:
 	static void SetCursorPos(short row, short col);
 	static void SetTextColor(TextColor color);
 	static void SetConsoleSize(short row, short col);
+
+	static char ReadKeypress();
 private:
 	static void GetConsoleBufferInfo();
 };

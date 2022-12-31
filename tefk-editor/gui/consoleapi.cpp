@@ -10,6 +10,7 @@ void ConsoleAPI::Init() {
 	SetConsoleCtrlHandler(NULL, TRUE);
 	
 	// Hide default console cursor
+	// TODO - cursor appears again when resizing console, hide cursor everytime console is resized
 	CONSOLE_CURSOR_INFO cursorInfo;
 	GetConsoleCursorInfo(s_handle, &cursorInfo);
 	cursorInfo.bVisible = false;
@@ -70,6 +71,10 @@ void ConsoleAPI::SetConsoleSize(short row, short col) {
 		);
 		exit(0);
 	}
+}
+
+char ConsoleAPI::ReadKeypress() {
+	return _getch();
 }
 
 void ConsoleAPI::GetConsoleBufferInfo() {
