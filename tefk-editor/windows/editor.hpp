@@ -23,7 +23,7 @@ public:
 	Label _lblFooter;
 private:
 	std::vector<File> _files;
-	std::vector<File>::size_type _fileIndex;
+	std::vector<File>::iterator _currFile; // TODO - check if _currFile is not null before displaying
 public:
 	Editor();
 
@@ -32,6 +32,9 @@ public:
 
 	void NewFile();
 	void OpenOrCreateFiles(int filecount, char** filenames);
+
+	// Properties
+	int FileIndex();
 
 	// Handle input
 	// TODO - clean this up later, make easier to read or move to another file
