@@ -15,10 +15,6 @@ void Editor::Update() {
 	_panFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
 
 	_lblFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
-	_lblFooter.SetText(
-		"Rows = " + std::to_string(ConsoleAPI::RowCount())
-		+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
-	);
 }
 
 void Editor::CatchEvent(Event& event) {
@@ -29,6 +25,12 @@ void Editor::CatchEvent(Event& event) {
 			_currFile->Save();
 			break;
 		}
+	}
+	else if (event.type == Event::Type::CONSOLE_SIZE_CHANGE) {
+		_lblFooter.SetText(
+			"Rows = " + std::to_string(ConsoleAPI::RowCount())
+			+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
+		);
 	}
 }
 

@@ -27,6 +27,10 @@ Editor::Editor() {
 
 	_lblFooter.SetHeight(1);
 	_lblFooter.SetColor({ WHITE, BLACK });
+	_lblFooter.SetText(
+		"Rows = " + std::to_string(ConsoleAPI::RowCount())
+		+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
+	);
 
 	// Add all components to window
 	AddComponent(_panHeader);
