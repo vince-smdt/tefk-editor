@@ -10,6 +10,7 @@ class Window {
 public:
 	void AddComponent(GUIComponent& component);
 	void Print();
+	void CatchAndPropagateEvent(Event& event);
 
 	virtual void Update() {};
 	virtual void CatchEvent(Event& event) {};

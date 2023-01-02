@@ -54,7 +54,7 @@ void ApplicationManager::RunEvents() {
 
 	while (!s_events.empty()) {
 		ProcessEvent(*s_events.top());
-		s_windows.top()->CatchEvent(*s_events.top());
+		s_windows.top()->CatchAndPropagateEvent(*s_events.top());
 		s_events.pop();
 	}
 

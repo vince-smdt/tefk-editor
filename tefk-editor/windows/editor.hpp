@@ -30,9 +30,6 @@ public:
 
 	// Properties
 	int FileIndex();
-
-	// Handle input
-	void HandleKeyPress(char ch);
 };
 
 }

@@ -22,8 +22,14 @@ void Editor::Update() {
 }
 
 void Editor::CatchEvent(Event& event) {
-	if (event.type == Event::Type::KEYPRESS)
-		HandleKeyPress(event.input);
+	if (event.type == Event::Type::KEYPRESS) {
+		switch (event.input) {
+		case VK_CTRL_S:
+			_currFile->SetContent(_ediEditor.GetText());
+			_currFile->Save();
+			break;
+		}
+	}
 }
 
 void Editor::NewFile() { // TODO - rename functions or fuse newfile with openorcreatefiles
@@ -42,26 +48,6 @@ void Editor::OpenOrCreateFiles(int filecount, char** filenames) {
 
 int Editor::FileIndex() {
 	return (int)((_currFile - _files.begin()) + 1);
-}
-
-void Editor::HandleKeyPress(char ch) {
-	// TODO - switch case?
-	if (ch == VK_BACK) {
-		_ediEditor.DeleteChar();
-	}
-	else if (ch == VK_CTRL_BACKSPACE) {
-		_ediEditor.DeleteWord();
-	}
-	else if (ch == VK_RETURN) {
-		_ediEditor.NewLine();
-	}
-	else if (ch == VK_CTRL_S) {
-		_currFile->SetContent(_ediEditor.GetText());
-		_currFile->Save();
-	}
-	else {
-		_ediEditor.AddChar(ch);
-	}
 }
 
 }

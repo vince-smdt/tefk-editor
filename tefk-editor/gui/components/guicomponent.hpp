@@ -21,12 +21,12 @@ public:
 	void SetColor(TextColor color);
 
 	void Print();
+	virtual void CatchEvent(Event& event) {}
 protected:
 	// Size of row that can be printed, excludes overflow
 	short RowSize();
 
-	// TODO - Find better name
-	virtual void PrintContent() = 0;
+	virtual void PrintContent() = 0; // TODO - Find better name
 };
 
 }

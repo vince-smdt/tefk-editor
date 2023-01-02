@@ -12,4 +12,10 @@ void Window::Print() {
 	std::cout.flush();
 }
 
+void Window::CatchAndPropagateEvent(Event& event) {
+	CatchEvent(event);
+	for (auto& child : _children)
+		child->CatchEvent(event);
+}
+
 }

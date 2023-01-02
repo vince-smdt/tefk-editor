@@ -11,8 +11,11 @@ class TextEditor : public GUIComponent {
 public:
 	TextEditor();
 	TextEditor(Coord pos, Coord size, TextColor color);
+
 	void SetText(std::string text);
 	std::string GetText();
+
+	void CatchEvent(Event& event) override;
 
 	void AddChar(char ch);
 	void NewLine();

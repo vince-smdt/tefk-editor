@@ -39,6 +39,25 @@ std::string TextEditor::GetText() {
 	return text.substr(0, text.size() - 1);
 }
 
+void TextEditor::CatchEvent(Event& event) {
+	if (event.type == Event::Type::KEYPRESS) {
+		switch (event.input) {
+		case VK_BACK:
+			DeleteChar();
+			break;
+		case VK_CTRL_BACKSPACE:
+			DeleteWord();
+			break;
+		case VK_RETURN:
+			NewLine();
+			break;
+		default:
+			AddChar(event.input);
+			break;
+		}
+	}
+}
+
 void TextEditor::AddChar(char ch) {
 	_cursorRow->insert(_cursorCol, ch);
 }
@@ -52,7 +71,6 @@ void TextEditor::DeleteChar() {
 		if (_cursorRow == _rows.begin())
 			return;
 
-		std::string rowText = *_cursorRow;
 		_cursorRow = _rows.erase(_cursorRow);
 		_cursorCol = (--_cursorRow)->end();
 		return;
