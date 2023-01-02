@@ -12,6 +12,12 @@ public:
 	TextEditor();
 	TextEditor(Coord pos, Coord size, TextColor color);
 	void SetText(std::string text);
+	std::string GetText();
+
+	void AddChar(char ch);
+	void NewLine();
+	void DeleteChar();
+	void DeleteWord();
 private:
 	void PrintContent();
 	void PrintCursor();

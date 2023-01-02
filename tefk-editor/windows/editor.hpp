@@ -32,13 +32,7 @@ public:
 	int FileIndex();
 
 	// Handle input
-	// TODO - clean this up later, make easier to read or move to another file
 	void HandleKeyPress(char ch);
-	void DeleteChar();
-	void DeleteWord();
-	void NewLine();
-	void SaveFile();
-	void AddChar(char ch);
 };
 
 }

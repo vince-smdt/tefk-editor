@@ -11,7 +11,6 @@ void Editor::Update() {
 	);
 
 	_ediEditor.SetHeight((short)(ConsoleAPI::RowCount() - 2));
-	_ediEditor.SetText(_currFile->GetContent());
 
 	_panFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
 
@@ -48,58 +47,21 @@ int Editor::FileIndex() {
 void Editor::HandleKeyPress(char ch) {
 	// TODO - switch case?
 	if (ch == VK_BACK) {
-		DeleteChar();
+		_ediEditor.DeleteChar();
 	}
 	else if (ch == VK_CTRL_BACKSPACE) {
-		DeleteWord();
+		_ediEditor.DeleteWord();
 	}
 	else if (ch == VK_RETURN) {
-		NewLine();
+		_ediEditor.NewLine();
 	}
 	else if (ch == VK_CTRL_S) {
-		SaveFile();
+		_currFile->SetContent(_ediEditor.GetText());
+		_currFile->Save();
 	}
 	else {
-		AddChar(ch);
+		_ediEditor.AddChar(ch);
 	}
-}
-
-void Editor::DeleteChar() {
-	std::string filecontent = _currFile->GetContent();
-	if (filecontent.size())
-		filecontent.erase(filecontent.size() - 1);
-	_currFile->SetContent(filecontent);
-}
-
-void Editor::DeleteWord() {
-	std::string filecontent = _currFile->GetContent();
-	// TODO - when cursor implemented, make it so only the part of the string behind current cursor position is modified
-	// Trim leading spaces
-	std::string trimmed = filecontent.substr(0, filecontent.find_last_not_of(' '));
-
-	// If only word in substring, delete all
-	// Else, delete word, leaving the space separating it from the previous word
-	std::string::size_type lastspace = trimmed.find_last_of(' ');
-	filecontent = lastspace == std::string::npos
-		? ""
-		: filecontent.substr(0, lastspace + 1);
-	_currFile->SetContent(filecontent);
-}
-
-void Editor::NewLine() {
-	std::string filecontent = _currFile->GetContent();
-	filecontent += '\n';
-	_currFile->SetContent(filecontent);
-}
-
-void Editor::SaveFile() {
-	_currFile->Save();
-}
-
-void Editor::AddChar(char ch) {
-	std::string filecontent = _currFile->GetContent();
-	filecontent += ch;
-	_currFile->SetContent(filecontent);
 }
 
 }

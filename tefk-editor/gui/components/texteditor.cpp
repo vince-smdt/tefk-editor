@@ -32,6 +32,38 @@ void TextEditor::SetText(std::string text) {
 	_cursorCol = _cursorRow->begin();
 }
 
+std::string TextEditor::GetText() {
+	std::string text = "";
+	for (std::string row : _rows)
+		text.append(row + '\n');
+	return text.substr(0, text.size() - 1);
+}
+
+void TextEditor::AddChar(char ch) {
+	_cursorRow->insert(_cursorCol, ch);
+}
+
+void TextEditor::NewLine() {
+	_rows.insert(++_cursorRow, "");
+}
+
+void TextEditor::DeleteChar() {
+	if (_cursorCol == _cursorRow->begin()) {
+		if (_cursorRow == _rows.begin())
+			return;
+
+		std::string rowText = *_cursorRow;
+		_cursorRow = _rows.erase(_cursorRow);
+		_cursorCol = (--_cursorRow)->end();
+		return;
+	}
+	_cursorRow->erase(--_cursorCol);
+}
+
+void TextEditor::DeleteWord() {
+	// TODO - this function
+}
+
 void TextEditor::PrintContent() {
 	// Print text
 	for (size_t currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
