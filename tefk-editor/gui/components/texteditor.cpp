@@ -52,7 +52,8 @@ void TextEditor::CatchEvent(Event& event) {
 			NewLine();
 			break;
 		default:
-			AddChar(event.input);
+			if (event.input > 26)
+				AddChar(event.input);
 			break;
 		}
 	}
