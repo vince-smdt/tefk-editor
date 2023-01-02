@@ -14,6 +14,7 @@ public:
 	void SetText(std::string text);
 private:
 	void PrintContent();
+	void PrintCursor();
 };
 
 }

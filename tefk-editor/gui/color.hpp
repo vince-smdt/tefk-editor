@@ -22,4 +22,8 @@ enum WinConsoleTextColor {
 typedef struct TextColor {
 	WinConsoleTextColor bgColor; // background color
 	WinConsoleTextColor fgColor; // foreground color
+
+	TextColor Inverse() {
+		return { fgColor, bgColor };
+	}
 } TextColor;
