@@ -79,18 +79,23 @@ void TextEditor::AddChar(char ch) {
 }
 
 void TextEditor::NewLine() {
+	// TODO - if newline in middle of row, move content to next line
 	_cursorRow = _rows.insert(_cursorRow + 1, "");
 	_cursorCol = _cursorRow->begin();
 }
 
 void TextEditor::DeleteChar() {
-	// TODO - if deleting new line, move content of curr row to previous row
+	// If at beginning of row
 	if (_cursorCol == _cursorRow->begin()) {
+		// If at begining of file, cancel
 		if (_cursorRow == _rows.begin())
 			return;
 
+		// Move content of current row to previous row, then delete current row
+		size_t currRowSize = (_cursorRow - 1)->size();
+		(_cursorRow - 1)->append(*_cursorRow);
 		_cursorRow = _rows.erase(_cursorRow);
-		_cursorCol = (--_cursorRow)->end();
+		_cursorCol = (--_cursorRow)->begin() + currRowSize;
 		return;
 	}
 	_cursorRow->erase(--_cursorCol);
