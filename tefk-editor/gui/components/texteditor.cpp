@@ -79,7 +79,7 @@ void TextEditor::AddChar(char ch) {
 }
 
 void TextEditor::NewLine() {
-	// TODO - if newline in middle of row, move content to next line
+	// Create new row and move content after cursor to new row
 	size_t colIndex = _cursorCol - _cursorRow->begin();
 	_cursorRow = _rows.insert(_cursorRow + 1, "");
 	*_cursorRow = (_cursorRow - 1)->substr(colIndex, (_cursorRow - 1)->size() - colIndex);
@@ -105,7 +105,46 @@ void TextEditor::DeleteChar() {
 }
 
 void TextEditor::DeleteWord() {
-	// TODO - this function
+	// If cursor at beginning or row
+	if (_cursorCol == _cursorRow->begin()) {
+		// If cursor on first row, cancel
+		if (_cursorRow == _rows.begin())
+			return;
+
+		// Delete word on previous row
+		DeleteChar();
+		DeleteWord();
+		return;
+	}
+
+	size_t colIndex = _cursorCol - _cursorRow->begin();
+	bool selectedChar = false; // if at least one non-space char selected
+
+	// Position cursor on last char if pointing to end() iterator
+	if (_cursorCol == _cursorRow->end())
+		_cursorCol--;
+
+	// Skip spaces
+	while (*_cursorCol == ' ' && _cursorCol != _cursorRow->begin())
+		_cursorCol--;
+
+	// Skip letters of word to delete
+	if (*_cursorCol != ' ')
+		selectedChar = true;
+
+	while (*_cursorCol != ' ' && _cursorCol != _cursorRow->begin())
+		_cursorCol--;
+
+	// Leave space in front of previous word
+	if (selectedChar && *_cursorCol == ' ')
+		_cursorCol++;
+
+	size_t selectionSize = colIndex - (_cursorCol - _cursorRow->begin());
+	size_t newColIndex = _cursorCol - _cursorRow->begin();
+
+	// Delete word
+	_cursorRow->erase(newColIndex, selectionSize);
+	_cursorCol = _cursorRow->begin() + newColIndex;
 }
 
 void TextEditor::MoveCursorRight() {
