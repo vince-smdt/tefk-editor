@@ -17,6 +17,7 @@ public:
 
 	void CatchEvent(Event& event) override;
 
+	// Editor actions
 	void AddChar(char ch);
 	void NewLine();
 	void DeleteChar();

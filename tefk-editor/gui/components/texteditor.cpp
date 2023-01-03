@@ -80,7 +80,10 @@ void TextEditor::AddChar(char ch) {
 
 void TextEditor::NewLine() {
 	// TODO - if newline in middle of row, move content to next line
+	size_t colIndex = _cursorCol - _cursorRow->begin();
 	_cursorRow = _rows.insert(_cursorRow + 1, "");
+	*_cursorRow = (_cursorRow - 1)->substr(colIndex, (_cursorRow - 1)->size() - colIndex);
+	(_cursorRow - 1)->erase(colIndex, (_cursorRow - 1)->size() - colIndex);
 	_cursorCol = _cursorRow->begin();
 }
 
