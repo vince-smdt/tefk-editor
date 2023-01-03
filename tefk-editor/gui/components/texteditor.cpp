@@ -27,7 +27,6 @@ void TextEditor::SetText(std::string text) {
 	if (_rows.empty())
 		_rows.push_back("");
 
-	// TODO - position cursor elsewhere
 	_cursorRow = _rows.begin();
 	_cursorCol = _cursorRow->begin();
 }
@@ -40,7 +39,7 @@ std::string TextEditor::GetText() {
 }
 
 void TextEditor::CatchEvent(Event& event) {
-	if (event.type == Event::Type::KEYPRESS) {
+	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
 		case VK_BACK:
 			DeleteChar();
@@ -57,17 +56,35 @@ void TextEditor::CatchEvent(Event& event) {
 			break;
 		}
 	}
+	else if (event.type == Event::Type::SPECIAL_CHARACTER) {
+		switch (event.input) {
+		case VK_ARROW_RIGHT:
+			MoveCursorRight();
+			break;
+		case VK_ARROW_LEFT:
+			MoveCursorLeft();
+			break;
+		case VK_ARROW_UP:
+			MoveCursorUp();
+			break;
+		case VK_ARROW_DOWN:
+			MoveCursorDown();
+			break;
+		}
+	}
 }
 
 void TextEditor::AddChar(char ch) {
-	_cursorRow->insert(_cursorCol, ch);
+	_cursorCol = _cursorRow->insert(_cursorCol, ch) + 1;
 }
 
 void TextEditor::NewLine() {
-	_rows.insert(++_cursorRow, "");
+	_cursorRow = _rows.insert(_cursorRow + 1, "");
+	_cursorCol = _cursorRow->begin();
 }
 
 void TextEditor::DeleteChar() {
+	// TODO - if deleting new line, move content of curr row to previous row
 	if (_cursorCol == _cursorRow->begin()) {
 		if (_cursorRow == _rows.begin())
 			return;
@@ -81,6 +98,81 @@ void TextEditor::DeleteChar() {
 
 void TextEditor::DeleteWord() {
 	// TODO - this function
+}
+
+void TextEditor::MoveCursorRight() {
+	// If at end of row
+	if (_cursorCol == _cursorRow->end()) {
+		// Cancel if cursor already at eof
+		if (_cursorRow == _rows.end() - 1)
+			return;
+
+		// Move cursor to next row
+		_cursorCol = (++_cursorRow)->begin();
+		return;
+	}
+
+	// Move cursor to next char
+	_cursorCol++;
+}
+
+void TextEditor::MoveCursorLeft() {
+	// If at beginning of row
+	if (_cursorCol == _cursorRow->begin()) {
+		// Cancel if cursor already at bof
+		if (_cursorRow == _rows.begin())
+			return;
+
+		// Move cursor to previous row
+		_cursorCol = (--_cursorRow)->end();
+		return;
+	}
+
+	// Move cursor to previous char
+	_cursorCol--;
+}
+
+void TextEditor::MoveCursorUp() {
+	// If at first row
+	if (_cursorRow == _rows.begin()) {
+		// Move cursor to beginning of line
+		_cursorCol = _cursorRow->begin();
+		return;
+	}
+
+	// Move cursor to previous row
+	int colIndex = _cursorCol - _cursorRow->begin();
+	_cursorRow--;
+	
+	// If cursor column index is bigger than new row, move to end of new row
+	// Else, move to same column index of new row
+	if (colIndex >= _cursorRow->size()) {
+		_cursorCol = _cursorRow->end();
+		return;
+	}
+	_cursorCol = _cursorRow->begin() + colIndex;
+
+}
+
+void TextEditor::MoveCursorDown() {
+	// If at last row
+	if (_cursorRow == _rows.end() - 1) {
+		// Move cursor to end of line
+		_cursorCol = _cursorRow->end();
+		return;
+	}
+
+	// Move cursor to next row
+	int colIndex = _cursorCol - _cursorRow->begin();
+	_cursorRow++;
+
+	// If cursor column index is bigger than new row, move to end of new row
+	// Else, move to same column index of new row
+	if (colIndex >= _cursorRow->size()) {
+		_cursorCol = _cursorRow->end();
+		return;
+	}
+	_cursorCol = _cursorRow->begin() + colIndex;
 }
 
 void TextEditor::PrintContent() {
@@ -103,10 +195,6 @@ void TextEditor::PrintContent() {
 }
 
 void TextEditor::PrintCursor() {
-	// TEMP - positioning cursor at end of text
-	_cursorRow = _rows.end() - 1;
-	_cursorCol = _cursorRow->end();
-
 	Coord cursorPos = {
 		_pos.X + _cursorCol - _cursorRow->begin(),
 		_pos.Y + _cursorRow - _rows.begin()

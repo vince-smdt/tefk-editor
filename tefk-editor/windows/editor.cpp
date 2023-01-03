@@ -18,7 +18,7 @@ void Editor::Update() {
 }
 
 void Editor::CatchEvent(Event& event) {
-	if (event.type == Event::Type::KEYPRESS) {
+	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
 		case VK_CTRL_S:
 			_currFile->SetContent(_ediEditor.GetText());

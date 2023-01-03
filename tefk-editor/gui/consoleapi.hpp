@@ -28,7 +28,7 @@ public:
 	static void SetTextColor(TextColor color);
 	static void SetConsoleSize(short row, short col);
 
-	static char ReadKeypress();
+	static unsigned char ReadKeypress();
 private:
 	static void GetConsoleBufferInfo();
 };

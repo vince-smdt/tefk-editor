@@ -4,9 +4,14 @@
 namespace tefk::Input {
 
 Event CatchInput() {
-	// TODO - Change _getch() for function that can properly read Fn keys
-	// TODO - Change _getch() for function that can read letters with accents (Ex. é, è, ô, ï, ...)
-	return Event::Keypress(ConsoleAPI::ReadKeypress());
+	unsigned char c = ConsoleAPI::ReadKeypress();
+
+	if (c == 0 || c == 224) {
+		c = ConsoleAPI::ReadKeypress();
+		return Event::SpecialCharacter(c);
+	}
+
+	return Event::Character(c);
 }
 
 }

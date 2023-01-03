@@ -21,6 +21,11 @@ public:
 	void NewLine();
 	void DeleteChar();
 	void DeleteWord();
+
+	void MoveCursorRight();
+	void MoveCursorLeft();
+	void MoveCursorUp();
+	void MoveCursorDown();
 private:
 	void PrintContent();
 	void PrintCursor();

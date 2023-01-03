@@ -2,10 +2,17 @@
 
 namespace tefk {
 
-Event Event::Keypress(char input) {
+Event Event::Character(char input) {
 	Event event;
 	event.input = input;
-	event.type = Type::KEYPRESS;
+	event.type = Type::CHARACTER;
+	return event;
+}
+
+Event Event::SpecialCharacter(char input) {
+	Event event;
+	event.input = input;
+	event.type = Type::SPECIAL_CHARACTER;
 	return event;
 }
 

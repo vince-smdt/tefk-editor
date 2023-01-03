@@ -73,7 +73,7 @@ void ConsoleAPI::SetConsoleSize(short row, short col) {
 	}
 }
 
-char ConsoleAPI::ReadKeypress() {
+unsigned char ConsoleAPI::ReadKeypress() {
 	return _getch();
 }
 

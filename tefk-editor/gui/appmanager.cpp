@@ -15,7 +15,7 @@ void ApplicationManager::Display() {
 		);
 		CloseApp();
 	}
-
+	
 	s_windows.top()->Update();
 	s_windows.top()->Print();
 }
