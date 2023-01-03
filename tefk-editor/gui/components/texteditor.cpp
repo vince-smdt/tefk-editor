@@ -120,6 +120,8 @@ void TextEditor::DeleteWord() {
 	size_t colIndex = _cursorCol - _cursorRow->begin();
 	bool selectedChar = false; // if at least one non-space char selected
 
+	_cursorCol--;
+
 	// Position cursor on last char if pointing to end() iterator
 	if (_cursorCol == _cursorRow->end())
 		_cursorCol--;
@@ -129,11 +131,10 @@ void TextEditor::DeleteWord() {
 		_cursorCol--;
 
 	// Skip letters of word to delete
-	if (*_cursorCol != ' ')
+	while (*_cursorCol != ' ' && _cursorCol != _cursorRow->begin()) {
 		selectedChar = true;
-
-	while (*_cursorCol != ' ' && _cursorCol != _cursorRow->begin())
 		_cursorCol--;
+	}
 
 	// Leave space in front of previous word
 	if (selectedChar && *_cursorCol == ' ')
