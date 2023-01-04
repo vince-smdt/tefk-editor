@@ -70,6 +70,12 @@ void TextEditor::CatchEvent(Event& event) {
 		case VK_ARROW_DOWN:
 			MoveCursorDown();
 			break;
+		case VK_CTRL_ARROW_RIGHT:
+			MoveCursorNextWord();
+			break;
+		case VK_CTRL_ARROW_LEFT:
+			MoveCursorPrevWord();
+			break;
 		}
 	}
 }
@@ -221,6 +227,50 @@ void TextEditor::MoveCursorDown() {
 		return;
 	}
 	_cursorCol = _cursorRow->begin() + colIndex;
+}
+
+void TextEditor::MoveCursorNextWord() {
+	// If at end of row
+	if (_cursorCol == _cursorRow->end()) {
+		// Cancel if at end of file
+		if (_cursorRow == _rows.end() - 1)
+			return;
+
+		// Go to next row
+		_cursorCol = (++_cursorRow)->begin();
+		return;
+	}
+
+	// Go to next word
+	_cursorCol++;
+
+	while (_cursorCol != _cursorRow->end()  && *_cursorCol != ' ')
+		_cursorCol++;
+
+	while (_cursorCol != _cursorRow->end() && *_cursorCol == ' ')
+		_cursorCol++;
+}
+
+void TextEditor::MoveCursorPrevWord() {
+	// If at beginning of row
+	if (_cursorCol == _cursorRow->begin()) {
+		// Cancel if at beginning of file
+		if (_cursorRow == _rows.begin())
+			return;
+
+		// Go to prev row
+		_cursorCol = (--_cursorRow)->end();
+		return;
+	}
+
+	// Go to prev word
+	_cursorCol--;
+
+	while (_cursorCol != _cursorRow->begin() && *_cursorCol != ' ')
+		_cursorCol--;
+
+	while (_cursorCol != _cursorRow->begin() && *_cursorCol == ' ')
+		_cursorCol--;
 }
 
 void TextEditor::PrintContent() {

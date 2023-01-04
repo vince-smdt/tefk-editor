@@ -27,6 +27,9 @@ public:
 	void MoveCursorLeft();
 	void MoveCursorUp();
 	void MoveCursorDown();
+
+	void MoveCursorNextWord();
+	void MoveCursorPrevWord();
 private:
 	void PrintContent();
 	void PrintCursor();

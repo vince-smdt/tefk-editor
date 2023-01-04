@@ -11,6 +11,9 @@
 #define VK_ARROW_UP 0x48
 #define VK_ARROW_DOWN 0x50
 
+#define VK_CTRL_ARROW_RIGHT 0x74
+#define VK_CTRL_ARROW_LEFT 0x73
+
 namespace tefk::Input {
 
 Event CatchInput();
