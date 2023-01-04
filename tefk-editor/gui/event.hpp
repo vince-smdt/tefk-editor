@@ -1,9 +1,7 @@
 #pragma once
 namespace tefk {
 
-// TODO - maybe make event class a struct
-class Event {
-public:
+struct Event {
 	enum class Type {
 		CHARACTER,
 		SPECIAL_CHARACTER,
