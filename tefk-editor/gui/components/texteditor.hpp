@@ -4,10 +4,14 @@
 
 namespace tefk {
 
+struct Cursor {
+	std::vector<std::string>::iterator row;
+	std::string::iterator col;
+};
+
 class TextEditor : public GUIComponent {
 	std::vector<std::string> _rows;
-	std::vector<std::string>::iterator _cursorRow;
-	std::string::iterator _cursorCol;
+	Cursor _cursor;
 public:
 	TextEditor();
 	TextEditor(Coord pos, Coord size, TextColor color);
