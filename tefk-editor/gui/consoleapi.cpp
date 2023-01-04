@@ -8,13 +8,8 @@ CONSOLE_SCREEN_BUFFER_INFO ConsoleAPI::s_csbi;
 void ConsoleAPI::Init() {
 	// Disable Ctrl+C closing app
 	SetConsoleCtrlHandler(NULL, TRUE);
-	
-	// Hide default console cursor
-	// TODO - cursor appears again when resizing console, hide cursor everytime console is resized
-	CONSOLE_CURSOR_INFO cursorInfo;
-	GetConsoleCursorInfo(s_handle, &cursorInfo);
-	cursorInfo.bVisible = false;
-	SetConsoleCursorInfo(s_handle, &cursorInfo);
+
+	HideCursor();
 }
 
 short ConsoleAPI::RowCount() {
@@ -71,6 +66,14 @@ void ConsoleAPI::SetConsoleSize(short row, short col) {
 		);
 		exit(0);
 	}
+	HideCursor();
+}
+
+void ConsoleAPI::HideCursor() {
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(s_handle, &cursorInfo);
+	cursorInfo.bVisible = false;
+	SetConsoleCursorInfo(s_handle, &cursorInfo);
 }
 
 unsigned char ConsoleAPI::ReadKeypress() {
