@@ -1,5 +1,5 @@
 #pragma once
-#include "guicomponent.hpp"
+#include "../guicomponent.hpp"
 
 namespace tefk {
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "guicomponent.hpp"
+#include "../guicomponent.hpp"
 
 namespace tefk {
 
