@@ -134,6 +134,7 @@
     <ClCompile Include="gui\components\guicomponent.cpp" />
     <ClCompile Include="gui\components\label.cpp" />
     <ClCompile Include="gui\components\panel.cpp" />
+    <ClCompile Include="gui\components\text\text.cpp" />
     <ClCompile Include="gui\components\text\texteditor.cpp" />
     <ClCompile Include="gui\components\text\textfield.cpp" />
     <ClCompile Include="gui\components\window.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="gui\components\guicomponent.hpp" />
     <ClInclude Include="gui\components\label.hpp" />
     <ClInclude Include="gui\components\panel.hpp" />
+    <ClInclude Include="gui\components\text\text.hpp" />
     <ClInclude Include="gui\components\text\texteditor.hpp" />
     <ClInclude Include="gui\components\text\textfield.hpp" />
     <ClInclude Include="gui\components\window.hpp" />

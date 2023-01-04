@@ -3,11 +3,11 @@
 namespace tefk {
 
 TextEditor::TextEditor()
-	: GUIComponent{}
+	: Text{}
 {}
 
 TextEditor::TextEditor(Coord pos, Coord size, TextColor color)
-	: GUIComponent{ pos, size, color }
+	: Text{ pos, size, color }
 {}
 
 void TextEditor::SetText(std::string text) {

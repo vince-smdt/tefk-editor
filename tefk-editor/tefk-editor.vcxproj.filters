@@ -90,6 +90,9 @@
     <ClCompile Include="gui\components\text\textfield.cpp">
       <Filter>Source Files\gui\components\text</Filter>
     </ClCompile>
+    <ClCompile Include="gui\components\text\text.cpp">
+      <Filter>Source Files\gui\components\text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -138,6 +141,9 @@
       <Filter>Header Files\gui\components\text</Filter>
     </ClInclude>
     <ClInclude Include="gui\components\text\textfield.hpp">
+      <Filter>Header Files\gui\components\text</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\components\text\text.hpp">
       <Filter>Header Files\gui\components\text</Filter>
     </ClInclude>
   </ItemGroup>

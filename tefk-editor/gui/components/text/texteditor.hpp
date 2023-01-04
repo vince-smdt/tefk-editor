@@ -1,17 +1,11 @@
 #pragma once
 #include <list>
-#include "../guicomponent.hpp"
+#include "text.hpp"
 
 namespace tefk {
 
-struct Cursor {
-	std::vector<std::string>::iterator row;
-	std::string::iterator col;
-};
-
-class TextEditor : public GUIComponent {
+class TextEditor : public Text {
 	std::vector<std::string> _rows;
-	Cursor _cursor;
 public:
 	TextEditor();
 	TextEditor(Coord pos, Coord size, TextColor color);
