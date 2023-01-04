@@ -80,7 +80,7 @@ void TextEditor::CatchEvent(Event& event) {
 	}
 }
 
-void TextEditor::AddChar(char ch) {
+void TextEditor::AddChar(unsigned char ch) {
 	_cursorCol = _cursorRow->insert(_cursorCol, ch) + 1;
 }
 

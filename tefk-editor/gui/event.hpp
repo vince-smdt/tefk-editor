@@ -10,11 +10,11 @@ public:
 		CONSOLE_SIZE_CHANGE
 	};
 
-	char input;
+	unsigned char input;
 	Type type;
 
-	static Event Character(char input);
-	static Event SpecialCharacter(char input);
+	static Event Character(unsigned char input);
+	static Event SpecialCharacter(unsigned char input);
 	static Event ConsoleSizeChange();
 };
 
