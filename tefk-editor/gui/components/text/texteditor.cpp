@@ -195,7 +195,7 @@ void TextEditor::MoveCursorUp() {
 	}
 
 	// Move cursor to previous row
-	int colIndex = _cursor.col - _cursor.row->begin();
+	size_t colIndex = _cursor.col - _cursor.row->begin();
 	_cursor.row--;
 	
 	// If cursor column index is bigger than new row, move to end of new row
@@ -217,7 +217,7 @@ void TextEditor::MoveCursorDown() {
 	}
 
 	// Move cursor to next row
-	int colIndex = _cursor.col - _cursor.row->begin();
+	size_t colIndex = _cursor.col - _cursor.row->begin();
 	_cursor.row++;
 
 	// If cursor column index is bigger than new row, move to end of new row
@@ -275,7 +275,7 @@ void TextEditor::MoveCursorPrevWord() {
 
 void TextEditor::PrintContent() {
 	// Print text
-	for (size_t currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
+	for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
 		ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
 
 		std::string rowText = (currRow < _rows.size())
@@ -294,8 +294,8 @@ void TextEditor::PrintContent() {
 
 void TextEditor::PrintCursor() {
 	Coord cursorPos = {
-		_pos.X + _cursor.col - _cursor.row->begin(),
-		_pos.Y + _cursor.row - _rows.begin()
+		_pos.X + short(_cursor.col - _cursor.row->begin()),
+		_pos.Y + short(_cursor.row - _rows.begin())
 	};
 
 	// Cancel if cursor out of print area

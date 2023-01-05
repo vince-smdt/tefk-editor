@@ -47,7 +47,7 @@ void Editor::OpenOrCreateFiles(int filecount, char** filenames) {
 }
 
 int Editor::FileIndex() {
-	return (int)((_currFile - _files.begin()) + 1);
+	return int((_currFile - _files.begin()) + 1);
 }
 
 }

@@ -13,9 +13,9 @@ void TextField::PrintContent() {
 		: _input;
 
 	// Print label
-	for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount() && (int)(RowSize() * currRow) < truncatedText.size(); currRow++) {
+	for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount() && int(RowSize() * currRow) < truncatedText.size(); currRow++) {
 		ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
-		std::string row = truncatedText.substr((int)(currRow * RowSize()), RowSize());
+		std::string row = truncatedText.substr(int(currRow * RowSize()), RowSize());
 		std::cout.write(row.c_str(), row.size());
 	}
 }
