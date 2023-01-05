@@ -17,7 +17,6 @@ Editor::Editor() {
 	/**********************************/
 	_ediEditor.SetPosition({ 0, 1 });
 	_ediEditor.SetColor({ BLACK, WHITE });
-	_ediEditor.SetText(""); // TODO - initialize text in texteditor component to be empty string by default
 
 	/**********************************/
 	/*             FOOTER             */

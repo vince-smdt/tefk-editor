@@ -5,7 +5,7 @@ namespace tefk {
 GUIComponent::GUIComponent()
 	: _pos{ 0, 0 },
 	  _size{ 0, 0 },
-	  _color{ BLACK, WHITE } // TODO - set to default color?
+	  _color{ BLACK, WHITE }
 {}
 
 GUIComponent::GUIComponent(Coord pos, Coord size, TextColor color)

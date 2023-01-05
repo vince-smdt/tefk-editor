@@ -4,11 +4,19 @@ namespace tefk {
 
 TextEditor::TextEditor()
 	: Text{}
-{}
+{
+	_rows.push_back("");
+	_cursor.row = _rows.begin();
+	_cursor.col = _cursor.row->end();
+}
 
 TextEditor::TextEditor(Coord pos, Coord size, TextColor color)
 	: Text{ pos, size, color }
-{}
+{
+	_rows.push_back("");
+	_cursor.row = _rows.begin();
+	_cursor.col = _cursor.row->end();
+}
 
 void TextEditor::SetText(std::string text) {
 	size_t currLineBreak = 0,
