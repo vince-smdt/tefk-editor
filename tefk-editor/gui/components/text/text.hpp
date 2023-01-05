@@ -12,7 +12,6 @@ protected:
 	Cursor _cursor;
 public:
 	Text();
-	Text(Coord pos, Coord size, TextColor color);
 };
 
 }

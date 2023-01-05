@@ -6,10 +6,6 @@ Label::Label()
 	: GUIComponent{}
 {}
 
-Label::Label(Coord pos, Coord size, TextColor color)
-	: GUIComponent{ pos, size, color }
-{}
-
 std::string Label::GetText() {
 	return _text;
 }

@@ -8,12 +8,6 @@ GUIComponent::GUIComponent()
 	  _color{ BLACK, WHITE }
 {}
 
-GUIComponent::GUIComponent(Coord pos, Coord size, TextColor color)
-	: _pos{ pos },
-	  _size{ size },
-	  _color{ color }
-{}
-
 void GUIComponent::SetPosition(Coord pos) { 
 	_pos = pos;
 }

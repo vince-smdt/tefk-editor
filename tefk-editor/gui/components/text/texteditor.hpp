@@ -8,7 +8,6 @@ class TextEditor : public Text {
 	std::vector<std::string> _rows;
 public:
 	TextEditor();
-	TextEditor(Coord pos, Coord size, TextColor color);
 
 	void SetText(std::string text);
 	std::string GetText();
