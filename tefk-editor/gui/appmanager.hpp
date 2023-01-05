@@ -1,6 +1,7 @@
 #pragma once
 #include <conio.h>
 #include <memory>
+#include <queue>
 #include <stack>
 #include "components/window.hpp"
 #include "consolemanager.hpp"
@@ -10,7 +11,7 @@ namespace tefk {
 
 class ApplicationManager {
 	static std::stack<Window*> s_windows;
-	static std::stack<std::shared_ptr<Event>> s_events; // TODO - maybe make this std::queue
+	static std::queue<std::shared_ptr<Event>> s_events;
 public:
 	static void Display();
 

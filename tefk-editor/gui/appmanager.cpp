@@ -3,7 +3,7 @@
 namespace tefk {
 
 std::stack<Window*> ApplicationManager::s_windows;
-std::stack<std::shared_ptr<Event>> ApplicationManager::s_events;
+std::queue<std::shared_ptr<Event>> ApplicationManager::s_events;
 
 void ApplicationManager::Display() {
 	ConsoleManager::ResizeConsole();
@@ -53,8 +53,8 @@ void ApplicationManager::RunEvents() {
 		return;
 
 	while (!s_events.empty()) {
-		ProcessEvent(*s_events.top());
-		s_windows.top()->CatchAndPropagateEvent(*s_events.top());
+		ProcessEvent(*s_events.front());
+		s_windows.top()->CatchAndPropagateEvent(*s_events.front());
 		s_events.pop();
 	}
 
