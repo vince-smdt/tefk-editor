@@ -4,7 +4,6 @@ namespace tefk {
 
 Editor::Editor() {
 	// Header
-	_lblHeader.SetHeight(1);
 	_lblHeader.SetColor({ WHITE, BLACK });
 
 	// Content
@@ -12,7 +11,6 @@ Editor::Editor() {
 	_ediEditor.SetColor({ BLACK, WHITE });
 
 	// Footer
-	_lblFooter.SetHeight(1);
 	_lblFooter.SetColor({ WHITE, BLACK });
 	_lblFooter.SetText(
 		"Rows = " + std::to_string(ConsoleAPI::RowCount())

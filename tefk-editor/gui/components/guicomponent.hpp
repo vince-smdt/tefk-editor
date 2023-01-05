@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include "../color.hpp"
 #include "../consoleapi.hpp"
@@ -14,7 +15,6 @@ protected:
 	TextColor _color;
 public:
 	GUIComponent();
-	GUIComponent(Coord pos, Coord size, TextColor color);
 
 	void SetPosition(Coord pos);
 	void SetHeight(short height);
