@@ -2,7 +2,6 @@
 #include <vector>
 #include "../file.hpp"
 #include "../gui/components/label.hpp"
-#include "../gui/components/panel.hpp"
 #include "../gui/components/text/texteditor.hpp"
 #include "../gui/components/text/textfield.hpp"
 #include "../gui/components/window.hpp"
@@ -11,10 +10,8 @@ namespace tefk {
 
 class Editor : public Window {
 public:
-	Panel _panHeader;
 	Label _lblHeader;
 	TextEditor _ediEditor;
-	Panel _panFooter;
 	Label _lblFooter;
 private:
 	std::vector<File> _files;

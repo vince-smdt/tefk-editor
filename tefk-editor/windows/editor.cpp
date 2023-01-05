@@ -12,8 +12,6 @@ void Editor::Update() {
 
 	_ediEditor.SetHeight((short)(ConsoleAPI::RowCount() - 2));
 
-	_panFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
-
 	_lblFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
 }
 
