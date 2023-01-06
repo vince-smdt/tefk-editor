@@ -91,4 +91,4 @@ void ConsoleAPI::GetConsoleBufferInfo() {
 	}
 }
 
-}
+} // namespace tefk

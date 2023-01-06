@@ -3,6 +3,7 @@
 #include <memory>
 #include <queue>
 #include <stack>
+
 #include "components/window.hpp"
 #include "consolemanager.hpp"
 #include "input.hpp"
@@ -26,4 +27,4 @@ public:
 	static void CloseApp();
 };
 
-}
+} // namespace tefk

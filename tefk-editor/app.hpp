@@ -1,5 +1,6 @@
 #pragma once
 #include <conio.h>
+
 #include "gui/appmanager.hpp"
 #include "windows/editor.hpp"
 
@@ -14,4 +15,4 @@ private:
 	void InterpretCommandLineArgs(int argc, char** argv);
 };
 
-}
+} // namespace tefk

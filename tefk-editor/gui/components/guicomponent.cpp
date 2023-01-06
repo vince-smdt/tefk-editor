@@ -39,4 +39,4 @@ short GUIComponent::RowSize() {
 	return (size < 0) ? 0 : size;
 }
 
-}
+} // namespace tefk

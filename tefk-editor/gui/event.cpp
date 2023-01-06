@@ -22,4 +22,4 @@ Event Event::ConsoleSizeChange() {
 	return event;
 }
 
-}
+} // namespace tefk

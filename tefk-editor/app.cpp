@@ -23,4 +23,4 @@ void Application::InterpretCommandLineArgs(int argc, char** argv) {
 		_editor.NewFile();
 }
 
-}
+} // namespace tefk

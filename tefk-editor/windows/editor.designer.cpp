@@ -23,4 +23,4 @@ Editor::Editor() {
 	AddComponent(_lblFooter);
 }
 
-}
+} // namespace tefk

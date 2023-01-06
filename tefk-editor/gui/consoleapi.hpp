@@ -1,6 +1,7 @@
 #pragma once
 #include <conio.h>
 #include <Windows.h>
+
 #include "color.hpp"
 #include "../logger.hpp" // TODO - maybe move logger inside gui, own folder/projet? (remove gui folder dependency on external file)
 
@@ -35,4 +36,4 @@ private:
 	static void GetConsoleBufferInfo();
 };
 
-}
+} // namespace tefk

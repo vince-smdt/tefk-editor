@@ -1,4 +1,3 @@
-#include "consoleapi.hpp"
 #include "input.hpp"
 
 namespace tefk::Input {
@@ -14,4 +13,4 @@ Event CatchInput() {
 	return Event::Character(c);
 }
 
-}
+} // namespace tefk

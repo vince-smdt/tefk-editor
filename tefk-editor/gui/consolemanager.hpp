@@ -15,4 +15,4 @@ public:
 	static void ResizeConsole();
 };
 
-}
+} // namespace tefk

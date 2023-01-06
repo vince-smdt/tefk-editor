@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+
 #include "../color.hpp"
 #include "../consoleapi.hpp"
 #include "../input.hpp"
@@ -29,4 +30,4 @@ protected:
 	virtual void PrintContent() = 0; // TODO - Find better name
 };
 
-}
+} // namespace tefk

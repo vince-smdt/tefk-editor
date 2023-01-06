@@ -36,4 +36,4 @@ void File::Save() {
 	file << _content;
 }
 
-}
+} // namespace tefk

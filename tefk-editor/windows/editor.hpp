@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+
 #include "../file.hpp"
 #include "../gui/components/label.hpp"
 #include "../gui/components/text/texteditor.hpp"
@@ -29,5 +30,4 @@ public:
 	int FileIndex();
 };
 
-}
-
+} // namespace tefk

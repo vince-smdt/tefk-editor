@@ -46,4 +46,4 @@ Logger& Logger::Instance() {
 	return instance;
 }
 
-}
+} // namespace tefk

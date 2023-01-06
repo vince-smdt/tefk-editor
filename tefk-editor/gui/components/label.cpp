@@ -15,7 +15,7 @@ void Label::SetText(std::string text) {
 }
 
 void Label::PrintContent() {
-	short height = ceil(double(_text.size()) / RowSize());
+	short height = (short) ceil(double(_text.size()) / RowSize());
 
 	// Print text
 	for (short currRow = 0; currRow < height && currRow + _pos.Y < ConsoleAPI::RowCount() && int(RowSize() * currRow) < _text.size(); currRow++) {
@@ -29,4 +29,4 @@ void Label::PrintContent() {
 	std::cout.write(std::string(RowSize() - lastRowSize, ' ').c_str(), RowSize() - lastRowSize);
 }
 
-}
+} // namespace tefk

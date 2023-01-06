@@ -16,4 +16,4 @@ void ConsoleManager::ResizeConsole() {
 	ConsoleAPI::SetConsoleSize(s_currRows, s_currCols);
 }
 
-}
+} // namespace tefk

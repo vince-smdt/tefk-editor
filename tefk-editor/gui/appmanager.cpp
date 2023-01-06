@@ -74,4 +74,4 @@ void ApplicationManager::CloseApp() {
 	exit(0);
 }
 
-}
+} // namespace tefk

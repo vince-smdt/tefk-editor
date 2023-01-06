@@ -51,4 +51,4 @@ inline void Logger::Log(LogLevel level, const std::_Fmt_string<Args...> format, 
 	}
 }
 
-}
+} // namespace tefk

@@ -16,4 +16,4 @@ struct Event {
 	static Event ConsoleSizeChange();
 };
 
-}
+} // namespace tefk

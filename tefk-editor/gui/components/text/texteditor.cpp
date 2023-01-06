@@ -311,4 +311,4 @@ void TextEditor::PrintCursor() {
 		std::cout.write(" ", 1);
 }
 
-}
+} // namespace tefk

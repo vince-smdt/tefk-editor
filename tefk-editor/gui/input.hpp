@@ -1,4 +1,5 @@
 #pragma once
+#include "consoleapi.hpp"
 #include "event.hpp"
 
 #define VK_BACK 0x08
@@ -18,4 +19,4 @@ namespace tefk::Input {
 
 Event CatchInput();
 
-}
+} // namespace tefk

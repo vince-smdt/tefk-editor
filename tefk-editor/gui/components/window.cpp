@@ -18,4 +18,4 @@ void Window::CatchAndPropagateEvent(Event& event) {
 		child->CatchEvent(event);
 }
 
-}
+} // namespace tefk

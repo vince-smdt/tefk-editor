@@ -50,4 +50,4 @@ int Editor::FileIndex() {
 	return int((_currFile - _files.begin()) + 1);
 }
 
-}
+} // namespace tefk

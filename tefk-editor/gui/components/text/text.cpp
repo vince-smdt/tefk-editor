@@ -6,4 +6,4 @@ Text::Text()
 	: GUIComponent{}
 {}
 
-}
+} // namespace tefk

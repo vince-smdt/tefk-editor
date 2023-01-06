@@ -1,5 +1,7 @@
 #pragma once
 
+namespace tefk {
+
 enum WinConsoleTextColor {
 	BLACK = 0x00,
 	BLUE = 0x01,
@@ -27,3 +29,5 @@ typedef struct TextColor {
 		return { fgColor, bgColor };
 	}
 } TextColor;
+
+} // namespace tefk

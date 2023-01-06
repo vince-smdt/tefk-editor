@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+
 #include "text.hpp"
 
 namespace tefk {
@@ -32,4 +33,4 @@ private:
 	void PrintCursor();
 };
 
-}
+} // namespace tefk
