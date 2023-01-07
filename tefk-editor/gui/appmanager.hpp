@@ -7,24 +7,24 @@
 #include "components/window.hpp"
 #include "consolemanager.hpp"
 #include "input.hpp"
+#include "canvas.hpp"
 
-namespace tefk {
+namespace tefk::ApplicationManager {
+	namespace {
+		Canvas _screen;
+		std::stack<Window*> _windows;
+		std::queue<std::shared_ptr<Event>> _events;
+	}
 
-class ApplicationManager {
-	static std::stack<Window*> s_windows;
-	static std::queue<std::shared_ptr<Event>> s_events;
-public:
-	static void Display();
+	void Display();
 
-	static void OpenWindow(Window& window);
-	static void CloseWindow();
+	void OpenWindow(Window& window);
+	void CloseWindow();
 
-	static void CatchEvents();
-	static void AddEvent(Event event);
-	static void RunEvents();
-	static void ProcessEvent(Event& event);
+	void CatchEvents();
+	void AddEvent(Event event);
+	void RunEvents();
+	void ProcessEvent(Event& event);
 
-	static void CloseApp();
-};
-
-} // namespace tefk
+	void CloseApp();
+} // namespace tefk::ApplicationManager

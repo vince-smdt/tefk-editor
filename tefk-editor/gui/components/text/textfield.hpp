@@ -8,7 +8,7 @@ class TextField : public GUIComponent {
 public:
 	TextField();
 private:
-	void PrintContent();
+	void DrawOnCanvas() override;
 };
 
 } // namespace tefk

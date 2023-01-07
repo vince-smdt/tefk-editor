@@ -273,7 +273,7 @@ void TextEditor::MoveCursorPrevWord() {
 		_cursor.col--;
 }
 
-void TextEditor::PrintContent() {
+void TextEditor::DrawOnCanvas() {
 	// Print text
 	for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
 		ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
@@ -289,10 +289,10 @@ void TextEditor::PrintContent() {
 		std::cout.write(row.c_str(), row.size());
 	}
 
-	PrintCursor();
+	RenderCursor();
 }
 
-void TextEditor::PrintCursor() {
+void TextEditor::RenderCursor() {
 	Coord cursorPos = {
 		_pos.X + short(_cursor.col - _cursor.row->begin()),
 		_pos.Y + short(_cursor.row - _rows.begin())

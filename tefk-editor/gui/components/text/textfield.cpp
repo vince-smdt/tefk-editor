@@ -6,7 +6,7 @@ TextField::TextField()
 	: GUIComponent{}
 {}
 
-void TextField::PrintContent() {
+void TextField::DrawOnCanvas() {
 	// If input text can't fit in parent component, shorten string
 	std::string truncatedText = (_input.size() > _size.X * _size.Y)
 		? _input.substr(_input.size() - (_size.X * _size.Y))

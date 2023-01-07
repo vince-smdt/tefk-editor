@@ -14,7 +14,7 @@ void Label::SetText(std::string text) {
 	_text = text;
 }
 
-void Label::PrintContent() {
+void Label::DrawOnCanvas() {
 	short height = (short) ceil(double(_text.size()) / RowSize());
 
 	// Print text

@@ -141,6 +141,7 @@
     <ClCompile Include="gui\consolemanager.cpp" />
     <ClCompile Include="gui\event.cpp" />
     <ClCompile Include="gui\input.cpp" />
+    <ClCompile Include="gui\canvas.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="windows\editor.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="gui\consolemanager.hpp" />
     <ClInclude Include="gui\event.hpp" />
     <ClInclude Include="gui\input.hpp" />
+    <ClInclude Include="gui\canvas.hpp" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="windows\editor.hpp" />
   </ItemGroup>

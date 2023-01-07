@@ -20,7 +20,8 @@ void GUIComponent::SetColor(TextColor color) {
 	_color = color; 
 }
 
-void GUIComponent::Print() {
+void GUIComponent::Render() {
+	// Set component size
 	_size.X = ConsoleAPI::ColCount();
 
 	if (RowSize() == 0)
@@ -28,7 +29,7 @@ void GUIComponent::Print() {
 	
 	ConsoleAPI::SetTextColor(_color);
 
-	PrintContent();
+	DrawOnCanvas();
 }
 
 short GUIComponent::RowSize() {

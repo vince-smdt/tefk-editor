@@ -11,7 +11,7 @@ public:
 	std::string GetText();
 	void SetText(std::string text);
 private:
-	void PrintContent() override;
+	void DrawOnCanvas() override;
 };
 
 } // namespace tefk

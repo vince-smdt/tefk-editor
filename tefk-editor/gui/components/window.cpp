@@ -6,9 +6,9 @@ void Window::AddComponent(GUIComponent& component) {
 	_children.push_back(&component);
 }
 
-void Window::Print() {
+void Window::Render() {
 	for (auto& child : _children)
-		child->Print();
+		child->Render();
 	std::cout.flush();
 }
 

@@ -21,13 +21,13 @@ public:
 	void SetHeight(short height);
 	void SetColor(TextColor color);
 
-	void Print();
+	void Render();
 	virtual void CatchEvent(Event& event) {}
 protected:
 	// Size of row that can be printed, excludes overflow
 	short RowSize();
 
-	virtual void PrintContent() = 0; // TODO - Find better name
+	virtual void DrawOnCanvas() = 0;
 };
 
 } // namespace tefk

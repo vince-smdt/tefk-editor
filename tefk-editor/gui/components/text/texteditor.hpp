@@ -29,8 +29,8 @@ public:
 	void MoveCursorNextWord();
 	void MoveCursorPrevWord();
 private:
-	void PrintContent();
-	void PrintCursor();
+	void DrawOnCanvas() override;
+	void RenderCursor();
 };
 
 } // namespace tefk

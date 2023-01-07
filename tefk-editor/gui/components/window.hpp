@@ -10,7 +10,7 @@ class Window {
 	std::vector<GUIComponent*> _children;
 public:
 	void AddComponent(GUIComponent& component);
-	void Print();
+	void Render();
 	void CatchAndPropagateEvent(Event& event);
 
 	virtual void Update() {};

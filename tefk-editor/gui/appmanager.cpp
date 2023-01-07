@@ -1,32 +1,29 @@
 #include "appmanager.hpp"
 
-namespace tefk {
+namespace tefk::ApplicationManager {
 
-std::stack<Window*> ApplicationManager::s_windows;
-std::queue<std::shared_ptr<Event>> ApplicationManager::s_events;
-
-void ApplicationManager::Display() {
+void Display() {
 	ConsoleManager::ResizeConsole();
 
-	if (s_windows.empty()) {
+	if (_windows.empty()) {
 		Logger::Instance().Log(
 			Logger::LogLevel::WARN,
-			"Cannot print current window, window stack empty. Proceeding to termination of application."
+			"Cannot render current window, window stack empty. Proceeding to termination of application."
 		);
 		CloseApp();
 	}
 	
-	s_windows.top()->Update();
-	s_windows.top()->Print();
+	_windows.top()->Update();
+	_screen.Render(*_windows.top());
 }
 
-void ApplicationManager::OpenWindow(Window& window) {
-	s_windows.push(&window);
+void OpenWindow(Window& window) {
+	_windows.push(&window);
 }
 
-void ApplicationManager::CloseWindow() {
-	s_windows.pop();
-	if (s_windows.empty()) {
+void CloseWindow() {
+	_windows.pop();
+	if (_windows.empty()) {
 		Logger::Instance().Log(
 			Logger::LogLevel::TRACE,
 			"Window stack empty. Proceeding to termination of application."
@@ -35,7 +32,7 @@ void ApplicationManager::CloseWindow() {
 	}
 }
 
-void ApplicationManager::CatchEvents() {
+void CatchEvents() {
 	if (_kbhit())
 		AddEvent(Input::CatchInput());
 
@@ -43,30 +40,30 @@ void ApplicationManager::CatchEvents() {
 		AddEvent(Event::ConsoleSizeChange());
 }
 
-void ApplicationManager::AddEvent(Event event) {
-	s_events.push(std::make_shared<Event>(event));
+void AddEvent(Event event) {
+	_events.push(std::make_shared<Event>(event));
 }
 
-void ApplicationManager::RunEvents() {
+void RunEvents() {
 	// TODO - check if window stack empty, avoid redundancy in checks
-	if (s_events.empty())
+	if (_events.empty())
 		return;
 
-	while (!s_events.empty()) {
-		ProcessEvent(*s_events.front());
-		s_windows.top()->CatchAndPropagateEvent(*s_events.front());
-		s_events.pop();
+	while (!_events.empty()) {
+		ProcessEvent(*_events.front());
+		_windows.top()->CatchAndPropagateEvent(*_events.front());
+		_events.pop();
 	}
 
 	Display();
 }
 
-void ApplicationManager::ProcessEvent(Event& event) {
+void ProcessEvent(Event& event) {
 	if (event.type == Event::Type::CONSOLE_SIZE_CHANGE)
 		ConsoleManager::ResizeConsole();
 }
 
-void ApplicationManager::CloseApp() {
+void CloseApp() {
 	Logger::Instance().Log(
 		Logger::LogLevel::INFO,
 		"Closing application."
