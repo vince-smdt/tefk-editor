@@ -273,18 +273,18 @@ void TextEditor::MoveCursorPrevWord() {
 		_cursor.col--;
 }
 
-void TextEditor::DrawOnCanvas() {
+void TextEditor::DrawOnCanvas(Coord size) {
 	// Print text
-	for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
+	for (short currRow = 0; currRow < size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
 		ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
 
 		std::string rowText = (currRow < _rows.size())
 			? _rows[currRow]
 			: "";
 		
-		std::string row = (rowText.size() <= _size.X)
-			? rowText + std::string(_size.X - rowText.size(), ' ')
-			: rowText.substr(0, _size.X);
+		std::string row = (rowText.size() <= size.X)
+			? rowText + std::string(size.X - rowText.size(), ' ')
+			: rowText.substr(0, size.X);
 		
 		std::cout.write(row.c_str(), row.size());
 	}

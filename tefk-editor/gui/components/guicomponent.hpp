@@ -24,10 +24,9 @@ public:
 	void Render();
 	virtual void CatchEvent(Event& event) {}
 protected:
-	// Size of row that can be printed, excludes overflow
-	short RowSize();
-
-	virtual void DrawOnCanvas() = 0;
+	virtual Coord GetTrueSize();
+	virtual short GetTrueSizeAxis(short length, short containerLength, short position);
+	virtual void DrawOnCanvas(Coord size) = 0;
 };
 
 } // namespace tefk

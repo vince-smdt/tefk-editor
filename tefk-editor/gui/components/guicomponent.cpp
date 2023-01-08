@@ -21,23 +21,26 @@ void GUIComponent::SetColor(TextColor color) {
 }
 
 void GUIComponent::Render() {
-	// Set component size
+	// TEMP
 	_size.X = ConsoleAPI::ColCount();
 
-	if (RowSize() == 0)
-		return;
-	
 	ConsoleAPI::SetTextColor(_color);
 
-	DrawOnCanvas();
+	DrawOnCanvas(GetTrueSize());
 }
 
-short GUIComponent::RowSize() {
-	short size = (std::min)(
-		_size.X,
-		(short)(ConsoleAPI::ColCount() - _pos.X)
+Coord GUIComponent::GetTrueSize() {
+	Coord size;
+	size.X = GetTrueSizeAxis(_size.X, ConsoleAPI::ColCount(), _pos.X);
+	size.Y = GetTrueSizeAxis(_size.Y, ConsoleAPI::RowCount(), _pos.Y);
+	return size;
+}
+
+short GUIComponent::GetTrueSizeAxis(short length, short containerLength, short position) {
+	return (std::min)(
+		length,
+		(short)(std::max)(containerLength - position, 0)
 	);
-	return (size < 0) ? 0 : size;
 }
 
 } // namespace tefk

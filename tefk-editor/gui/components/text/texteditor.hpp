@@ -29,7 +29,7 @@ public:
 	void MoveCursorNextWord();
 	void MoveCursorPrevWord();
 private:
-	void DrawOnCanvas() override;
+	void DrawOnCanvas(Coord size) override;
 	void RenderCursor();
 };
 
