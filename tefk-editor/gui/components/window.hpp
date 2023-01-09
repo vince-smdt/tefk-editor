@@ -14,7 +14,6 @@ public:
 	void Render();
 	void CatchAndPropagateEvent(Event& event);
 
-	virtual void Update() {};
 	virtual void CatchEvent(Event& event) {};
 };
 

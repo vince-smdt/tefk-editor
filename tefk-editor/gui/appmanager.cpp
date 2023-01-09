@@ -13,8 +13,6 @@ void Display() {
 		CloseApp();
 	}
 	
-	// TODO - maybe merge UpdateComponents and Update functions
-	_windows.top()->Update();
 	_windows.top()->UpdateComponents();
 	_screen.Render(*_windows.top());
 }

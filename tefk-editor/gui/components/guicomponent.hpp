@@ -10,7 +10,7 @@
 namespace tefk {
 
 enum class SizeBehaviour {
-	AUTO,
+	FIXED,
 	CONTENT,
 	FILL
 };
@@ -24,7 +24,7 @@ protected:
 public:
 	GUIComponent(SizeBehaviour heightBehaviour);
 
-	void SetPosition(Coord pos); // TODO - remove this function, replace with responsive system
+	void SetPosition(Coord pos);
 	void SetHeight(short height);
 	void SetColor(TextColor color);
 

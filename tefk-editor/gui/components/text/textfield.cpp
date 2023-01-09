@@ -3,7 +3,7 @@
 namespace tefk {
 
 TextField::TextField()
-	: GUIComponent{ SizeBehaviour::AUTO }
+	: GUIComponent{ SizeBehaviour::FIXED }
 {}
 
 void TextField::DrawOnCanvas() {
