@@ -14,7 +14,7 @@ public:
 	std::string GetText();
 
 	void CatchEvent(Event& event) override;
-
+private:
 	// Editor actions
 	void AddChar(unsigned char ch);
 	void NewLine();
@@ -28,8 +28,8 @@ public:
 
 	void MoveCursorNextWord();
 	void MoveCursorPrevWord();
-private:
-	void DrawOnCanvas(Coord size) override;
+
+	void DrawOnCanvas() override;
 	void RenderCursor();
 };
 

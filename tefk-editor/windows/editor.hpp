@@ -20,7 +20,6 @@ private:
 public:
 	Editor();
 
-	void Update() override;
 	void CatchEvent(Event& event) override; // TODO - maybe make event param const ref
 
 	void NewFile();

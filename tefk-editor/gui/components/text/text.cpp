@@ -3,7 +3,7 @@
 namespace tefk {
 
 Text::Text()
-	: GUIComponent{}
+	: GUIComponent{ SizeBehaviour::FILL }
 {}
 
 } // namespace tefk

@@ -2,10 +2,11 @@
 
 namespace tefk {
 
-GUIComponent::GUIComponent()
+GUIComponent::GUIComponent(SizeBehaviour heightBehaviour)
 	: _pos{ 0, 0 },
 	  _size{ 0, 0 },
-	  _color{ BLACK, WHITE }
+	  _color{ BLACK, WHITE },
+	  _heightBehaviour{ heightBehaviour }
 {}
 
 void GUIComponent::SetPosition(Coord pos) { 
@@ -20,27 +21,21 @@ void GUIComponent::SetColor(TextColor color) {
 	_color = color; 
 }
 
+short GUIComponent::GetHeight() {
+	return _size.Y;
+}
+
+SizeBehaviour GUIComponent::GetHeightBehaviour() {
+	return _heightBehaviour;
+}
+
 void GUIComponent::Render() {
 	// TEMP
 	_size.X = ConsoleAPI::ColCount();
 
 	ConsoleAPI::SetTextColor(_color);
 
-	DrawOnCanvas(GetTrueSize());
-}
-
-Coord GUIComponent::GetTrueSize() {
-	Coord size;
-	size.X = GetTrueSizeAxis(_size.X, ConsoleAPI::ColCount(), _pos.X);
-	size.Y = GetTrueSizeAxis(_size.Y, ConsoleAPI::RowCount(), _pos.Y);
-	return size;
-}
-
-short GUIComponent::GetTrueSizeAxis(short length, short containerLength, short position) {
-	return (std::min)(
-		length,
-		(short)(std::max)(containerLength - position, 0)
-	);
+	DrawOnCanvas();
 }
 
 } // namespace tefk

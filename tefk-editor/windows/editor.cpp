@@ -2,20 +2,8 @@
 
 namespace tefk {
 
-void Editor::Update() {
-	_lblHeader.SetText(
-		_currFile->GetFilename().generic_string() + " "   // TODO - Find cleaner way of printing info without having
-		+ std::to_string(FileIndex()) + "/"               // to call std::to_string() everytime
-		+ std::to_string(_files.size()) + " "
-		+ "Press Ctrl+S to save!"
-	);
-
-	_ediEditor.SetHeight((short)(ConsoleAPI::RowCount() - 2));
-
-	_lblFooter.SetPosition({ 0, (short)(ConsoleAPI::RowCount() - 1) });
-}
-
 void Editor::CatchEvent(Event& event) {
+	// Handle event
 	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
 		case VK_CTRL_S:
@@ -30,6 +18,14 @@ void Editor::CatchEvent(Event& event) {
 			+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
 		);
 	}
+
+	// Update components
+	_lblHeader.SetText(
+		_currFile->GetFilename().generic_string() + " "   // TODO - Find cleaner way of printing info without having
+		+ std::to_string(FileIndex()) + "/"               // to call std::to_string() everytime
+		+ std::to_string(_files.size()) + " "
+		+ "Press Ctrl+S to save!"
+	);
 }
 
 void Editor::NewFile() { // TODO - rename functions or fuse newfile with openorcreatefiles

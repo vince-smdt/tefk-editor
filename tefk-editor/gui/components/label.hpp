@@ -10,9 +10,10 @@ public:
 
 	std::string GetText();
 	void SetText(std::string text);
+
+	short UpdateHeight() override;
 private:
-	Coord GetTrueSize() override;
-	void DrawOnCanvas(Coord size) override;
+	void DrawOnCanvas() override;
 };
 
 } // namespace tefk

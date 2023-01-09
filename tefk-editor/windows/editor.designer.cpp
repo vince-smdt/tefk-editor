@@ -7,7 +7,6 @@ Editor::Editor() {
 	_lblHeader.SetColor({ WHITE, BLACK });
 
 	// Content
-	_ediEditor.SetPosition({ 0, 1 });
 	_ediEditor.SetColor({ BLACK, WHITE });
 
 	// Footer
