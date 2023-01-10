@@ -131,6 +131,7 @@
     <ClCompile Include="app.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="gui\appmanager.cpp" />
+    <ClCompile Include="gui\color.cpp" />
     <ClCompile Include="gui\components\guicomponent.cpp" />
     <ClCompile Include="gui\components\label.cpp" />
     <ClCompile Include="gui\components\text\text.cpp" />

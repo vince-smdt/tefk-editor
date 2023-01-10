@@ -30,7 +30,6 @@ private:
 	void MoveCursorPrevWord();
 
 	void DrawOnCanvas() override;
-	void RenderCursor();
 };
 
 } // namespace tefk

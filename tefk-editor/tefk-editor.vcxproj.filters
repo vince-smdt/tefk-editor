@@ -54,9 +54,6 @@
     <ClCompile Include="gui\components\label.cpp">
       <Filter>Source Files\gui\components</Filter>
     </ClCompile>
-    <ClCompile Include="gui\components\panel.cpp">
-      <Filter>Source Files\gui\components</Filter>
-    </ClCompile>
     <ClCompile Include="gui\components\window.cpp">
       <Filter>Source Files\gui\components</Filter>
     </ClCompile>
@@ -93,6 +90,12 @@
     <ClCompile Include="gui\components\text\text.cpp">
       <Filter>Source Files\gui\components\text</Filter>
     </ClCompile>
+    <ClCompile Include="gui\canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\color.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -108,9 +111,6 @@
       <Filter>Header Files\gui\components</Filter>
     </ClInclude>
     <ClInclude Include="gui\components\label.hpp">
-      <Filter>Header Files\gui\components</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\components\panel.hpp">
       <Filter>Header Files\gui\components</Filter>
     </ClInclude>
     <ClInclude Include="gui\components\window.hpp">
@@ -145,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="gui\components\text\text.hpp">
       <Filter>Header Files\gui\components\text</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\canvas.hpp">
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

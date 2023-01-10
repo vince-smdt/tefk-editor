@@ -6,12 +6,12 @@
 
 namespace tefk {
 
-class Canvas {
-	struct Pixel {
-		char character;
-		TextColor color;
-	};
+struct Pixel {
+	char character;
+	TextColor color;
+};
 
+class Canvas {
 	std::vector<Pixel> _pixels;
 	Coord _size;
 	

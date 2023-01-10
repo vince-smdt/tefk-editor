@@ -29,11 +29,10 @@ SizeBehaviour GUIComponent::GetHeightBehaviour() {
 	return _heightBehaviour;
 }
 
+// TODO - remove this render method, just use DrawOnCanvas()
+// move _size.X assignment
 void GUIComponent::Render() {
-	// TEMP
 	_size.X = ConsoleAPI::ColCount();
-
-	ConsoleAPI::SetTextColor(_color);
 
 	DrawOnCanvas();
 }

@@ -4,13 +4,13 @@ namespace tefk {
 
 Editor::Editor() {
 	// Header
-	_lblHeader.SetColor({ WHITE, BLACK });
+	_lblHeader.SetColor({ BLACK, WHITE });
 
 	// Content
-	_ediEditor.SetColor({ BLACK, WHITE });
+	_ediEditor.SetColor({ WHITE, BLACK });
 
 	// Footer
-	_lblFooter.SetColor({ WHITE, BLACK });
+	_lblFooter.SetColor({ BLACK, WHITE });
 	_lblFooter.SetText(
 		"Rows = " + std::to_string(ConsoleAPI::RowCount())
 		+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())

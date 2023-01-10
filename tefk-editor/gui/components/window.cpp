@@ -6,6 +6,7 @@ void Window::AddComponent(GUIComponent& component) {
 	_children.push_back(&component);
 }
 
+// TODO - avoid giving negative values to components height
 void Window::UpdateComponents() {
 	short availableSpace = ConsoleAPI::RowCount();
 	std::list<GUIComponent*> fillComponents;
@@ -39,7 +40,7 @@ void Window::Render() {
 	Canvas::Instance().Resize(ConsoleAPI::ColCount(), ConsoleAPI::RowCount());
 	for (auto& child : _children)
 		child->Render();
-	std::cout.flush();
+	Canvas::Instance().Render();
 }
 
 void Window::CatchAndPropagateEvent(Event& event) {

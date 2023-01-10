@@ -274,34 +274,20 @@ void TextEditor::MoveCursorPrevWord() {
 }
 
 void TextEditor::DrawOnCanvas() {
-	// Print text
-	for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount(); currRow++) {
-		ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
+	if (_size.X * _size.Y <= 0)
+		return;
 
-		std::string rowText = (currRow < _rows.size())
-			? _rows[currRow]
-			: "";
-		
-		std::string row = (rowText.size() <= _size.X)
-			? rowText + std::string(_size.X - rowText.size(), ' ')
-			: rowText.substr(0, _size.X);
-		
-		std::cout.write(row.c_str(), row.size());
-	}
+	// Draw editor
+	for (size_t y = 0; y < _size.Y; y++) {
+		for (size_t x = 0; x < _size.X; x++) {
+			bool drawEmptySpace = y >= _rows.size() || x >= _rows[y].size();
 
-	RenderCursor();
-
-	for (size_t y = _pos.Y; y < _size.Y + _pos.Y; y++) {
-		for (size_t x = _pos.X; x < _size.X + _pos.X; x++) {
-			size_t charIndex = x + y * _size.Y;
-
-			Canvas::Instance().PixelAt(x, y).character = y >= _rows.size() || charIndex >= _rows[y].size() ? ' ' : _rows[y][charIndex];
-			Canvas::Instance().PixelAt(x, y).color = _color;
+			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _rows[y][x];
+			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
 		}
 	}
-}
 
-void TextEditor::RenderCursor() {
+	// Draw cursor
 	Coord cursorPos = {
 		_pos.X + short(_cursor.col - _cursor.row->begin()),
 		_pos.Y + short(_cursor.row - _rows.begin())
@@ -312,12 +298,7 @@ void TextEditor::RenderCursor() {
 	if (cursorPos.X >= ConsoleAPI::ColCount() || cursorPos.X < 0 || cursorPos.Y >= ConsoleAPI::RowCount() || cursorPos.Y < 0)
 		return;
 
-	ConsoleAPI::SetTextColor(_color.Inverse());
-	ConsoleAPI::SetCursorPos(cursorPos.Y, cursorPos.X);
-	if (_cursor.col != _cursor.row->end())
-		std::cout.write(std::string(1, *_cursor.col).c_str(), 1);
-	else
-		std::cout.write(" ", 1);
+	Canvas::Instance().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
 }
 
 } // namespace tefk

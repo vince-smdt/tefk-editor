@@ -20,23 +20,16 @@ short Label::UpdateHeight() {
 }
 
 void Label::DrawOnCanvas() {
-	// Print text
-	for (short currRow = 0; currRow < _size.Y && currRow + _pos.Y < ConsoleAPI::RowCount() && int(_size.X * currRow) < _text.size(); currRow++) {
-		ConsoleAPI::SetCursorPos(_pos.Y + currRow, _pos.X);
-		std::string row = _text.substr(int(currRow * _size.X), _size.X);
-		std::cout.write(row.c_str(), row.size());
-	}
+	if (_size.X * _size.Y <= 0)
+		return;
 
-	// Print filling white space
-	size_t lastRowSize = _text.size() % _size.X;
-	std::cout.write(std::string(_size.X - lastRowSize, ' ').c_str(), _size.X - lastRowSize);
+	for (size_t y = 0; y < _size.Y; y++) {
+		for (size_t x = 0; x < _size.X; x++) {
+			size_t charIndex = x + y * _size.X;
+			bool drawEmptySpace = charIndex >= _text.size();
 
-	for (size_t y = _pos.Y; y < _size.Y + _pos.Y; y++) {
-		for (size_t x = _pos.X; x < _size.X + _pos.X; x++) {
-			size_t charIndex = x + y * _size.Y;
-
-			Canvas::Instance().PixelAt(x, y).character = charIndex >= _text.size() ? ' ' : _text[charIndex];
-			Canvas::Instance().PixelAt(x, y).color = _color;
+			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _text[charIndex];
+			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
 		}
 	}
 }

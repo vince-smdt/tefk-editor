@@ -25,8 +25,6 @@ public:
 	static short CursorRowPos();
 	static short CursorColPos();
 
-	static void SetCursorPos(short row, short col);
-	static void SetTextColor(TextColor color);
 	static void SetConsoleSize(short row, short col);
 
 	static void HideCursor();

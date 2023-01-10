@@ -2,32 +2,39 @@
 
 namespace tefk {
 
-enum WinConsoleTextColor {
-	BLACK = 0x00,
-	BLUE = 0x01,
-	GREEN = 0x02,
-	AQUA = 0x03,
-	RED = 0x04,
-	PURPLE = 0x05,
-	YELLOW = 0x06,
-	WHITE = 0x07,
-	GRAY = 0x08,
-	LIGHT_BLUE = 0x09,
-	LIGHT_GREEN = 0x0a,
-	LIGHT_AQUA = 0x0b,
-	LIGHT_RED = 0x0c,
-	LIGHT_PURPLE = 0x0d,
-	LIGHT_YELLOW = 0x0e,
-	BRIGHT_WHITE = 0x0f,
+enum Color {
+	DEFAULT = 0,
+	BLACK = 30,
+	RED = 31,
+	GREEN = 32,
+	YELLOW = 33,
+	BLUE = 34,
+	MAGENTA = 35,
+	CYAN = 36,
+	WHITE = 37,
+	LIGHT_BLACK = 90,
+	LIGHT_RED = 91,
+	LIGHT_GREEN = 92,
+	LIGHT_YELLOW = 93,
+	LIGHT_BLUE = 94,
+	LIGHT_MAGENTA = 95,
+	LIGHT_CYAN = 96,
+	LIGHT_WHITE = 97
 };
 
-typedef struct TextColor {
-	WinConsoleTextColor bgColor; // background color
-	WinConsoleTextColor fgColor; // foreground color
+class TextColor {
+	Color _fg; // background color
+	Color _bg; // foreground color
+public:
+	TextColor();
+	TextColor(Color fg, Color bg);
 
-	TextColor Inverse() {
-		return { fgColor, bgColor };
-	}
-} TextColor;
+	int Foreground();
+	int Background();
+	TextColor Inverse();
+
+	bool operator==(const TextColor& textcolor);
+	bool operator!=(const TextColor& textcolor);
+};
 
 } // namespace tefk
