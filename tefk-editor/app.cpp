@@ -9,7 +9,7 @@ void Application::Init(int argc, char** argv) {
 }
 
 void Application::Run() {
-	ApplicationManager::Display();
+	ApplicationManager::AddEvent(Event::ApplicationStart());
 	while (true) {
 		ApplicationManager::CatchEvents();
 		ApplicationManager::RunEvents();

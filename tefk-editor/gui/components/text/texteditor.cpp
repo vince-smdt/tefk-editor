@@ -10,6 +10,7 @@ TextEditor::TextEditor()
 	_cursor.col = _cursor.row->end();
 }
 
+// TODO - load text correctly, currently unable to load text from file
 void TextEditor::SetText(std::string text) {
 	size_t currLineBreak = 0,
 	       nextLineBreak = 0;
