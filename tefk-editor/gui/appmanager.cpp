@@ -14,7 +14,7 @@ void Display() {
 	}
 	
 	_windows.top()->UpdateComponents();
-	_screen.Render(*_windows.top());
+	_windows.top()->Render();
 }
 
 void OpenWindow(Window& window) {

@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "color.hpp"
-#include "components/window.hpp"
 #include "consoleapi.hpp"
 
 namespace tefk {
@@ -15,10 +14,12 @@ class Canvas {
 
 	std::vector<Pixel> _pixels;
 	Coord _size;
-public:
+	
 	Canvas();
+public:
+	static Canvas& Instance();
 
-	void Render(Window &window);
+	void Render();
 	Pixel& PixelAt(size_t x, size_t y);
 	void Resize(size_t x, size_t y);
 };

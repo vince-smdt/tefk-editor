@@ -4,14 +4,13 @@
 #include <queue>
 #include <stack>
 
+#include "canvas.hpp"
 #include "components/window.hpp"
 #include "consolemanager.hpp"
 #include "input.hpp"
-#include "canvas.hpp"
 
 namespace tefk::ApplicationManager {
 	namespace {
-		Canvas _screen;
 		std::stack<Window*> _windows;
 		std::queue<std::shared_ptr<Event>> _events;
 	}

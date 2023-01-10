@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 
+#include "../canvas.hpp"
 #include "../color.hpp"
 #include "../consoleapi.hpp"
 #include "../input.hpp"

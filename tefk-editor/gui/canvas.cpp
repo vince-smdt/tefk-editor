@@ -6,8 +6,13 @@ Canvas::Canvas()
 	: _size{ 0, 0 }
 {}
 
-void Canvas::Render(Window& window) {
-	window.Render();
+Canvas& Canvas::Instance() {
+	static Canvas instance;
+	return instance;
+}
+
+void Canvas::Render() {
+
 }
 
 Canvas::Pixel& Canvas::PixelAt(size_t x, size_t y) {
@@ -17,7 +22,8 @@ Canvas::Pixel& Canvas::PixelAt(size_t x, size_t y) {
 
 void Canvas::Resize(size_t x, size_t y) {
 	// TODO - check if both x and y are positive
-	_pixels.resize(x + y * _size.Y);
+	_size = { (short)x, (short)y };
+	_pixels.resize(x * y);
 }
 
 } // namespace tefk

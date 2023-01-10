@@ -36,6 +36,7 @@ void Window::UpdateComponents() {
 }
 
 void Window::Render() {
+	Canvas::Instance().Resize(ConsoleAPI::ColCount(), ConsoleAPI::RowCount());
 	for (auto& child : _children)
 		child->Render();
 	std::cout.flush();

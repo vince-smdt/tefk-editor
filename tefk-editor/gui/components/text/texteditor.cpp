@@ -290,6 +290,15 @@ void TextEditor::DrawOnCanvas() {
 	}
 
 	RenderCursor();
+
+	for (size_t y = _pos.Y; y < _size.Y + _pos.Y; y++) {
+		for (size_t x = _pos.X; x < _size.X + _pos.X; x++) {
+			size_t charIndex = x + y * _size.Y;
+
+			Canvas::Instance().PixelAt(x, y).character = y >= _rows.size() || charIndex >= _rows[y].size() ? ' ' : _rows[y][charIndex];
+			Canvas::Instance().PixelAt(x, y).color = _color;
+		}
+	}
 }
 
 void TextEditor::RenderCursor() {

@@ -30,6 +30,15 @@ void Label::DrawOnCanvas() {
 	// Print filling white space
 	size_t lastRowSize = _text.size() % _size.X;
 	std::cout.write(std::string(_size.X - lastRowSize, ' ').c_str(), _size.X - lastRowSize);
+
+	for (size_t y = _pos.Y; y < _size.Y + _pos.Y; y++) {
+		for (size_t x = _pos.X; x < _size.X + _pos.X; x++) {
+			size_t charIndex = x + y * _size.Y;
+
+			Canvas::Instance().PixelAt(x, y).character = charIndex >= _text.size() ? ' ' : _text[charIndex];
+			Canvas::Instance().PixelAt(x, y).color = _color;
+		}
+	}
 }
 
 } // namespace tefk
