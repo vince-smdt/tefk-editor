@@ -11,8 +11,6 @@ class Application {
 public:
 	void Init(int argc, char** argv);
 	void Run();
-private:
-	void InterpretCommandLineArgs(int argc, char** argv);
 };
 
 } // namespace tefk

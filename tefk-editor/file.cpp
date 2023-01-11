@@ -3,7 +3,7 @@
 namespace tefk {
 
 File::File(std::filesystem::path& filename) 
-	: _filename(filename) 
+	: _filename{ filename }
 {
 	std::ifstream file(filename);
 	// TODO - check if we have write access to file
