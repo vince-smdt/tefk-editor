@@ -28,10 +28,15 @@ void Editor::CatchEvent(Event& event) {
 	);
 }
 
+void Editor::LoadFile() {
+	_ediEditor.SetText(_currFile->GetContent());
+}
+
 void Editor::NewFile() { // TODO - rename functions or fuse newfile with openorcreatefiles
 	std::filesystem::path filepath("new.txt");
 	_files.push_back(File(filepath)); // TODO - prompt user to enter filename
 	_currFile = _files.end() - 1;
+	LoadFile();
 }
 
 void Editor::OpenOrCreateFiles(int filecount, char** filenames) {
@@ -40,6 +45,7 @@ void Editor::OpenOrCreateFiles(int filecount, char** filenames) {
 		_files.push_back(File(filepath));
 	}
 	_currFile = _files.end() - 1;
+	LoadFile();
 }
 
 int Editor::FileIndex() {

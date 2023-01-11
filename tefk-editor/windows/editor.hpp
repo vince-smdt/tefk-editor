@@ -22,6 +22,7 @@ public:
 
 	void CatchEvent(Event& event) override; // TODO - maybe make event param const ref
 
+	void LoadFile();
 	void NewFile();
 	void OpenOrCreateFiles(int filecount, char** filenames);
 
