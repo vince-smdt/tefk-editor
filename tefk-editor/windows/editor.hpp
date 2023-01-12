@@ -24,6 +24,8 @@ public:
 
 	void LoadFile();
 	void OpenFiles(int filecount, char** filenames);
+	void PrevFile();
+	void NextFile();
 
 	// Properties
 	int FileIndex();

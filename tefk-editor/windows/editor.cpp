@@ -12,6 +12,16 @@ void Editor::CatchEvent(Event& event) {
 			break;
 		}
 	}
+	else if (event.type == Event::Type::SPECIAL_CHARACTER) {
+		switch (event.input) {
+		case VK_PAGE_DOWN:
+			NextFile();
+			break;
+		case VK_PAGE_UP:
+			PrevFile();
+			break;
+		}
+	}
 	else if (event.type == Event::Type::CONSOLE_SIZE_CHANGE) {
 		_lblFooter.SetText(
 			"Rows = " + std::to_string(ConsoleAPI::RowCount())
@@ -43,7 +53,23 @@ void Editor::OpenFiles(int filecount, char** filenames) {
 		_files.push_back(File(filepath));
 	}
 
-	_currFile = _files.end() - 1;
+	_currFile = _files.begin();
+	LoadFile();
+}
+
+void Editor::PrevFile() {
+	if (_currFile == _files.begin())
+		_currFile = _files.end() - 1;
+	else
+		_currFile--;
+	LoadFile();
+}
+
+void Editor::NextFile() {
+	if (_currFile == _files.end() - 1)
+		_currFile = _files.begin();
+	else
+		_currFile++;
 	LoadFile();
 }
 
