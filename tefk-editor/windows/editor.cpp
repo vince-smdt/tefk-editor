@@ -58,6 +58,7 @@ void Editor::OpenFiles(int filecount, char** filenames) {
 }
 
 void Editor::PrevFile() {
+	_currFile->SetContent(_ediEditor.GetText());
 	if (_currFile == _files.begin())
 		_currFile = _files.end() - 1;
 	else
@@ -66,6 +67,7 @@ void Editor::PrevFile() {
 }
 
 void Editor::NextFile() {
+	_currFile->SetContent(_ediEditor.GetText());
 	if (_currFile == _files.end() - 1)
 		_currFile = _files.begin();
 	else
