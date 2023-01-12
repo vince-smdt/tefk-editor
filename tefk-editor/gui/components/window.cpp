@@ -47,7 +47,8 @@ void Window::UpdateComponents() {
 void Window::Render() {
 	Canvas::Instance().Resize(ConsoleAPI::ColCount(), ConsoleAPI::RowCount());
 	for (auto& child : _children)
-		child->Render();
+		if (child->IsVisible())
+			child->Render();
 	Canvas::Instance().Render();
 }
 
