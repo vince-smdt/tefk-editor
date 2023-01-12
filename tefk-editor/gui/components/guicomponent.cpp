@@ -6,7 +6,8 @@ GUIComponent::GUIComponent(SizeBehaviour heightBehaviour)
 	: _pos{ 0, 0 },
 	  _size{ 0, 0 },
 	  _color{ BLACK, WHITE },
-	  _heightBehaviour{ heightBehaviour }
+	  _heightBehaviour{ heightBehaviour },
+	  _visible{ true }
 {}
 
 void GUIComponent::SetPosition(Coord pos) { 
@@ -21,12 +22,20 @@ void GUIComponent::SetColor(TextColor color) {
 	_color = color; 
 }
 
+void GUIComponent::SetVisible(bool visible) {
+	_visible = visible;
+}
+
 short GUIComponent::GetHeight() {
 	return _size.Y;
 }
 
 SizeBehaviour GUIComponent::GetHeightBehaviour() {
 	return _heightBehaviour;
+}
+
+bool GUIComponent::IsVisible() {
+	return _visible;
 }
 
 // TODO - remove this render method, just use DrawOnCanvas()

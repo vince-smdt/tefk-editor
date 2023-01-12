@@ -8,12 +8,20 @@ void Window::AddComponent(GUIComponent& component) {
 
 // TODO - avoid giving negative values to components height
 void Window::UpdateComponents() {
+	// Select visible components
+	std::list<GUIComponent*> visibleComponents;
+
+	for (auto component : _children)
+		if (component->IsVisible())
+			visibleComponents.push_back(component);
+
+	// Update component properties
 	short availableSpace = ConsoleAPI::RowCount();
 	std::list<GUIComponent*> fillComponents;
 
 	// Update components with fixed height
 	// Store pointers of components with relative height
-	for (auto component : _children) {
+	for (auto component : visibleComponents) {
 		switch (component->GetHeightBehaviour()) {
 		case SizeBehaviour::CONTENT:
 			availableSpace -= component->UpdateHeight();
@@ -30,7 +38,7 @@ void Window::UpdateComponents() {
 
 	// Position every component vertically
 	short offsetY = 0;
-	for (auto component : _children) {
+	for (auto component : visibleComponents) {
 		component->SetPosition({ 0, offsetY });
 		offsetY += component->GetHeight();
 	}

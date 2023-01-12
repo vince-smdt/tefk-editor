@@ -22,15 +22,18 @@ protected:
 	Coord _size;
 	TextColor _color;
 	SizeBehaviour _heightBehaviour;
+	bool _visible;
 public:
 	GUIComponent(SizeBehaviour heightBehaviour);
 
 	void SetPosition(Coord pos);
 	void SetHeight(short height);
 	void SetColor(TextColor color);
+	void SetVisible(bool visible);
 
 	short GetHeight();
 	SizeBehaviour GetHeightBehaviour();
+	bool IsVisible();
 
 	void Render();
 	virtual short UpdateHeight() { return 0; }; // TODO - maybe make it so we don't have to return a value
