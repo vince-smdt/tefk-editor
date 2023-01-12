@@ -23,19 +23,20 @@ void Editor::CatchEvent(Event& event) {
 		}
 	}
 	else if (event.type == Event::Type::CONSOLE_SIZE_CHANGE) {
-		_lblFooter.SetText(
-			"Rows = " + std::to_string(ConsoleAPI::RowCount())
-			+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
-		);
+		_lblFooter.SetText(std::format(
+			"Rows = {}, Cols = {}",
+			ConsoleAPI::RowCount(),
+			ConsoleAPI::ColCount()
+		));
 	}
 
 	// Update components
-	_lblHeader.SetText(
-		_currFile->GetFilename().generic_string() + " "   // TODO - Find cleaner way of printing info without having
-		+ std::to_string(FileIndex()) + "/"               // to call std::to_string() everytime
-		+ std::to_string(_files.size()) + " "
-		+ "Press Ctrl+S to save!"
-	);
+	_lblHeader.SetText(std::format(
+		"{} {}/{} Press Ctrl+S to save!", 
+		_currFile->GetFilename().generic_string(),
+		FileIndex(),
+		_files.size()
+	));
 }
 
 void Editor::LoadFile() {
