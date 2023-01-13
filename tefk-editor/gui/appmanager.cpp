@@ -2,7 +2,7 @@
 
 namespace tefk::ApplicationManager {
 
-void Display() {
+void Render() {
 	ConsoleManager::ResizeConsole();
 
 	if (_windows.empty()) {
@@ -55,7 +55,7 @@ void RunEvents() {
 		_events.pop();
 	}
 
-	Display();
+	Render();
 }
 
 void ProcessEvent(Event& event) {

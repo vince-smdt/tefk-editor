@@ -15,7 +15,7 @@ namespace tefk::ApplicationManager {
 		std::queue<std::shared_ptr<Event>> _events;
 	}
 
-	void Display();
+	void Render();
 
 	void OpenWindow(Window& window);
 	void CloseWindow();

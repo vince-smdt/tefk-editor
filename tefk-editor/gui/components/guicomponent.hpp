@@ -27,6 +27,7 @@ public:
 	GUIComponent(SizeBehaviour heightBehaviour);
 
 	void SetPosition(Coord pos);
+	void SetWidth(short width);
 	void SetHeight(short height);
 	void SetColor(TextColor color);
 	void SetVisible(bool visible);
@@ -35,10 +36,8 @@ public:
 	SizeBehaviour GetHeightBehaviour();
 	bool IsVisible();
 
-	void Render();
 	virtual short UpdateHeight() { return 0; }; // TODO - maybe make it so we don't have to return a value
 	virtual void CatchEvent(Event& event) {}
-protected:
 	virtual void DrawOnCanvas() = 0;
 };
 

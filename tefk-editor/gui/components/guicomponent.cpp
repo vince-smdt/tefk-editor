@@ -14,6 +14,10 @@ void GUIComponent::SetPosition(Coord pos) {
 	_pos = pos;
 }
 
+void GUIComponent::SetWidth(short width) {
+	_size.X = width;
+}
+
 void GUIComponent::SetHeight(short height) {
 	_size.Y = height;
 }
@@ -36,14 +40,6 @@ SizeBehaviour GUIComponent::GetHeightBehaviour() {
 
 bool GUIComponent::IsVisible() {
 	return _visible;
-}
-
-// TODO - remove this render method, just use DrawOnCanvas()
-// move _size.X assignment
-void GUIComponent::Render() {
-	_size.X = ConsoleAPI::ColCount();
-
-	DrawOnCanvas();
 }
 
 } // namespace tefk
