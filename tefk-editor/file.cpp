@@ -2,25 +2,12 @@
 
 namespace tefk {
 
-File::File(std::filesystem::path& filename) 
-	: _filename{ filename }
-{
-	std::ifstream file(filename);
-	// TODO - check if we have write access to file
-	if (file) {
-		// TODO - (maybe) optimize to avoid redundant copy https://stackoverflow.com/questions/116038/how-do-i-read-an-entire-file-into-a-stdstring-in-c
-		std::ostringstream ss;
-		ss << file.rdbuf();
-		_content = ss.str();
-	}
+File::File(std::filesystem::path& filename) {
+	Open(filename);
 }
 
 std::filesystem::path File::GetFilename() {
 	return _filename;
-}
-
-void File::SetFilename(std::filesystem::path& filename) {
-	_filename = filename;
 }
 
 std::string File::GetContent() {
@@ -29,6 +16,29 @@ std::string File::GetContent() {
 
 void File::SetContent(std::string content) {
 	_content = content;
+}
+
+bool File::Open(std::filesystem::path& filename) {
+	// If file doesn't exist
+	if (!std::filesystem::exists(filename)) {
+		_filename = filename;
+		return true;
+	}
+
+	std::ifstream file(filename);
+
+	// If we have access to file
+	if (file) {
+		// TODO - (maybe) optimize to avoid redundant copy https://stackoverflow.com/questions/116038/how-do-i-read-an-entire-file-into-a-stdstring-in-c
+		std::ostringstream ss;
+		ss << file.rdbuf();
+		_filename = filename;
+		_content = ss.str();
+		return true;
+	}
+
+	// If we don't have access to file
+	return false;
 }
 
 void File::Save() {

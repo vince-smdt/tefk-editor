@@ -15,9 +15,9 @@ public:
 	std::filesystem::path GetFilename();
 	std::string GetContent();
 
-	void SetFilename(std::filesystem::path& filename);
 	void SetContent(std::string content);
 
+	bool Open(std::filesystem::path& filename);
 	void Save();
 };
 
