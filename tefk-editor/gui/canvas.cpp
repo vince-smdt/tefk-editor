@@ -19,25 +19,17 @@ void Canvas::Render() {
 	ss << "\x1b[0;0H";
 
 	// Build output string with canvas
-	for (size_t y = 0; y < _size.Y; y++) {
-		for (size_t x = 0; x < _size.X; x++) {
-			Pixel currPixel = PixelAt(x, y);
-
-			// Switch color if different
-			if (currentColor != currPixel.color) {
-				currentColor = currPixel.color;
-				ss << "\x1b[" << currentColor.Foreground() << ";" << currentColor.Background() << "m";
-			}
-
-			// Write character
-			ss << currPixel.character;
+	for (size_t i = 0; i < _pixels.size(); i++) {
+		// Switch color if different
+		if (currentColor != _pixels[i].color) {
+			currentColor = _pixels[i].color;
+			ss << "\x1b[" << currentColor.Foreground() << ";" << currentColor.Background() << "m";
 		}
 
-		// Write newline every row if not at last row
-		if (y != _size.Y - 1)
-			ss << '\n';
+		// Write character
+		ss << _pixels[i].character;
 	}
-	
+
 	// Reset color
 	ss << "\x1b[0m";
 
