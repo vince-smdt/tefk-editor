@@ -23,19 +23,24 @@ void Editor::CatchEvent(Event& event) {
 		}
 	}
 	else if (event.type == Event::Type::CONSOLE_SIZE_CHANGE) {
-		_lblFooter.SetText(std::format(
-			"Rows = {}, Cols = {}",
-			ConsoleAPI::RowCount(),
-			ConsoleAPI::ColCount()
-		));
+		UpdateFooter();
 	}
+}
 
-	// Update components
+void Editor::UpdateHeader() {
 	_lblHeader.SetText(std::format(
-		"{} {}/{} Press Ctrl+S to save!", 
+		"{} {}/{} Press Ctrl+S to save!",
 		_currFile->GetFilename().generic_string(),
 		FileIndex(),
 		_files.size()
+	));
+}
+
+void Editor::UpdateFooter() {
+	_lblFooter.SetText(std::format(
+		"Rows = {}, Cols = {}",
+		ConsoleAPI::RowCount(),
+		ConsoleAPI::ColCount()
 	));
 }
 
@@ -56,6 +61,7 @@ void Editor::OpenFiles(int filecount, char** filenames) {
 
 	_currFile = _files.begin();
 	LoadFile();
+	UpdateHeader();
 }
 
 void Editor::PrevFile() {
@@ -65,6 +71,7 @@ void Editor::PrevFile() {
 	else
 		_currFile--;
 	LoadFile();
+	UpdateHeader();
 }
 
 void Editor::NextFile() {
@@ -74,6 +81,7 @@ void Editor::NextFile() {
 	else
 		_currFile++;
 	LoadFile();
+	UpdateHeader();
 }
 
 int Editor::FileIndex() {

@@ -11,10 +11,6 @@ Editor::Editor() {
 
 	// Footer
 	_lblFooter.SetColor({ BLACK, WHITE });
-	_lblFooter.SetText(
-		"Rows = " + std::to_string(ConsoleAPI::RowCount())
-		+ ", Cols = " + std::to_string(ConsoleAPI::ColCount())
-	);
 
 	// Add all components to window
 	AddComponent(_lblHeader);
