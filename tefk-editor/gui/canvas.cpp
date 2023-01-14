@@ -13,10 +13,12 @@ Canvas& Canvas::Instance() {
 
 void Canvas::Render() {
 	std::wstringstream ss;
-	TextColor currentColor = { DEFAULT, DEFAULT };
+	TextColor currentColor;
 
 	// Position cursor at start of console window
 	ss << "\x1b[0;0H";
+
+	// Build output string with canvas
 	for (size_t y = 0; y < _size.Y; y++) {
 		for (size_t x = 0; x < _size.X; x++) {
 			Pixel currPixel = PixelAt(x, y);
