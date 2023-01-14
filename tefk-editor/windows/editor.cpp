@@ -84,8 +84,8 @@ void Editor::NextFile() {
 	UpdateHeader();
 }
 
-int Editor::FileIndex() {
-	return int((_currFile - _files.begin()) + 1);
+size_t Editor::FileIndex() {
+	return _currFile - _files.begin() + 1;
 }
 
 } // namespace tefk

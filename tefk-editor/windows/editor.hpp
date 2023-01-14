@@ -31,7 +31,7 @@ public:
 	void NextFile();
 
 	// Properties
-	int FileIndex();
+	size_t FileIndex();
 };
 
 } // namespace tefk
