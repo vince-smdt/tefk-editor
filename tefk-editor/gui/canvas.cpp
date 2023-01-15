@@ -48,4 +48,8 @@ void Canvas::Resize(size_t x, size_t y) {
 	_pixels.resize(x * y);
 }
 
+Canvas& GetCanvas() {
+	return Canvas::Instance();
+}
+
 } // namespace tefk

@@ -24,4 +24,6 @@ public:
 	void Resize(size_t x, size_t y);
 };
 
+Canvas& GetCanvas();
+
 } // namespace tefk

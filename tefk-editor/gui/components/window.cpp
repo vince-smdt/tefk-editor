@@ -51,11 +51,11 @@ void Window::UpdateComponents() {
 }
 
 void Window::Render() {
-	Canvas::Instance().Resize(ConsoleAPI::ColCount(), ConsoleAPI::RowCount());
+	GetCanvas().Resize(ConsoleAPI::ColCount(), ConsoleAPI::RowCount());
 	for (auto& child : _children)
 		if (child->IsVisible())
 			child->DrawOnCanvas();
-	Canvas::Instance().Render();
+	GetCanvas().Render();
 }
 
 void Window::CatchAndPropagateEvent(Event& event) {

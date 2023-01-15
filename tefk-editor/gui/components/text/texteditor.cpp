@@ -283,8 +283,8 @@ void TextEditor::DrawOnCanvas() {
 		for (size_t x = 0; x < _size.X; x++) {
 			bool drawEmptySpace = y >= _rows.size() || x >= _rows[y].size();
 
-			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _rows[y][x];
-			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
+			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _rows[y][x];
+			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
 		}
 	}
 
@@ -299,7 +299,7 @@ void TextEditor::DrawOnCanvas() {
 	if (cursorPos.X >= ConsoleAPI::ColCount() || cursorPos.X < 0 || cursorPos.Y >= ConsoleAPI::RowCount() || cursorPos.Y < 0)
 		return;
 
-	Canvas::Instance().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
+	GetCanvas().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
 }
 
 } // namespace tefk

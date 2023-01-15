@@ -48,12 +48,25 @@ void Editor::LoadFile() {
 	_ediEditor.SetText(_currFile->GetContent());
 }
 
-void Editor::OpenFiles(int filecount, char** filenames) {
-	for (int i = 1; i < filecount; i++) {
-		std::filesystem::path filepath(filenames[i]);
+void Editor::OpenFiles(int argc, char** argv) {
+	// TODO - Give option to user to choose path if not detected, change log level?
+	if (argc < 2) {
+		Logger::Instance().Log(
+			Logger::LogLevel::WARN,
+			"DirPath not specified in command arguments, closing application."
+		);
+		exit(0);
+	}
+
+	std::string dirpath = argv[1];
+
+	// Open files from command arguments
+	for (int i = 2; i < argc; i++) {
+		std::filesystem::path filepath(dirpath + "/" + argv[i]);
 		_files.push_back(File(filepath));
 	}
 
+	// If not files open, create new file
 	if (_files.size() == 0) {
 		std::filesystem::path filepath("new.txt");
 		_files.push_back(File(filepath));

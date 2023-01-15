@@ -28,8 +28,8 @@ void Label::DrawOnCanvas() {
 			size_t charIndex = x + y * _size.X;
 			bool drawEmptySpace = charIndex >= _text.size();
 
-			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _text[charIndex];
-			Canvas::Instance().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
+			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _text[charIndex];
+			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
 		}
 	}
 }
