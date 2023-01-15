@@ -13,6 +13,7 @@ class Editor : public Window {
 public:
 	Label _lblHeader;
 	TextEditor _ediEditor;
+	TextField _txtFilename;
 	Label _lblFooter;
 private:
 	std::vector<File> _files;
