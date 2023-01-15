@@ -147,7 +147,6 @@
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="windows\editor.cpp" />
-    <ClCompile Include="windows\editor.designer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.hpp" />

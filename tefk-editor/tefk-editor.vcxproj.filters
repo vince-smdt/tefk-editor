@@ -69,9 +69,6 @@
     <ClCompile Include="windows\editor.cpp">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
-    <ClCompile Include="windows\editor.designer.cpp">
-      <Filter>Source Files\windows</Filter>
-    </ClCompile>
     <ClCompile Include="gui\event.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
