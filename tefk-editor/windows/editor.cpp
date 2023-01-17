@@ -26,7 +26,7 @@ void Editor::CatchEvent(Event& event) {
 	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
 		case VK_CTRL_S:
-			_currFile->SetContent(_ediEditor.GetText());
+			_currFile->SetContent(_ediEditor.GetContent());
 			_currFile->Save();
 			break;
 		}
@@ -97,7 +97,7 @@ void Editor::OpenFiles(int argc, char** argv) {
 }
 
 void Editor::PrevFile() {
-	_currFile->SetContent(_ediEditor.GetText());
+	_currFile->SetContent(_ediEditor.GetContent());
 	if (_currFile == _files.begin())
 		_currFile = _files.end() - 1;
 	else
@@ -107,7 +107,7 @@ void Editor::PrevFile() {
 }
 
 void Editor::NextFile() {
-	_currFile->SetContent(_ediEditor.GetText());
+	_currFile->SetContent(_ediEditor.GetContent());
 	if (_currFile == _files.end() - 1)
 		_currFile = _files.begin();
 	else

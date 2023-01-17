@@ -28,10 +28,16 @@ void Window::UpdateComponents() {
 	// Update components with fixed height
 	// Store pointers of components with relative height
 	for (auto component : visibleComponents) {
+		// TODO - update height in separate function (maybe do same for width)
 		switch (component->GetHeightBehaviour()) {
-		case SizeBehaviour::CONTENT:
-			availableSpace -= component->UpdateHeight();
+		case SizeBehaviour::CONTENT: {
+			size_t contentSize = component->GetContent().size();
+			short divider = component->GetWidth() == 0 ? contentSize : component->GetWidth();
+
+			component->SetHeight((short)ceil(double(contentSize) / divider));
+			availableSpace -= component->GetHeight();
 			break;
+		}
 		case SizeBehaviour::FILL:
 			fillComponents.push_back(component);
 			break;

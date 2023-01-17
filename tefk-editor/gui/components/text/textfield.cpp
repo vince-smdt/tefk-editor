@@ -14,17 +14,15 @@ void TextField::SetLabel(std::string label) {
 	_label = label;
 }
 
-short TextField::UpdateHeight() {
-	std::string text = _label + ": " + _input;
-	short divider = _size.X == 0 ? text.size() : _size.X;
-	return _size.Y = (short)ceil(double(text.size()) / divider);
+std::string TextField::GetContent() {
+	return _label + ": " + _input;
 }
 
 void TextField::DrawOnCanvas() {
 	if (_size.X * _size.Y <= 0)
 		return;
 
-	std::string text = _label + ": " + _input;
+	std::string text = GetContent();
 
 	for (size_t y = 0; y < _size.Y; y++) {
 		for (size_t x = 0; x < _size.X; x++) {

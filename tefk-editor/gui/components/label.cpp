@@ -6,17 +6,12 @@ Label::Label()
 	: GUIComponent{ SizeBehaviour::CONTENT }
 {}
 
-std::string Label::GetText() {
-	return _text;
-}
-
 void Label::SetText(std::string text) {
 	_text = text;
 }
 
-short Label::UpdateHeight() {
-	short divider = _size.X == 0 ? _text.size() : _size.X;
-	return _size.Y = (short)ceil(double(_text.size()) / divider);
+std::string Label::GetContent() {
+	return _text;
 }
 
 void Label::DrawOnCanvas() {

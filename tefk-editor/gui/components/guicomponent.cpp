@@ -30,6 +30,10 @@ void GUIComponent::SetVisible(bool visible) {
 	_visible = visible;
 }
 
+short GUIComponent::GetWidth() {
+	return _size.X;
+}
+
 short GUIComponent::GetHeight() {
 	return _size.Y;
 }

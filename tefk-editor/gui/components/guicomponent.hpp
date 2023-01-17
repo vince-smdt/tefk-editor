@@ -32,11 +32,12 @@ public:
 	void SetColor(TextColor color);
 	void SetVisible(bool visible);
 
+	short GetWidth();
 	short GetHeight();
 	SizeBehaviour GetHeightBehaviour();
 	bool IsVisible();
 
-	virtual short UpdateHeight() { return 0; }; // TODO - maybe make it so we don't have to return a value
+	virtual std::string GetContent() = 0;
 	virtual void CatchEvent(Event& event) {}
 	virtual void DrawOnCanvas() = 0;
 };

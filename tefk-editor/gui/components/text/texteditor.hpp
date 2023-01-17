@@ -10,8 +10,8 @@ public:
 	TextEditor();
 
 	void SetText(std::string text);
-	std::string GetText();
 
+	std::string GetContent() override;
 	void CatchEvent(Event& event) override;
 private:
 	void DrawOnCanvas() override;

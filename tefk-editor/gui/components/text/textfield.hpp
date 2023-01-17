@@ -12,7 +12,7 @@ public:
 	std::string GetLabel();
 	void SetLabel(std::string label);
 
-	short UpdateHeight() override;
+	std::string GetContent() override;
 private:
 	void DrawOnCanvas() override;
 };

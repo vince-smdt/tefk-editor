@@ -32,8 +32,8 @@ void TextEditor::SetText(std::string text) {
 	_cursor.col = _cursor.row->begin();
 }
 
-std::string TextEditor::GetText() {
-	std::string text = "";
+std::string TextEditor::GetContent() {
+	std::string text;
 	for (std::string row : _rows)
 		text.append(row + '\n');
 	return text.substr(0, text.size() - 1);

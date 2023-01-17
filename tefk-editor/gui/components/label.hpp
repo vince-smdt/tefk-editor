@@ -8,10 +8,9 @@ class Label : public GUIComponent {
 public:
 	Label();
 
-	std::string GetText();
 	void SetText(std::string text);
 
-	short UpdateHeight() override;
+	std::string GetContent() override;
 private:
 	void DrawOnCanvas() override;
 };
