@@ -15,6 +15,9 @@ void Canvas::Render() {
 	std::wstringstream ss;
 	TextColor currentColor;
 
+	// Hide cursor
+	ss << "\x1b[?25l";
+
 	// Position cursor at start of console window
 	ss << "\x1b[0;0H";
 

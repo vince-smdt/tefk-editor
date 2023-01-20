@@ -14,8 +14,6 @@ void ConsoleAPI::Init() {
 	HANDLE hInput = GetStdHandle(STD_OUTPUT_HANDLE);
 	GetConsoleMode(hInput, &prevMode);
 	SetConsoleMode(hInput, prevMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
-
-	HideCursor();
 }
 
 short ConsoleAPI::RowCount() {
@@ -28,16 +26,6 @@ short ConsoleAPI::ColCount() {
 	return s_csbi.srWindow.Right - s_csbi.srWindow.Left + 1;
 }
 
-short ConsoleAPI::CursorRowPos() {
-	GetConsoleBufferInfo();
-	return s_csbi.dwCursorPosition.Y;
-}
-
-short ConsoleAPI::CursorColPos() {
-	GetConsoleBufferInfo();
-	return s_csbi.dwCursorPosition.X;
-}
-
 void ConsoleAPI::SetConsoleSize(short row, short col) {
 	COORD size = { col, row };
 	if (!SetConsoleScreenBufferSize(s_handle, size)) {
@@ -48,14 +36,6 @@ void ConsoleAPI::SetConsoleSize(short row, short col) {
 		);
 		exit(0);
 	}
-	HideCursor();
-}
-
-void ConsoleAPI::HideCursor() {
-	CONSOLE_CURSOR_INFO cursorInfo;
-	GetConsoleCursorInfo(s_handle, &cursorInfo);
-	cursorInfo.bVisible = false;
-	SetConsoleCursorInfo(s_handle, &cursorInfo);
 }
 
 unsigned char ConsoleAPI::ReadKeypress() {

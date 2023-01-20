@@ -20,14 +20,10 @@ class ConsoleAPI {
 	static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
 public:
 	static void Init();
+
 	static short RowCount();
 	static short ColCount();
-	static short CursorRowPos();
-	static short CursorColPos();
-
 	static void SetConsoleSize(short row, short col);
-
-	static void HideCursor();
 
 	static unsigned char ReadKeypress();
 private:
