@@ -9,6 +9,12 @@ void ConsoleAPI::Init() {
 	// Disable Ctrl+C closing app
 	SetConsoleCtrlHandler(NULL, TRUE);
 
+	// Activate Virtual Terminal Sequences
+	DWORD prevMode;
+	HANDLE hInput = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleMode(hInput, &prevMode);
+	SetConsoleMode(hInput, prevMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
 	HideCursor();
 }
 
