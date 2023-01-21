@@ -3,7 +3,7 @@
 namespace tefk {
 
 Canvas::Canvas() 
-	: _size{ 0, 0 }
+	: _dimensions{ 0, 0 }
 {}
 
 Canvas& Canvas::Instance() {
@@ -41,14 +41,16 @@ void Canvas::Render() {
 }
 
 Pixel& Canvas::PixelAt(size_t x, size_t y) {
-	// TODO - check if target pixel is out of vector range
-	return _pixels[x + y * _size.X];
+	size_t index = x + y * _dimensions.X;
+	assert(0 <= index && index < _pixels.size());
+	return _pixels[index];
 }
 
 void Canvas::Resize(size_t x, size_t y) {
-	// TODO - check if both x and y are positive
-	_size = { (short)x, (short)y };
-	_pixels.resize(x * y);
+	size_t size = x * y;
+	assert(0 <= size);
+	_dimensions = { (short)x, (short)y };
+	_pixels.resize(size);
 }
 
 Canvas& GetCanvas() {

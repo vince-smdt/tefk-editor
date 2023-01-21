@@ -13,7 +13,7 @@ struct Pixel {
 
 class Canvas {
 	std::vector<Pixel> _pixels;
-	Coord _size;
+	Coord _dimensions;
 	
 	Canvas();
 public:
