@@ -4,6 +4,8 @@ namespace tefk {
 
 HANDLE ConsoleAPI::s_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_SCREEN_BUFFER_INFO ConsoleAPI::s_csbi;
+int ConsoleAPI::s_currRows = 0;
+int ConsoleAPI::s_currCols = 0;
 
 void ConsoleAPI::Init() {
 	// Disable Ctrl+C closing app
@@ -14,6 +16,17 @@ void ConsoleAPI::Init() {
 	HANDLE hInput = GetStdHandle(STD_OUTPUT_HANDLE);
 	GetConsoleMode(hInput, &prevMode);
 	SetConsoleMode(hInput, prevMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+}
+
+bool ConsoleAPI::ConsoleSizeChanged() {
+	return s_currRows != ConsoleAPI::GetConsoleSize().Y || s_currCols != ConsoleAPI::GetConsoleSize().X;
+}
+
+void ConsoleAPI::ResizeConsole() {
+	s_currRows = ConsoleAPI::GetConsoleSize().Y;
+	s_currCols = ConsoleAPI::GetConsoleSize().X;
+
+	ConsoleAPI::SetConsoleSize(s_currRows, s_currCols);
 }
 
 Coord ConsoleAPI::GetConsoleSize() {

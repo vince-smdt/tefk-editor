@@ -18,9 +18,13 @@ class ConsoleAPI {
 
 	static HANDLE s_handle;
 	static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
+	static int s_currRows;
+	static int s_currCols;
 public:
 	static void Init();
 
+	static bool ConsoleSizeChanged();
+	static void ResizeConsole();
 	static Coord GetConsoleSize();
 	static void SetConsoleSize(short row, short col);
 

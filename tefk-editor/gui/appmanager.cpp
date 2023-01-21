@@ -3,7 +3,7 @@
 namespace tefk::ApplicationManager {
 
 void Render() {
-	ConsoleManager::ResizeConsole();
+	ConsoleAPI::ResizeConsole();
 
 	if (_windows.empty()) {
 		Logger::Instance().Log(
@@ -36,7 +36,7 @@ void CatchEvents() {
 	if (_kbhit())
 		AddEvent(Input::CatchInput());
 
-	if (ConsoleManager::ConsoleSizeChanged())
+	if (ConsoleAPI::ConsoleSizeChanged())
 		AddEvent(Event::ConsoleSizeChange());
 }
 
@@ -60,7 +60,7 @@ void RunEvents() {
 
 void ProcessEvent(Event& event) {
 	if (event.type == Event::Type::CONSOLE_SIZE_CHANGE)
-		ConsoleManager::ResizeConsole();
+		ConsoleAPI::ResizeConsole();
 }
 
 void CloseApp() {

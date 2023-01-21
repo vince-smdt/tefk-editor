@@ -140,7 +140,6 @@
     <ClCompile Include="gui\components\text\textfield.cpp" />
     <ClCompile Include="gui\components\window.cpp" />
     <ClCompile Include="gui\consoleapi.cpp" />
-    <ClCompile Include="gui\consolemanager.cpp" />
     <ClCompile Include="gui\event.cpp" />
     <ClCompile Include="gui\input.cpp" />
     <ClCompile Include="gui\canvas.cpp" />
@@ -160,7 +159,6 @@
     <ClInclude Include="gui\components\text\textfield.hpp" />
     <ClInclude Include="gui\components\window.hpp" />
     <ClInclude Include="gui\consoleapi.hpp" />
-    <ClInclude Include="gui\consolemanager.hpp" />
     <ClInclude Include="gui\event.hpp" />
     <ClInclude Include="gui\input.hpp" />
     <ClInclude Include="gui\canvas.hpp" />

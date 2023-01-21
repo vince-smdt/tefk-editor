@@ -6,7 +6,6 @@
 
 #include "canvas.hpp"
 #include "components/window.hpp"
-#include "consolemanager.hpp"
 #include "input.hpp"
 
 namespace tefk::ApplicationManager {
