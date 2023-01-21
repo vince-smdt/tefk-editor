@@ -61,12 +61,16 @@ void ProcessEvent(Event& event) {
 		ConsoleAPI::UpdateConsoleSize();
 }
 
+bool Running() {
+	return _running;
+}
+
 void CloseApp() {
 	Logger::Instance().Log(
 		Logger::LogLevel::INFO,
 		"Closing application."
 	);
-	exit(0);
+	_running = false;
 }
 
 } // namespace tefk

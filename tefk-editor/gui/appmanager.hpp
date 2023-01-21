@@ -10,6 +10,7 @@
 
 namespace tefk::ApplicationManager {
 	namespace {
+		bool _running = true;
 		std::stack<Window*> _windows;
 		std::queue<std::shared_ptr<Event>> _events;
 	}
@@ -23,6 +24,8 @@ namespace tefk::ApplicationManager {
 	void AddEvent(Event event);
 	void RunEvents();
 	void ProcessEvent(Event& event);
+
+	bool Running();
 
 	void CloseApp();
 } // namespace tefk::ApplicationManager
