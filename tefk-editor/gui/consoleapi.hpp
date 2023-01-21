@@ -21,8 +21,7 @@ class ConsoleAPI {
 public:
 	static void Init();
 
-	static short RowCount();
-	static short ColCount();
+	static Coord GetConsoleSize();
 	static void SetConsoleSize(short row, short col);
 
 	static unsigned char ReadKeypress();

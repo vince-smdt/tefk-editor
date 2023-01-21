@@ -16,14 +16,12 @@ void ConsoleAPI::Init() {
 	SetConsoleMode(hInput, prevMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 }
 
-short ConsoleAPI::RowCount() {
+Coord ConsoleAPI::GetConsoleSize() {
 	GetConsoleBufferInfo();
-	return s_csbi.srWindow.Bottom - s_csbi.srWindow.Top + 1;
-}
-
-short ConsoleAPI::ColCount() {
-	GetConsoleBufferInfo();
-	return s_csbi.srWindow.Right - s_csbi.srWindow.Left + 1;
+	return Coord(
+		s_csbi.srWindow.Right - s_csbi.srWindow.Left + 1,
+		s_csbi.srWindow.Bottom - s_csbi.srWindow.Top + 1
+	);
 }
 
 void ConsoleAPI::SetConsoleSize(short row, short col) {

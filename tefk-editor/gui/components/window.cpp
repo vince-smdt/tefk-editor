@@ -19,10 +19,10 @@ void Window::UpdateComponents() {
 
 	// WIDTH
 	for (auto component : visibleComponents)
-		component->SetWidth(ConsoleAPI::ColCount());
+		component->SetWidth(ConsoleAPI::GetConsoleSize().X);
 
 	// HEIGHT
-	short availableSpace = ConsoleAPI::RowCount();
+	short availableSpace = ConsoleAPI::GetConsoleSize().Y;
 	std::list<GUIComponent*> fillComponents;
 
 	// Update components with fixed height
@@ -57,7 +57,7 @@ void Window::UpdateComponents() {
 }
 
 void Window::Render() {
-	GetCanvas().Resize(ConsoleAPI::ColCount(), ConsoleAPI::RowCount());
+	GetCanvas().Resize(ConsoleAPI::GetConsoleSize().X, ConsoleAPI::GetConsoleSize().Y);
 	for (auto& child : _children)
 		if (child->IsVisible())
 			child->DrawOnCanvas();

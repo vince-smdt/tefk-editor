@@ -58,8 +58,8 @@ void Editor::UpdateHeader() {
 void Editor::UpdateFooter() {
 	_lblFooter.SetText(std::format(
 		"Rows = {}, Cols = {}",
-		ConsoleAPI::RowCount(),
-		ConsoleAPI::ColCount()
+		ConsoleAPI::GetConsoleSize().Y,
+		ConsoleAPI::GetConsoleSize().X
 	));
 }
 

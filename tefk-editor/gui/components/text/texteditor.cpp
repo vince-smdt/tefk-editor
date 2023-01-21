@@ -103,7 +103,7 @@ void TextEditor::DrawOnCanvas() {
 
 	// Cancel if cursor out of print area
 	// TODO - hide cursor if not in texteditor, not just out of console window
-	if (cursorPos.X >= ConsoleAPI::ColCount() || cursorPos.X < 0 || cursorPos.Y >= ConsoleAPI::RowCount() || cursorPos.Y < 0)
+	if (cursorPos.X >= ConsoleAPI::GetConsoleSize().X || cursorPos.X < 0 || cursorPos.Y >= ConsoleAPI::GetConsoleSize().Y || cursorPos.Y < 0)
 		return;
 
 	GetCanvas().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
