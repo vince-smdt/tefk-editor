@@ -21,11 +21,6 @@ bool ConsoleAPI::ConsoleSizeChanged() {
 	return s_lastRecordedSize != ConsoleAPI::GetConsoleSize();
 }
 
-void ConsoleAPI::ResizeConsole() {
-	s_lastRecordedSize = ConsoleAPI::GetConsoleSize();
-	ConsoleAPI::SetConsoleSize(s_lastRecordedSize);
-}
-
 Coord ConsoleAPI::GetConsoleSize() {
 	GetConsoleBufferInfo();
 	return Coord(
@@ -34,8 +29,11 @@ Coord ConsoleAPI::GetConsoleSize() {
 	);
 }
 
-void ConsoleAPI::SetConsoleSize(Coord size) {
-	if (!SetConsoleScreenBufferSize(s_handle, { size.X, size.Y })) {
+void ConsoleAPI::UpdateConsoleSize() {
+	s_lastRecordedSize = ConsoleAPI::GetConsoleSize();
+	COORD currSize = { s_lastRecordedSize.X, s_lastRecordedSize.Y };
+
+	if (!SetConsoleScreenBufferSize(s_handle, currSize)) {
 		Logger::Instance().Log(
 			Logger::LogLevel::ERR,
 			"SetConsoleScreenBufferSize() failed! Reason : {}", 

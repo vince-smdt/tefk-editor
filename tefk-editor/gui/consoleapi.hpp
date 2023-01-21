@@ -7,18 +7,18 @@
 
 namespace tefk {
 
-typedef struct {
+struct Coord {
 	short X;
 	short Y;
 
-	bool operator==(Coord c) {
+	bool operator==(const Coord& c) {
 		return X == c.X && Y == c.Y;
 	}
 
-	bool operator!=(Coord c) {
+	bool operator!=(const Coord& c) {
 		return X != c.X || Y != c.Y;
 	}
-} Coord;
+};
 
 class ConsoleAPI {
 	ConsoleAPI() = delete;
@@ -31,9 +31,8 @@ public:
 	static void Init();
 
 	static bool ConsoleSizeChanged();
-	static void ResizeConsole();
 	static Coord GetConsoleSize();
-	static void SetConsoleSize(Coord size);
+	static void UpdateConsoleSize();
 
 	static unsigned char ReadKeypress();
 private:
