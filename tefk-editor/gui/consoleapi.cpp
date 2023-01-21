@@ -34,10 +34,11 @@ void ConsoleAPI::UpdateConsoleSize() {
 	COORD currSize = { s_lastRecordedSize.X, s_lastRecordedSize.Y };
 
 	if (!SetConsoleScreenBufferSize(s_handle, currSize)) {
+		DWORD errorCode = GetLastError();
 		Logger::Instance().Log(
 			Logger::LogLevel::ERR,
 			"SetConsoleScreenBufferSize() failed! Reason : {}", 
-			GetLastError()
+			errorCode
 		);
 		exit(0);
 	}
@@ -49,10 +50,11 @@ unsigned char ConsoleAPI::ReadKeypress() {
 
 void ConsoleAPI::GetConsoleBufferInfo() {
 	if (!GetConsoleScreenBufferInfo(s_handle, &s_csbi)) {
+		DWORD errorCode = GetLastError();
 		Logger::Instance().Log(
 			Logger::LogLevel::ERR,
 			"GetConsoleBufferInfo() failed! Reason : {}", 
-			GetLastError()
+			errorCode
 		);
 		exit(0);
 	}
