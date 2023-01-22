@@ -81,20 +81,20 @@ void TextEditor::CatchEvent(Event& event) {
 	}
 }
 
-void TextEditor::DrawPixel(short x, short y) {
+void TextEditor::DrawPixel(Coord pos, Pixel* pixel) {
 	Coord cursorPos = {
 		_pos.X + short(_cursor.col - _cursor.row->begin()),
 		_pos.Y + short(_cursor.row - _rows.begin())
 	}; // TODO - optimize so we don't initialize this every pixel
 
 	// Draw editor
-	bool drawEmptySpace = y >= _rows.size() || x >= _rows[y].size();
+	bool drawEmptySpace = pos.Y >= _rows.size() || pos.X >= _rows[pos.Y].size();
 
-	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _rows[y][x];
-	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
+	pixel->character = drawEmptySpace ? ' ' : _rows[pos.Y][pos.X];
+	pixel->color = _color;
 
 	// Draw cursor
-	if (cursorPos.X == x && cursorPos.Y == y)
+	if (cursorPos == pos)
 		GetCanvas().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
 }
 

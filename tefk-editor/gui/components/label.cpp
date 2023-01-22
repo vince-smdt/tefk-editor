@@ -14,12 +14,12 @@ std::string Label::GetContent() {
 	return _text;
 }
 
-void Label::DrawPixel(short x, short y) {
-	size_t charIndex = x + y * _size.X;
-	bool drawEmptySpace = charIndex >= _text.size();
+void Label::DrawPixel(Coord pos, Pixel* pixel) {
+	size_t chInd = pos.X + pos.Y * _size.X;
+	bool drawEmptySpace = chInd >= _text.size();
 
-	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _text[charIndex];
-	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
+	pixel->character = drawEmptySpace ? ' ' : _text[chInd];
+	pixel->color = _color;
 }
 
 } // namespace tefk

@@ -18,14 +18,14 @@ std::string TextField::GetContent() {
 	return _label + ": " + _input;
 }
 
-void TextField::DrawPixel(short x, short y) {
+void TextField::DrawPixel(Coord pos, Pixel* pixel) {
 	std::string text = GetContent(); // TODO - optimize so we don't have to get content everytime
 
-	size_t charIndex = x + y * _size.X;
-	bool drawEmptySpace = charIndex >= text.size();
+	size_t chInd = pos.X + pos.Y * _size.X;
+	bool drawEmptySpace = chInd >= text.size();
 
-	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : text[charIndex];
-	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
+	pixel->character = drawEmptySpace ? ' ' : text[chInd];
+	pixel->color = _color;
 }
 
 } // namespace tefk

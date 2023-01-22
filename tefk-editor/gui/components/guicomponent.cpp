@@ -52,8 +52,10 @@ void GUIComponent::Draw() {
 		return;
 
 	// Assign character and color to each component pixel
-	for (short pixelIndex = 0; pixelIndex < _size.Area(); pixelIndex++)
-		DrawPixel(pixelIndex % _size.X, pixelIndex / _size.X);
+	for (short pxInd = 0; pxInd < _size.Area(); pxInd++) {
+		Coord pxPos = { pxInd % _size.X, pxInd / _size.X };
+		DrawPixel(pxPos, &GetCanvas().PixelAt(pxPos.X + _pos.X, pxPos.Y + _pos.Y));
+	}
 }
 
 } // namespace tefk

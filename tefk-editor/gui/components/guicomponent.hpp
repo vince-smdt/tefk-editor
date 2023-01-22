@@ -42,7 +42,7 @@ public:
 
 	void Draw();
 protected:
-	virtual void DrawPixel(short x, short y) = 0;
+	virtual void DrawPixel(Coord pos, Pixel* pixel) = 0;
 };
 
 } // namespace tefk
