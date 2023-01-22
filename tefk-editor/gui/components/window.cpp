@@ -60,7 +60,7 @@ void Window::Render() {
 	GetCanvas().Resize(ConsoleAPI::GetConsoleSize().X, ConsoleAPI::GetConsoleSize().Y);
 	for (auto& child : _children)
 		if (child->IsVisible())
-			child->DrawOnCanvas();
+			child->Draw();
 	GetCanvas().Render();
 }
 

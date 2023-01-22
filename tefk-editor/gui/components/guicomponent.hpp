@@ -39,7 +39,10 @@ public:
 
 	virtual std::string GetContent() = 0;
 	virtual void CatchEvent(Event& event) {}
-	virtual void DrawOnCanvas() = 0;
+
+	void Draw();
+protected:
+	virtual void DrawPixel(short x, short y) = 0;
 };
 
 } // namespace tefk

@@ -46,4 +46,16 @@ bool GUIComponent::IsVisible() {
 	return _visible;
 }
 
+void GUIComponent::Draw() {
+	// Cancel if no surface area
+	if (_size.X * _size.Y == 0)
+		return;
+
+	for (size_t y = 0; y < _size.Y; y++) {
+		for (size_t x = 0; x < _size.X; x++) {
+			DrawPixel(x, y);
+		}
+	}
+}
+
 } // namespace tefk

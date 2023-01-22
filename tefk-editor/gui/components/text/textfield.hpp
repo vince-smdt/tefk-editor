@@ -14,7 +14,7 @@ public:
 
 	std::string GetContent() override;
 private:
-	void DrawOnCanvas() override;
+	void DrawPixel(short x, short y) override;
 };
 
 } // namespace tefk

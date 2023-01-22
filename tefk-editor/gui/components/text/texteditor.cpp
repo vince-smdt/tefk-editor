@@ -81,32 +81,21 @@ void TextEditor::CatchEvent(Event& event) {
 	}
 }
 
-void TextEditor::DrawOnCanvas() {
-	if (_size.X * _size.Y <= 0)
-		return;
-
-	// Draw editor
-	for (size_t y = 0; y < _size.Y; y++) {
-		for (size_t x = 0; x < _size.X; x++) {
-			bool drawEmptySpace = y >= _rows.size() || x >= _rows[y].size();
-
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _rows[y][x];
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
-		}
-	}
-
-	// Draw cursor
+void TextEditor::DrawPixel(short x, short y) {
 	Coord cursorPos = {
 		_pos.X + short(_cursor.col - _cursor.row->begin()),
 		_pos.Y + short(_cursor.row - _rows.begin())
-	};
+	}; // TODO - optimize so we don't initialize this every pixel
 
-	// Cancel if cursor out of print area
-	// TODO - hide cursor if not in texteditor, not just out of console window
-	if (cursorPos.X >= ConsoleAPI::GetConsoleSize().X || cursorPos.X < 0 || cursorPos.Y >= ConsoleAPI::GetConsoleSize().Y || cursorPos.Y < 0)
-		return;
+	// Draw editor
+	bool drawEmptySpace = y >= _rows.size() || x >= _rows[y].size();
 
-	GetCanvas().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
+	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _rows[y][x];
+	GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
+
+	// Draw cursor
+	if (cursorPos.X == x && cursorPos.Y == y)
+		GetCanvas().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
 }
 
 } // namespace tefk
