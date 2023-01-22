@@ -48,14 +48,12 @@ bool GUIComponent::IsVisible() {
 
 void GUIComponent::Draw() {
 	// Cancel if no surface area
-	if (_size.X * _size.Y == 0)
+	if (_size.Area() == 0)
 		return;
 
-	for (size_t y = 0; y < _size.Y; y++) {
-		for (size_t x = 0; x < _size.X; x++) {
-			DrawPixel(x, y);
-		}
-	}
+	// Assign character and color to each component pixel
+	for (short pixelIndex = 0; pixelIndex < _size.Area(); pixelIndex++)
+		DrawPixel(pixelIndex % _size.X, pixelIndex / _size.X);
 }
 
 } // namespace tefk

@@ -12,6 +12,10 @@ struct Coord {
 	short X;
 	short Y;
 
+	short Area() {
+		return X * Y;
+	}
+
 	bool operator==(const Coord& c) {
 		return X == c.X && Y == c.Y;
 	}
