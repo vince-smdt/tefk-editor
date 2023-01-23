@@ -12,7 +12,7 @@ public:
 
 	std::string GetContent() override;
 private:
-	void DrawPixel(Coord pos, Pixel* pixel) override;
+	void DrawPixel(Coord pos, Pixel& pixel) override;
 };
 
 } // namespace tefk

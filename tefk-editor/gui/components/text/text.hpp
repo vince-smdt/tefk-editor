@@ -14,6 +14,9 @@ protected:
 public:
 	Text();
 
+	Coord GetCursorPos();
+
+	// Text commands
 	void AddChar(unsigned char ch);
 	void NewLine();
 	void DeleteChar();

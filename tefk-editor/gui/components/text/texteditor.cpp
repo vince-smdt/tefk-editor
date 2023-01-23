@@ -81,21 +81,11 @@ void TextEditor::CatchEvent(Event& event) {
 	}
 }
 
-void TextEditor::DrawPixel(Coord pos, Pixel* pixel) {
-	Coord cursorPos = {
-		_pos.X + short(_cursor.col - _cursor.row->begin()),
-		_pos.Y + short(_cursor.row - _rows.begin())
-	}; // TODO - optimize so we don't initialize this every pixel
-
-	// Draw editor
+void TextEditor::DrawPixel(Coord pos, Pixel& pixel) {
 	bool drawEmptySpace = pos.Y >= _rows.size() || pos.X >= _rows[pos.Y].size();
 
-	pixel->character = drawEmptySpace ? ' ' : _rows[pos.Y][pos.X];
-	pixel->color = _color;
-
-	// Draw cursor
-	if (cursorPos == pos)
-		GetCanvas().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
+	pixel.character = drawEmptySpace ? ' ' : _rows[pos.Y][pos.X];
+	pixel.color = (GetCursorPos() == pos) ? _color.Inverse() : _color;
 }
 
 } // namespace tefk

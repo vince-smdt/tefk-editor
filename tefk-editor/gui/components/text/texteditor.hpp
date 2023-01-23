@@ -14,7 +14,7 @@ public:
 	std::string GetContent() override;
 	void CatchEvent(Event& event) override;
 private:
-	void DrawPixel(Coord pos, Pixel* pixel) override;
+	void DrawPixel(Coord pos, Pixel& pixel) override;
 };
 
 } // namespace tefk

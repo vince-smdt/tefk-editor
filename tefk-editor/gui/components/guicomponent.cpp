@@ -54,7 +54,7 @@ void GUIComponent::Draw() {
 	// Assign character and color to each component pixel
 	for (short pxInd = 0; pxInd < _size.Area(); pxInd++) {
 		Coord pxPos = { pxInd % _size.X, pxInd / _size.X };
-		DrawPixel(pxPos, &GetCanvas().PixelAt(pxPos.X + _pos.X, pxPos.Y + _pos.Y));
+		DrawPixel(pxPos, GetCanvas().PixelAt(pxPos.X + _pos.X, pxPos.Y + _pos.Y));
 	}
 }
 

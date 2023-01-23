@@ -6,6 +6,13 @@ Text::Text()
 	: GUIComponent{ SizeBehaviour::FILL }
 {}
 
+Coord Text::GetCursorPos() {
+	return Coord(
+		_pos.X + short(_cursor.col - _cursor.row->begin()),
+		_pos.Y + short(_cursor.row - _rows.begin() - 1)
+	);
+}
+
 void Text::AddChar(unsigned char ch) {
 	_cursor.col = _cursor.row->insert(_cursor.col, ch) + 1;
 }
