@@ -2,15 +2,10 @@
 
 namespace tefk {
 
-struct Cursor {
-	std::vector<std::string>::iterator row;
-	std::string::iterator col;
-};
-
 class Text : public GUIComponent {
 protected:
-	Cursor _cursor;
-	std::vector<std::string> _rows;
+	std::list<unsigned char> _text;
+	std::list<unsigned char>::iterator _cursor;
 public:
 	Text();
 
@@ -26,6 +21,9 @@ public:
 
 	void MoveCursorNextWord();
 	void MoveCursorPrevWord();
+protected:
+	// Helper functions
+	size_t SpacesFromLeft();
 };
 
 } // namespace tefk

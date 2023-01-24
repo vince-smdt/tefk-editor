@@ -4,199 +4,136 @@ namespace tefk {
 
 Text::Text()
 	: GUIComponent{ SizeBehaviour::FILL }
-{}
+{
+	_cursor = _text.begin();
+}
 
 void Text::AddChar(unsigned char ch) {
-	_cursor.col = _cursor.row->insert(_cursor.col, ch) + 1;
+	_text.insert(_cursor, ch);
 }
 
 void Text::NewLine() {
-	// Create new row and move content after cursor to new row
-	size_t colIndex = _cursor.col - _cursor.row->begin();
-	_cursor.row = _rows.insert(_cursor.row + 1, "");
-	*_cursor.row = (_cursor.row - 1)->substr(colIndex, (_cursor.row - 1)->size() - colIndex);
-	(_cursor.row - 1)->erase(colIndex, (_cursor.row - 1)->size() - colIndex);
-	_cursor.col = _cursor.row->begin();
+	AddChar('\n');
 }
 
 void Text::DeleteChar() {
-	// If at beginning of row
-	if (_cursor.col == _cursor.row->begin()) {
-		// If at begining of file, cancel
-		if (_cursor.row == _rows.begin())
-			return;
-
-		// Move content of current row to previous row, then delete current row
-		size_t currRowSize = (_cursor.row - 1)->size();
-		(_cursor.row - 1)->append(*_cursor.row);
-		_cursor.row = _rows.erase(_cursor.row);
-		_cursor.col = (--_cursor.row)->begin() + currRowSize;
-		return;
-	}
-	_cursor.row->erase(--_cursor.col);
+	if (_cursor != _text.begin())
+		_cursor = _text.erase(--_cursor);
 }
 
 void Text::DeleteWord() {
-	// If cursor at beginning or row
-	if (_cursor.col == _cursor.row->begin()) {
-		// If cursor on first row, cancel
-		if (_cursor.row == _rows.begin())
-			return;
+	auto last = _cursor;
 
-		// Delete word on previous row
-		DeleteChar();
-		DeleteWord();
-		return;
-	}
-
-	size_t colIndex = _cursor.col - _cursor.row->begin();
-	bool selectedChar = false; // if at least one non-space char selected
-
-	_cursor.col--;
-
-	// Position cursor on last char if pointing to end() iterator
-	if (_cursor.col == _cursor.row->end())
-		_cursor.col--;
-
-	// Skip spaces
-	while (*_cursor.col == ' ' && _cursor.col != _cursor.row->begin())
-		_cursor.col--;
-
-	// Skip letters of word to delete
-	while (*_cursor.col != ' ' && _cursor.col != _cursor.row->begin()) {
-		selectedChar = true;
-		_cursor.col--;
-	}
-
-	// Leave space in front of previous word
-	if (selectedChar && *_cursor.col == ' ')
-		_cursor.col++;
-
-	size_t selectionSize = colIndex - (_cursor.col - _cursor.row->begin());
-	size_t newColIndex = _cursor.col - _cursor.row->begin();
-
-	// Delete word
-	_cursor.row->erase(newColIndex, selectionSize);
-	_cursor.col = _cursor.row->begin() + newColIndex;
+	MoveCursorPrevWord();
+	_cursor = _text.erase(_cursor, last);
 }
 
 void Text::MoveCursorRight() {
-	// If at end of row
-	if (_cursor.col == _cursor.row->end()) {
-		// Cancel if cursor already at eof
-		if (_cursor.row == _rows.end() - 1)
-			return;
-
-		// Move cursor to next row
-		_cursor.col = (++_cursor.row)->begin();
-		return;
-	}
-
-	// Move cursor to next char
-	_cursor.col++;
+	if (_cursor != _text.end())
+		_cursor++;
 }
 
 void Text::MoveCursorLeft() {
-	// If at beginning of row
-	if (_cursor.col == _cursor.row->begin()) {
-		// Cancel if cursor already at bof
-		if (_cursor.row == _rows.begin())
-			return;
-
-		// Move cursor to previous row
-		_cursor.col = (--_cursor.row)->end();
-		return;
-	}
-
-	// Move cursor to previous char
-	_cursor.col--;
+	if (_cursor != _text.begin())
+		_cursor--;
 }
 
 void Text::MoveCursorUp() {
-	// If at first row
-	if (_cursor.row == _rows.begin()) {
-		// Move cursor to beginning of line
-		_cursor.col = _cursor.row->begin();
-		return;
+	size_t spacesFromLeft = SpacesFromLeft();
+	size_t previousRowSize = 0;
+
+	// Move cursor to start of line
+	if (_cursor == _text.end() || (_cursor != _text.begin() && *_cursor == '\n'))
+		_cursor--;
+
+	while (_cursor != _text.begin() && *_cursor != '\n')
+		_cursor--;
+
+	// Move cursor to start of previous line
+	if (_cursor != _text.begin()) {
+		_cursor--;
+		previousRowSize++;
 	}
 
-	// Move cursor to previous row
-	size_t colIndex = _cursor.col - _cursor.row->begin();
-	_cursor.row--;
-
-	// If cursor column index is bigger than new row, move to end of new row
-	// Else, move to same column index of new row
-	if (colIndex >= _cursor.row->size()) {
-		_cursor.col = _cursor.row->end();
-		return;
+	while (_cursor != _text.begin() && *_cursor != '\n') {
+		_cursor--;
+		previousRowSize++;
 	}
-	_cursor.col = _cursor.row->begin() + colIndex;
 
+	if (_cursor != _text.end() && _cursor != _text.begin() && *_cursor == '\n')
+		_cursor++;
+
+	// Move cursor right by offset of previous line
+	std::advance(_cursor, (std::min)(previousRowSize, spacesFromLeft));
 }
 
 void Text::MoveCursorDown() {
-	// If at last row
-	if (_cursor.row == _rows.end() - 1) {
-		// Move cursor to end of line
-		_cursor.col = _cursor.row->end();
-		return;
-	}
+	size_t spacesFromLeft = SpacesFromLeft();
 
-	// Move cursor to next row
-	size_t colIndex = _cursor.col - _cursor.row->begin();
-	_cursor.row++;
+	// Move cursor to start of next line
+	while (_cursor != _text.end() && *_cursor != '\n')
+		_cursor++;
 
-	// If cursor column index is bigger than new row, move to end of new row
-	// Else, move to same column index of new row
-	if (colIndex >= _cursor.row->size()) {
-		_cursor.col = _cursor.row->end();
-		return;
+	if (_cursor != _text.end())
+		_cursor++;
+
+	// Move cursor right by offset
+	while (spacesFromLeft && _cursor != _text.end() && *_cursor != '\n') {
+		_cursor++;
+		spacesFromLeft--;
 	}
-	_cursor.col = _cursor.row->begin() + colIndex;
 }
 
 void Text::MoveCursorNextWord() {
-	// If at end of row
-	if (_cursor.col == _cursor.row->end()) {
-		// Cancel if at end of file
-		if (_cursor.row == _rows.end() - 1)
-			return;
-
-		// Go to next row
-		_cursor.col = (++_cursor.row)->begin();
+	if (_cursor == _text.end())
 		return;
-	}
 
-	// Go to next word
-	_cursor.col++;
+	if (*_cursor == '\n')
+		_cursor++;
 
-	while (_cursor.col != _cursor.row->end() && *_cursor.col != ' ')
-		_cursor.col++;
+	// Move forwards until space or newline reached
+	while (_cursor != _text.end() && *_cursor == ' ' && *_cursor != '\n')
+		_cursor++;
 
-	while (_cursor.col != _cursor.row->end() && *_cursor.col == ' ')
-		_cursor.col++;
+	// Move forwards until non-space or newline reached
+	while (_cursor != _text.end() && *_cursor != ' ' && *_cursor != '\n')
+		_cursor++;
 }
 
 void Text::MoveCursorPrevWord() {
-	// If at beginning of row
-	if (_cursor.col == _cursor.row->begin()) {
-		// Cancel if at beginning of file
-		if (_cursor.row == _rows.begin())
-			return;
-
-		// Go to prev row
-		_cursor.col = (--_cursor.row)->end();
+	if (_cursor == _text.begin())
 		return;
+
+	if (_cursor == _text.end() || *_cursor == '\n')
+		_cursor--;
+
+	// Move backwards until space or newline reached
+	while (_cursor != _text.begin() && *_cursor == ' ' && *_cursor != '\n')
+		_cursor--;
+
+	// Move backwards until non-space or newline reached
+	while (_cursor != _text.begin() && *_cursor != ' ' && *_cursor != '\n')
+		_cursor--;
+}
+
+size_t Text::SpacesFromLeft() {
+	size_t spacesFromLeft = 0;
+	auto iter = _cursor;
+
+	if (iter == _text.end() || *iter == '\n') {
+		iter--;
+		spacesFromLeft++;
 	}
 
-	// Go to prev word
-	_cursor.col--;
+	while (iter != _text.begin() && (iter == _text.end() || *iter != '\n')) {
+		iter--;
+		spacesFromLeft++;
+	}
 
-	while (_cursor.col != _cursor.row->begin() && *_cursor.col != ' ')
-		_cursor.col--;
+	if (iter != _text.end() && *iter == '\n' && spacesFromLeft > 0)
+		spacesFromLeft--;
 
-	while (_cursor.col != _cursor.row->begin() && *_cursor.col == ' ')
-		_cursor.col--;
+	return spacesFromLeft;
 }
 
 } // namespace tefk

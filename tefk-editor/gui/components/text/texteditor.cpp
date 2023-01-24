@@ -4,39 +4,21 @@ namespace tefk {
 
 TextEditor::TextEditor()
 	: Text{}
-{
-	_rows.push_back("");
-	_cursor.row = _rows.begin();
-	_cursor.col = _cursor.row->end();
-}
+{}
 
 // TODO - load text correctly, currently unable to load text from file
 void TextEditor::SetText(std::string text) {
-	size_t currLineBreak = 0,
-	       nextLineBreak = 0;
-
-	_rows.clear();
-	while (true) {
-		nextLineBreak = text.find_first_of('\n', currLineBreak);
-		_rows.push_back(text.substr(currLineBreak, nextLineBreak - currLineBreak));
-		if (nextLineBreak == std::string::npos)
-			break;
-		currLineBreak = ++nextLineBreak;
-	};
-
-	// If text empty, push at least one row into _rows to position cursor
-	if (_rows.empty())
-		_rows.push_back("");
-
-	_cursor.row = _rows.begin();
-	_cursor.col = _cursor.row->begin();
+	_text.clear();
+	for (auto ch : text)
+		_text.push_back(ch);
+	_cursor = _text.begin();
 }
 
 std::string TextEditor::GetContent() {
 	std::string text;
-	for (std::string row : _rows)
-		text.append(row + '\n');
-	return text.substr(0, text.size() - 1);
+	for (auto ch : _text)
+		text.push_back(ch);
+	return text;
 }
 
 void TextEditor::CatchEvent(Event& event) {
@@ -85,28 +67,43 @@ void TextEditor::DrawOnCanvas() {
 	if (_size.X * _size.Y <= 0)
 		return;
 
-	// Draw editor
-	for (size_t y = 0; y < _size.Y; y++) {
-		for (size_t x = 0; x < _size.X; x++) {
-			bool drawEmptySpace = y >= _rows.size() || x >= _rows[y].size();
+	auto iter = _text.begin();
+	bool fillRowWithSpaces = false;
+	bool cursorPrinted = false;
 
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _rows[y][x];
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
+	for (size_t pxInd = 0; pxInd < _size.Area(); pxInd++) {
+		// Set pixel position on canvas and pointer to current pixel
+		Coord pxPos = { pxInd % _size.X, pxInd / _size.X };
+		Pixel* pixel = &GetCanvas().PixelAt(pxPos.X + _pos.X, pxPos.Y + _pos.Y);
+
+		// Reset flag if new row
+		if (pxPos.X == 0)
+			fillRowWithSpaces = false;
+
+		// Color pixel
+		if (_cursor == iter && !cursorPrinted && !fillRowWithSpaces) {
+			pixel->color = _color.Inverse();
+			cursorPrinted = true;
+		}
+		else {
+			pixel->color = _color;
+		}
+
+		// Assign pixel character and move iterator
+		if (fillRowWithSpaces || iter == _text.end()) {
+			pixel->character = ' ';
+		}
+		else {
+			if (*iter == '\n') {
+				fillRowWithSpaces = true;
+				pixel->character = ' ';
+			}
+			else {
+				pixel->character = *iter;
+			}
+			iter++;
 		}
 	}
-
-	// Draw cursor
-	Coord cursorPos = {
-		_pos.X + short(_cursor.col - _cursor.row->begin()),
-		_pos.Y + short(_cursor.row - _rows.begin())
-	};
-
-	// Cancel if cursor out of print area
-	// TODO - hide cursor if not in texteditor, not just out of console window
-	if (cursorPos.X >= ConsoleAPI::GetConsoleSize().X || cursorPos.X < 0 || cursorPos.Y >= ConsoleAPI::GetConsoleSize().Y || cursorPos.Y < 0)
-		return;
-
-	GetCanvas().PixelAt(cursorPos.X, cursorPos.Y).color = _color.Inverse();
 }
 
 } // namespace tefk
