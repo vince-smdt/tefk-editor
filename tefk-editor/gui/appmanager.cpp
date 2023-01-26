@@ -31,6 +31,9 @@ void CloseWindow() {
 }
 
 void CatchEvents() {
+	if (_windows.top()->IsClosing())
+		AddEvent(Event::WindowClosing());
+
 	if (_kbhit())
 		AddEvent(Input::CatchInput());
 
@@ -49,6 +52,10 @@ void RunEvents() {
 
 	while (!_events.empty()) {
 		ProcessEvent(*_events.front());
+		if (_windows.top()->IsClosing()) {
+			CloseWindow();
+			return;
+		}
 		_windows.top()->CatchAndPropagateEvent(*_events.front());
 		_events.pop();
 	}
@@ -59,6 +66,9 @@ void RunEvents() {
 void ProcessEvent(Event& event) {
 	if (event.type == Event::Type::CONSOLE_SIZE_CHANGE)
 		ConsoleAPI::UpdateConsoleSize();
+
+	if (event.type == Event::Type::WINDOW_CLOSING)
+		_windows.top()->Close();
 }
 
 bool Running() {

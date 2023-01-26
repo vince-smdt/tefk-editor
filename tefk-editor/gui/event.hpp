@@ -6,7 +6,8 @@ struct Event {
 		APPLICATION_START,
 		CHARACTER,
 		CONSOLE_SIZE_CHANGE,
-		SPECIAL_CHARACTER
+		SPECIAL_CHARACTER,
+		WINDOW_CLOSING
 	};
 
 	unsigned char input;
@@ -16,6 +17,7 @@ struct Event {
 	static Event Character(unsigned char input);
 	static Event ConsoleSizeChange();
 	static Event SpecialCharacter(unsigned char input);
+	static Event WindowClosing();
 };
 
 } // namespace tefk

@@ -2,7 +2,9 @@
 
 namespace tefk {
 
-Editor::Editor() {
+Editor::Editor() 
+	: Window{}
+{
 	// Configure all components
 	_lblHeader.SetColor({ BLACK, WHITE });
 
@@ -25,6 +27,9 @@ void Editor::CatchEvent(Event& event) {
 	// Handle event
 	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
+		case VK_CTRL_Q:
+			Close();
+			break;
 		case VK_CTRL_S:
 			_currFile->SetContent(_ediEditor.GetContent());
 			_currFile->Save();

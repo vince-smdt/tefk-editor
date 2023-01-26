@@ -2,6 +2,10 @@
 
 namespace tefk {
 
+Window::Window()
+	: _isClosing{ false }
+{}
+
 void Window::AddComponent(GUIComponent& component) {
 	_children.push_back(&component);
 }
@@ -62,6 +66,14 @@ void Window::Render() {
 		if (child->IsVisible())
 			child->DrawOnCanvas();
 	GetCanvas().Render();
+}
+
+void Window::Close() {
+	_isClosing = true;
+}
+
+bool Window::IsClosing() {
+	return _isClosing;
 }
 
 void Window::CatchAndPropagateEvent(Event& event) {

@@ -28,4 +28,10 @@ Event Event::SpecialCharacter(unsigned char input) {
 	return event;
 }
 
+Event Event::WindowClosing() {
+	Event event;
+	event.type = Type::WINDOW_CLOSING;
+	return event;
+}
+
 } // namespace tefk
