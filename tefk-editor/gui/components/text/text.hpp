@@ -9,6 +9,7 @@ protected:
 public:
 	Text();
 
+	// Commands
 	void AddChar(unsigned char ch);
 	void NewLine();
 	void DeleteChar();
@@ -21,6 +22,9 @@ public:
 
 	void MoveCursorNextWord();
 	void MoveCursorPrevWord();
+
+	// Events
+	void CatchEvent(Event& event) override;
 protected:
 	// Helper functions
 	size_t SpacesFromLeft();

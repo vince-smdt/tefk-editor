@@ -21,48 +21,6 @@ std::string TextEditor::GetContent() {
 	return text;
 }
 
-void TextEditor::CatchEvent(Event& event) {
-	if (event.type == Event::Type::CHARACTER) {
-		switch (event.input) {
-		case VK_BACK:
-			DeleteChar();
-			break;
-		case VK_CTRL_BACKSPACE:
-			DeleteWord();
-			break;
-		case VK_RETURN:
-			NewLine();
-			break;
-		default:
-			if (event.input > 26)
-				AddChar(event.input);
-			break;
-		}
-	}
-	else if (event.type == Event::Type::SPECIAL_CHARACTER) {
-		switch (event.input) {
-		case VK_ARROW_RIGHT:
-			MoveCursorRight();
-			break;
-		case VK_ARROW_LEFT:
-			MoveCursorLeft();
-			break;
-		case VK_ARROW_UP:
-			MoveCursorUp();
-			break;
-		case VK_ARROW_DOWN:
-			MoveCursorDown();
-			break;
-		case VK_CTRL_ARROW_RIGHT:
-			MoveCursorNextWord();
-			break;
-		case VK_CTRL_ARROW_LEFT:
-			MoveCursorPrevWord();
-			break;
-		}
-	}
-}
-
 void TextEditor::DrawOnCanvas() {
 	if (_size.X * _size.Y <= 0)
 		return;
