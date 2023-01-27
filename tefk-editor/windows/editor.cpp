@@ -8,6 +8,9 @@ Editor::Editor()
 	// Configure all components
 	_lblHeader.SetColor({ BLACK, WHITE });
 
+	_lblError.SetColor({ LIGHT_WHITE, LIGHT_RED });
+	_lblError.SetVisible(false);
+
 	_ediEditor.SetColor({ WHITE, BLACK });
 
 	_txtFilename.SetColor({ WHITE, LIGHT_RED });
@@ -18,6 +21,7 @@ Editor::Editor()
 
 	// Add all components to window
 	AddComponent(_lblHeader);
+	AddComponent(_lblError);
 	AddComponent(_ediEditor);
 	AddComponent(_txtFilename);
 	AddComponent(_lblFooter);
@@ -85,15 +89,30 @@ void Editor::OpenFiles(int argc, char** argv) {
 	std::string dirpath = argv[1];
 
 	// Open files from command arguments
+	int failedFileOpens = 0;
+
 	for (int i = 2; i < argc; i++) {
 		std::filesystem::path filepath(dirpath + "/" + argv[i]);
-		_files.push_back(File(filepath));
+		_files.push_back(File());
+		if (!_files.back().Open(filepath)) {
+			failedFileOpens++;
+			_files.pop_back();
+		}
+	}
+
+	// Show error if some files failed to open
+	if (failedFileOpens) {
+		_lblError.SetText(std::format(
+			"Failed to open {} file{}.",
+			failedFileOpens,
+			(failedFileOpens > 1) ? "s" : ""
+		));
+		_lblError.SetVisible(true);
 	}
 
 	// If not files open, create new file
 	if (_files.size() == 0) {
-		std::filesystem::path filepath("new.txt");
-		_files.push_back(File(filepath));
+		_files.push_back(File());
 	}
 
 	_currFile = _files.begin();

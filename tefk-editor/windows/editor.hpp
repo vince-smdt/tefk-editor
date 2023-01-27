@@ -12,6 +12,7 @@ namespace tefk {
 class Editor : public Window {
 public:
 	Label _lblHeader;
+	Label _lblError;
 	TextEditor _ediEditor;
 	TextField _txtFilename;
 	Label _lblFooter;

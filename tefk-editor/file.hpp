@@ -10,7 +10,7 @@ private:
 	std::filesystem::path _filename;
 	std::string _content;
 public:
-	File(std::filesystem::path& filename);
+	File();
 
 	std::filesystem::path GetFilename();
 	std::string GetContent();
