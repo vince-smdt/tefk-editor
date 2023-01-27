@@ -2,10 +2,17 @@
 
 namespace tefk {
 
-Text::Text()
-	: GUIComponent{ SizeBehaviour::FILL }
+Text::Text(SizeBehaviour heightBehaviour)
+	: GUIComponent{ heightBehaviour }
 {
 	_cursor = _text.begin();
+}
+
+std::string Text::GetText() {
+	std::string text;
+	for (auto ch : _text)
+		text.push_back(ch);
+	return text;
 }
 
 void Text::AddChar(unsigned char ch) {
@@ -39,6 +46,9 @@ void Text::MoveCursorLeft() {
 }
 
 void Text::MoveCursorUp() {
+	if (_text.begin() == _text.end())
+		return;
+
 	size_t spacesFromLeft = SpacesFromLeft();
 	size_t previousRowSize = 0;
 
@@ -68,6 +78,9 @@ void Text::MoveCursorUp() {
 }
 
 void Text::MoveCursorDown() {
+	if (_text.begin() == _text.end())
+		return;
+
 	size_t spacesFromLeft = SpacesFromLeft();
 
 	// Move cursor to start of next line
@@ -116,7 +129,11 @@ void Text::MoveCursorPrevWord() {
 		_cursor--;
 }
 
-void Text::CatchEvent(Event& event) {
+void Text::CatchEvent(Event event) {
+	// Cancel if component isn't focused
+	if (!event.focused)
+		return;
+
 	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
 		case VK_BACK:

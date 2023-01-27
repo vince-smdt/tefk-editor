@@ -63,7 +63,7 @@ void RunEvents() {
 	Render();
 }
 
-void ProcessEvent(Event& event) {
+void ProcessEvent(Event event) {
 	if (event.type == Event::Type::CONSOLE_SIZE_CHANGE)
 		ConsoleAPI::UpdateConsoleSize();
 

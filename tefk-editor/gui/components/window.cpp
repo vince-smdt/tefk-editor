@@ -3,7 +3,8 @@
 namespace tefk {
 
 Window::Window()
-	: _isClosing{ false }
+	: _isClosing{ false },
+	  _focusedComponent{ nullptr }
 {}
 
 void Window::AddComponent(GUIComponent& component) {
@@ -68,6 +69,10 @@ void Window::Render() {
 	GetCanvas().Render();
 }
 
+void Window::Focus(GUIComponent& component) {
+	_focusedComponent = &component;
+}
+
 void Window::Close() {
 	_isClosing = true;
 }
@@ -76,10 +81,12 @@ bool Window::IsClosing() {
 	return _isClosing;
 }
 
-void Window::CatchAndPropagateEvent(Event& event) {
+void Window::CatchAndPropagateEvent(Event event) {
 	CatchEvent(event);
-	for (auto& child : _children)
+	for (auto& child : _children) {
+		event.focused = _focusedComponent == child;
 		child->CatchEvent(event);
+	}
 }
 
 } // namespace tefk

@@ -1,11 +1,10 @@
 #pragma once
-#include "../guicomponent.hpp"
+#include "text.hpp"
 
 namespace tefk {
 
-class TextField : public GUIComponent {
+class TextField : public Text {
 	std::string _label;
-	std::string _input;
 public:
 	TextField();
 

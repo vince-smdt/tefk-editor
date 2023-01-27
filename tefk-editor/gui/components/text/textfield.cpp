@@ -3,7 +3,7 @@
 namespace tefk {
 
 TextField::TextField()
-	: GUIComponent{ SizeBehaviour::CONTENT }
+	: Text{ SizeBehaviour::CONTENT }
 {}
 
 std::string TextField::GetLabel() {
@@ -15,7 +15,7 @@ void TextField::SetLabel(std::string label) {
 }
 
 std::string TextField::GetContent() {
-	return _label + ": " + _input;
+	return _label + ": " + GetText();;
 }
 
 void TextField::DrawOnCanvas() {

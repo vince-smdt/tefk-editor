@@ -12,6 +12,7 @@ struct Event {
 
 	unsigned char input;
 	Type type;
+	bool focused = false; // If component receiving event is focused
 
 	static Event ApplicationStart();
 	static Event Character(unsigned char input);

@@ -13,7 +13,7 @@ Editor::Editor()
 
 	_ediEditor.SetColor({ WHITE, BLACK });
 
-	_txtFilename.SetColor({ WHITE, LIGHT_RED });
+	_txtFilename.SetColor({ WHITE, LIGHT_BLUE });
 	_txtFilename.SetLabel("Choose filename");
 	_txtFilename.SetVisible(false);
 
@@ -25,9 +25,11 @@ Editor::Editor()
 	AddComponent(_ediEditor);
 	AddComponent(_txtFilename);
 	AddComponent(_lblFooter);
+
+	Focus(_ediEditor);
 }
 
-void Editor::CatchEvent(Event& event) {
+void Editor::CatchEvent(Event event) {
 	// Handle event
 	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {

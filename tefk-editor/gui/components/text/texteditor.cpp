@@ -3,7 +3,7 @@
 namespace tefk {
 
 TextEditor::TextEditor()
-	: Text{}
+	: Text{ SizeBehaviour::FILL }
 {}
 
 // TODO - load text correctly, currently unable to load text from file
@@ -15,10 +15,7 @@ void TextEditor::SetText(std::string text) {
 }
 
 std::string TextEditor::GetContent() {
-	std::string text;
-	for (auto ch : _text)
-		text.push_back(ch);
-	return text;
+	return GetText();
 }
 
 void TextEditor::DrawOnCanvas() {

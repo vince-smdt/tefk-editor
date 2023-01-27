@@ -1,3 +1,4 @@
+#pragma once
 #include "../guicomponent.hpp"
 
 namespace tefk {
@@ -7,7 +8,10 @@ protected:
 	std::list<unsigned char> _text;
 	std::list<unsigned char>::iterator _cursor;
 public:
-	Text();
+	Text(SizeBehaviour heightBehaviour);
+
+	// Setters & Getters
+	std::string GetText();
 
 	// Commands
 	void AddChar(unsigned char ch);
@@ -24,7 +28,7 @@ public:
 	void MoveCursorPrevWord();
 
 	// Events
-	void CatchEvent(Event& event) override;
+	void CatchEvent(Event event) override;
 protected:
 	// Helper functions
 	size_t SpacesFromLeft();

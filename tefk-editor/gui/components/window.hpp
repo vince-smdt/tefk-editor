@@ -8,6 +8,7 @@ namespace tefk {
 
 class Window {
 	bool _isClosing;
+	GUIComponent* _focusedComponent;
 	std::vector<GUIComponent*> _children;
 public:
 	Window();
@@ -15,12 +16,13 @@ public:
 	void AddComponent(GUIComponent& component);
 	void UpdateComponents();
 	void Render();
-	void CatchAndPropagateEvent(Event& event);
+	void Focus(GUIComponent& component);
 	void Close();
 
 	bool IsClosing();
 
-	virtual void CatchEvent(Event& event) {};
+	void CatchAndPropagateEvent(Event event);
+	virtual void CatchEvent(Event event) {};
 };
 
 } // namespace tefk

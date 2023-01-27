@@ -23,7 +23,7 @@ namespace tefk::ApplicationManager {
 	void CatchEvents();
 	void AddEvent(Event event);
 	void RunEvents();
-	void ProcessEvent(Event& event);
+	void ProcessEvent(Event event);
 
 	bool Running();
 

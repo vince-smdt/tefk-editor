@@ -38,7 +38,7 @@ public:
 	bool IsVisible();
 
 	virtual std::string GetContent() = 0;
-	virtual void CatchEvent(Event& event) {}
+	virtual void CatchEvent(Event event) {}
 	virtual void DrawOnCanvas() = 0;
 };
 
