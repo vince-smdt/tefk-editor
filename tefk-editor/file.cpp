@@ -19,8 +19,14 @@ void File::SetContent(std::string content) {
 bool File::Open(std::filesystem::path& filename) {
 	// If file doesn't exist
 	if (!std::filesystem::exists(filename)) {
-		_filename = filename;
-		return true;
+		std::ofstream { filename };
+		if (!std::filesystem::exists(filename)) {
+			return false;
+		}
+		else {
+			_filename = filename;
+			return true;
+		}
 	}
 
 	std::ifstream file(filename);
