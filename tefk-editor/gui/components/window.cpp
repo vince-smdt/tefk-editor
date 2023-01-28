@@ -7,8 +7,14 @@ Window::Window()
 	  _focusedComponent{ nullptr }
 {}
 
+GUIComponent& Window::GetFocusedComponent() {
+	return *_focusedComponent;
+}
+
 void Window::AddComponent(GUIComponent& component) {
+	// TODO - check if component already has a parent
 	_children.push_back(&component);
+	component.SetParent(*this);
 }
 
 // TODO - avoid giving negative values to components height
@@ -89,10 +95,8 @@ bool Window::IsClosing() {
 
 void Window::CatchAndPropagateEvent(Event event) {
 	CatchEvent(event);
-	for (auto& child : _children) {
-		event.focused = _focusedComponent == child;
+	for (auto& child : _children)
 		child->CatchEvent(event);
-	}
 }
 
 } // namespace tefk

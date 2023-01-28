@@ -33,7 +33,6 @@ bool File::Open(std::filesystem::path& filename) {
 
 	// If we have access to file
 	if (file) {
-		// TODO - (maybe) optimize to avoid redundant copy https://stackoverflow.com/questions/116038/how-do-i-read-an-entire-file-into-a-stdstring-in-c
 		std::ostringstream ss;
 		ss << file.rdbuf();
 		_filename = filename;

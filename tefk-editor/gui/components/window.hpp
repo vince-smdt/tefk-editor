@@ -6,12 +6,17 @@
 
 namespace tefk {
 
+class GUIComponent;
+
 class Window {
-	bool _isClosing;
-	GUIComponent* _focusedComponent;
 	std::vector<GUIComponent*> _children;
+	GUIComponent* _focusedComponent;
+
+	bool _isClosing;
 public:
 	Window();
+
+	GUIComponent& GetFocusedComponent();
 
 	void AddComponent(GUIComponent& component);
 	void UpdateComponents();

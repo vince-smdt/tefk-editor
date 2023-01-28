@@ -46,6 +46,7 @@ void Text::MoveCursorLeft() {
 }
 
 void Text::MoveCursorUp() {
+	// TODO - fix cursor going to beginning of line when at end of line
 	if (_text.begin() == _text.end())
 		return;
 
@@ -131,7 +132,7 @@ void Text::MoveCursorPrevWord() {
 
 void Text::CatchEvent(Event event) {
 	// Cancel if component isn't focused
-	if (!event.focused)
+	if (!Focused())
 		return;
 
 	if (event.type == Event::Type::CHARACTER) {

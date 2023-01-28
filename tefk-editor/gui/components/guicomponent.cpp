@@ -3,12 +3,17 @@
 namespace tefk {
 
 GUIComponent::GUIComponent(SizeBehaviour heightBehaviour)
-	: _pos{ 0, 0 },
+	: _parent{ nullptr },
+	  _pos{ 0, 0 },
 	  _size{ 0, 0 },
 	  _color{ BLACK, WHITE },
 	  _heightBehaviour{ heightBehaviour },
 	  _visible{ true }
 {}
+
+void GUIComponent::SetParent(Window& window) {
+	_parent = &window;
+}
 
 void GUIComponent::SetPosition(Coord pos) { 
 	_pos = pos;
@@ -34,6 +39,10 @@ void GUIComponent::SetVisible(bool visible) {
 	_visible = visible;
 }
 
+Window& GUIComponent::GetParent() {
+	return *_parent;
+}
+
 short GUIComponent::GetWidth() {
 	return _size.X;
 }
@@ -48,6 +57,10 @@ SizeBehaviour GUIComponent::GetHeightBehaviour() {
 
 bool GUIComponent::IsVisible() {
 	return _visible;
+}
+
+bool GUIComponent::Focused() {
+	return this == &_parent->GetFocusedComponent();
 }
 
 } // namespace tefk
