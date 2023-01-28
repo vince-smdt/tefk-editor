@@ -22,6 +22,10 @@ void GUIComponent::SetHeight(short height) {
 	_size.Y = height;
 }
 
+void GUIComponent::SetHeight(SizeBehaviour sizeBehaviour) {
+	_heightBehaviour = sizeBehaviour;
+}
+
 void GUIComponent::SetColor(TextColor color) { 
 	_color = color; 
 }

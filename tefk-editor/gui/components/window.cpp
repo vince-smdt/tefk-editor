@@ -30,8 +30,8 @@ void Window::UpdateComponents() {
 	short availableSpace = ConsoleAPI::GetConsoleSize().Y;
 	std::list<GUIComponent*> fillComponents;
 
-	// Update components with fixed height
-	// Store pointers of components with relative height
+	// Update content height components
+	// Store pointers of fill height components
 	for (auto component : visibleComponents) {
 		// TODO - update height in separate function (maybe do same for width)
 		switch (component->GetHeightBehaviour()) {
@@ -49,9 +49,15 @@ void Window::UpdateComponents() {
 		}
 	}
 
-	// Update height of components with relative heights
-	for (auto component : fillComponents)
-		component->SetHeight(availableSpace / fillComponents.size());
+	// Update height of fill height components
+	short fillHeight = availableSpace / fillComponents.size();
+	short leftoverSpace = availableSpace % fillComponents.size();
+	for (auto component : fillComponents) {
+		if (component != fillComponents.back())
+			component->SetHeight(fillHeight);
+		else
+			component->SetHeight(fillHeight + leftoverSpace);
+	}
 
 	// Position every component vertically
 	short offsetY = 0;

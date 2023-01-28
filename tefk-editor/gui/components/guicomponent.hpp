@@ -29,6 +29,7 @@ public:
 	void SetPosition(Coord pos);
 	void SetWidth(short width);
 	void SetHeight(short height);
+	void SetHeight(SizeBehaviour sizeBehaviour);
 	void SetColor(TextColor color);
 	void SetVisible(bool visible);
 
