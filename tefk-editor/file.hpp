@@ -14,10 +14,11 @@ public:
 
 	std::filesystem::path GetFilename();
 	std::string GetContent();
+	bool IsNewFile();
 
 	void SetContent(std::string content);
 
-	bool Open(std::filesystem::path& filename);
+	bool Open(std::filesystem::path filename);
 	void Save();
 };
 

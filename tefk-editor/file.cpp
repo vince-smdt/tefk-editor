@@ -12,11 +12,15 @@ std::string File::GetContent() {
 	return _content;
 }
 
+bool File::IsNewFile() {
+	return _filename.empty();
+}
+
 void File::SetContent(std::string content) {
 	_content = content;
 }
 
-bool File::Open(std::filesystem::path& filename) {
+bool File::Open(std::filesystem::path filename) {
 	// If file doesn't exist
 	if (!std::filesystem::exists(filename)) {
 		std::ofstream { filename };

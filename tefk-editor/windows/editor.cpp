@@ -37,8 +37,20 @@ void Editor::CatchEvent(Event event) {
 			Close();
 			break;
 		case VK_CTRL_S:
-			_currFile->SetContent(_ediEditor.GetContent());
-			_currFile->Save();
+			SaveFile();
+			break;
+		case VK_RETURN:
+			if (_txtFilename.Focused()) {
+				if (_currFile->Open(_folderPath.generic_string() + "/" + _txtFilename.GetText())) {
+					SaveFile();
+					_txtFilename.SetVisible(false);
+					Focus(_ediEditor);
+				}
+				else {
+					_lblError.SetText("File cannot be created.");
+					_lblError.SetVisible(true);
+				}
+			}
 			break;
 		}
 	}
@@ -60,7 +72,9 @@ void Editor::CatchEvent(Event event) {
 void Editor::UpdateHeader() {
 	_lblHeader.SetText(std::format(
 		"{} {}/{} Press Ctrl+S to save!",
-		_currFile->GetFilename().generic_string(),
+		(_currFile->IsNewFile())
+			? "New File"
+			: _currFile->GetFilename().generic_string(),
 		FileIndex(),
 		_files.size()
 	));
@@ -72,6 +86,17 @@ void Editor::UpdateFooter() {
 		ConsoleAPI::GetConsoleSize().Y,
 		ConsoleAPI::GetConsoleSize().X
 	));
+}
+
+void Editor::SaveFile() {
+	if (_currFile->IsNewFile()) {
+		_txtFilename.SetVisible(true);
+		Focus(_txtFilename);
+	}
+	else {
+		_currFile->SetContent(_ediEditor.GetContent());
+		_currFile->Save();
+	}
 }
 
 void Editor::LoadFile() {
@@ -88,13 +113,13 @@ void Editor::OpenFiles(int argc, char** argv) {
 		exit(0);
 	}
 
-	std::string dirpath = argv[1];
+	_folderPath = argv[1];
 
 	// Open files from command arguments
 	int failedFileOpens = 0;
 
 	for (int i = 2; i < argc; i++) {
-		std::filesystem::path filepath(dirpath + "/" + argv[i]);
+		std::filesystem::path filepath(_folderPath.generic_string() + "/" + argv[i]);
 		_files.push_back(File());
 		if (!_files.back().Open(filepath)) {
 			failedFileOpens++;
