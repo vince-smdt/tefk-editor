@@ -12,6 +12,7 @@ public:
 	void SetLabel(std::string label);
 
 	std::string GetContent() override;
+	bool CatchEventFromBaseComponent(Event event) override;
 private:
 	void DrawOnCanvas() override;
 };

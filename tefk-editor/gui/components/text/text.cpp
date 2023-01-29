@@ -143,13 +143,9 @@ void Text::CatchEvent(Event event) {
 		case VK_CTRL_BACKSPACE:
 			DeleteWord();
 			break;
-		case VK_RETURN:
-			NewLine();
-			break;
 		default:
-			if (event.input > 26)
+			if (!CatchEventFromBaseComponent(event) && event.input > 26)
 				AddChar(event.input);
-			break;
 		}
 	}
 	else if (event.type == Event::Type::SPECIAL_CHARACTER) {
@@ -172,6 +168,8 @@ void Text::CatchEvent(Event event) {
 		case VK_CTRL_ARROW_LEFT:
 			MoveCursorPrevWord();
 			break;
+		default:
+			CatchEventFromBaseComponent(event);
 		}
 	}
 }

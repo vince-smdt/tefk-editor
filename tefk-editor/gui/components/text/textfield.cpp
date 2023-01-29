@@ -18,6 +18,13 @@ std::string TextField::GetContent() {
 	return _label + ": " + GetText();;
 }
 
+bool TextField::CatchEventFromBaseComponent(Event event) {
+	// TODO - catch event and do something with it
+	bool eventCaught = true;
+	eventCaught = false;
+	return eventCaught;
+}
+
 void TextField::DrawOnCanvas() {
 	if (_size.X * _size.Y <= 0)
 		return;

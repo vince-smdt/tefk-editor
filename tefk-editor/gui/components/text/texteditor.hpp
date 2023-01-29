@@ -12,6 +12,7 @@ public:
 	void SetText(std::string text);
 
 	std::string GetContent() override;
+	bool CatchEventFromBaseComponent(Event event) override;
 private:
 	void DrawOnCanvas() override;
 };

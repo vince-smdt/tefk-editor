@@ -29,6 +29,7 @@ public:
 
 	// Events
 	void CatchEvent(Event event) override;
+	virtual bool CatchEventFromBaseComponent(Event event) { return false; }
 protected:
 	// Helper functions
 	size_t SpacesFromLeft();

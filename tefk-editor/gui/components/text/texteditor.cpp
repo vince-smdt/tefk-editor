@@ -18,6 +18,25 @@ std::string TextEditor::GetContent() {
 	return GetText();
 }
 
+bool TextEditor::CatchEventFromBaseComponent(Event event) {
+	bool eventCaught = true;
+
+	if (event.type == Event::Type::CHARACTER) {
+		switch (event.input) {
+		case VK_RETURN:
+			NewLine();
+			break;
+		default:
+			eventCaught = false;
+		}
+	}
+	else {
+		eventCaught = false;
+	}
+
+	return eventCaught;
+}
+
 void TextEditor::DrawOnCanvas() {
 	if (_size.X * _size.Y <= 0)
 		return;
