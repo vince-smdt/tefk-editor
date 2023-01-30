@@ -29,7 +29,7 @@ protected:
 	SizeBehaviour _heightBehaviour;
 	bool _visible;
 public:
-	GUIComponent(SizeBehaviour heightBehaviour);
+	GUIComponent();
 
 	void SetParent(Window& window);
 	void SetPosition(Coord pos);

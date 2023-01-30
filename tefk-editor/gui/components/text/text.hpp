@@ -8,7 +8,7 @@ protected:
 	std::list<unsigned char> _text;
 	std::list<unsigned char>::iterator _cursor;
 public:
-	Text(SizeBehaviour heightBehaviour);
+	Text();
 
 	// Setters & Getters
 	std::string GetText();

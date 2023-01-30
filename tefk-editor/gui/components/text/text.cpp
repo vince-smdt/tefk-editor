@@ -2,8 +2,8 @@
 
 namespace tefk {
 
-Text::Text(SizeBehaviour heightBehaviour)
-	: GUIComponent{ heightBehaviour }
+Text::Text()
+	: GUIComponent{}
 {
 	_cursor = _text.begin();
 }

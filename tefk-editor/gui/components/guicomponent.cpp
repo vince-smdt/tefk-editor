@@ -2,12 +2,12 @@
 
 namespace tefk {
 
-GUIComponent::GUIComponent(SizeBehaviour heightBehaviour)
+GUIComponent::GUIComponent()
 	: _parent{ nullptr },
 	  _pos{ 0, 0 },
 	  _size{ 0, 0 },
 	  _color{ BLACK, WHITE },
-	  _heightBehaviour{ heightBehaviour },
+	  _heightBehaviour{ SizeBehaviour::CONTENT },
 	  _visible{ true }
 {}
 

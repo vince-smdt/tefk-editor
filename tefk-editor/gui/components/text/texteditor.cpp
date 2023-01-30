@@ -3,8 +3,10 @@
 namespace tefk {
 
 TextEditor::TextEditor()
-	: Text{ SizeBehaviour::FILL }
-{}
+	: Text{}
+{
+	_heightBehaviour = SizeBehaviour::FILL;
+}
 
 // TODO - load text correctly, currently unable to load text from file
 void TextEditor::SetText(std::string text) {

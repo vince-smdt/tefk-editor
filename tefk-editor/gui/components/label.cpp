@@ -3,7 +3,7 @@
 namespace tefk {
 
 Label::Label()
-	: GUIComponent{ SizeBehaviour::CONTENT }
+	: GUIComponent{}
 {}
 
 void Label::SetText(std::string text) {
