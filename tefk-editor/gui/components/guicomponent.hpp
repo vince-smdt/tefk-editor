@@ -26,7 +26,7 @@ protected:
 	Coord _pos;
 	Coord _size;
 	TextColor _color;
-	SizeBehaviour _heightBehaviour;
+	SizeBehaviour _sizeBehaviour;
 	bool _visible;
 public:
 	GUIComponent();
@@ -35,7 +35,7 @@ public:
 	void SetPosition(Coord pos);
 	void SetWidth(short width);
 	void SetHeight(short height);
-	void SetHeight(SizeBehaviour sizeBehaviour);
+	void SetSizeBehaviour(SizeBehaviour sizeBehaviour);
 	void SetColor(TextColor color);
 	void SetVisible(bool visible);
 

@@ -7,7 +7,7 @@ GUIComponent::GUIComponent()
 	  _pos{ 0, 0 },
 	  _size{ 0, 0 },
 	  _color{ BLACK, WHITE },
-	  _heightBehaviour{ SizeBehaviour::CONTENT },
+	  _sizeBehaviour{ SizeBehaviour::CONTENT },
 	  _visible{ true }
 {}
 
@@ -27,8 +27,8 @@ void GUIComponent::SetHeight(short height) {
 	_size.Y = height;
 }
 
-void GUIComponent::SetHeight(SizeBehaviour sizeBehaviour) {
-	_heightBehaviour = sizeBehaviour;
+void GUIComponent::SetSizeBehaviour(SizeBehaviour sizeBehaviour) {
+	_sizeBehaviour = sizeBehaviour;
 }
 
 void GUIComponent::SetColor(TextColor color) { 
@@ -52,7 +52,7 @@ short GUIComponent::GetHeight() {
 }
 
 SizeBehaviour GUIComponent::GetHeightBehaviour() {
-	return _heightBehaviour;
+	return _sizeBehaviour;
 }
 
 bool GUIComponent::IsVisible() {

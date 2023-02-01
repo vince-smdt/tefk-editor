@@ -5,7 +5,7 @@ namespace tefk {
 TextEditor::TextEditor()
 	: Text{}
 {
-	_heightBehaviour = SizeBehaviour::FILL;
+	_sizeBehaviour = SizeBehaviour::FILL;
 }
 
 // TODO - load text correctly, currently unable to load text from file
