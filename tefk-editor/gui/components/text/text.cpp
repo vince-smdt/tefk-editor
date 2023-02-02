@@ -8,41 +8,25 @@ Text::Text()
 	_cursor = _text.begin();
 }
 
-std::string Text::GetText() {
+Text::value_type Text::GetText() {
 	std::string text;
 	for (auto ch : _text)
 		text.push_back(ch);
 	return text;
 }
 
-void Text::AddChar(unsigned char ch) {
-	_text.insert(_cursor, ch);
-}
-
-void Text::NewLine() {
-	AddChar('\n');
-}
-
-void Text::DeleteChar() {
-	if (_cursor != _text.begin())
-		_cursor = _text.erase(--_cursor);
-}
-
-void Text::DeleteWord() {
-	auto last = _cursor;
-
-	MoveCursorPrevWord();
-	_cursor = _text.erase(_cursor, last);
-}
-
 void Text::MoveCursorRight() {
-	if (_cursor != _text.end())
+	if (_cursor != _text.end()) {
 		_cursor++;
+		_currAction._movementOffset--;
+	}
 }
 
 void Text::MoveCursorLeft() {
-	if (_cursor != _text.begin())
+	if (_cursor != _text.begin()) {
 		_cursor--;
+		_currAction._movementOffset++;
+	}
 }
 
 void Text::MoveCursorUp() {
@@ -55,27 +39,29 @@ void Text::MoveCursorUp() {
 
 	// Move cursor to start of line
 	if (_cursor == _text.end() || (_cursor != _text.begin() && *_cursor == '\n'))
-		_cursor--;
+		MoveCursorLeft();
 
 	while (_cursor != _text.begin() && *_cursor != '\n')
-		_cursor--;
+		MoveCursorLeft();
 
 	// Move cursor to start of previous line
 	if (_cursor != _text.begin()) {
-		_cursor--;
+		MoveCursorLeft();
 		previousRowSize++;
 	}
 
 	while (_cursor != _text.begin() && *_cursor != '\n') {
-		_cursor--;
+		MoveCursorLeft();
 		previousRowSize++;
 	}
 
 	if (_cursor != _text.end() && _cursor != _text.begin() && *_cursor == '\n')
-		_cursor++;
+		MoveCursorRight();
 
 	// Move cursor right by offset of previous line
-	std::advance(_cursor, (std::min)(previousRowSize, spacesFromLeft));
+	size_t offset = (std::min)(previousRowSize, spacesFromLeft);
+	std::advance(_cursor, offset);
+	_currAction._movementOffset -= offset;
 }
 
 void Text::MoveCursorDown() {
@@ -86,14 +72,14 @@ void Text::MoveCursorDown() {
 
 	// Move cursor to start of next line
 	while (_cursor != _text.end() && *_cursor != '\n')
-		_cursor++;
+		MoveCursorRight();
 
 	if (_cursor != _text.end())
-		_cursor++;
+		MoveCursorRight();
 
 	// Move cursor right by offset
 	while (spacesFromLeft && _cursor != _text.end() && *_cursor != '\n') {
-		_cursor++;
+		MoveCursorRight();
 		spacesFromLeft--;
 	}
 }
@@ -103,15 +89,15 @@ void Text::MoveCursorNextWord() {
 		return;
 
 	if (*_cursor == '\n')
-		_cursor++;
+		MoveCursorRight();
 
 	// Move forwards until space or newline reached
 	while (_cursor != _text.end() && *_cursor == ' ' && *_cursor != '\n')
-		_cursor++;
+		MoveCursorRight();
 
 	// Move forwards until non-space or newline reached
 	while (_cursor != _text.end() && *_cursor != ' ' && *_cursor != '\n')
-		_cursor++;
+		MoveCursorRight();
 }
 
 void Text::MoveCursorPrevWord() {
@@ -119,15 +105,96 @@ void Text::MoveCursorPrevWord() {
 		return;
 
 	if (_cursor == _text.end() || *_cursor == '\n')
-		_cursor--;
+		MoveCursorLeft();
 
 	// Move backwards until space or newline reached
 	while (_cursor != _text.begin() && *_cursor == ' ' && *_cursor != '\n')
-		_cursor--;
+		MoveCursorLeft();
 
 	// Move backwards until non-space or newline reached
 	while (_cursor != _text.begin() && *_cursor != ' ' && *_cursor != '\n')
-		_cursor--;
+		MoveCursorLeft();
+}
+
+void Text::AddChar(char_type ch) {
+	_text.insert(_cursor, ch);
+
+	_currAction._actionType = Action::INSERT_TEXT;
+	_currAction._text = ch;
+	AddEvent();
+}
+
+void Text::NewLine() {
+	AddChar('\n');
+}
+
+void Text::DeleteChar() {
+	if (_cursor == _text.begin())
+		return;
+
+	auto last = _cursor;
+
+	MoveCursorLeft();
+
+	value_type deletedString = SubstringFromList(_cursor, last);
+	if (!deletedString.empty()) {
+		_currAction._actionType = Action::DELETE_TEXT;
+		_currAction._text = deletedString;
+		_currAction._movementOffset -= deletedString.size();
+		AddEvent();
+	}
+
+	_cursor = _text.erase(_cursor);
+}
+
+void Text::DeleteWord() {
+	if (_cursor == _text.begin())
+		return;
+
+	auto last = _cursor;
+
+	MoveCursorPrevWord();
+
+	value_type deletedString = SubstringFromList(_cursor, last);
+	if (!deletedString.empty()) {
+		_currAction._actionType = Action::DELETE_TEXT;
+		_currAction._text = deletedString;
+		_currAction._movementOffset -= deletedString.size();
+		AddEvent();
+	}
+
+	_cursor = _text.erase(_cursor, last);
+}
+
+void Text::Undo() {
+	if (_actions.empty())
+		return;
+
+	long long offset = _currAction._movementOffset;
+
+	std::advance(_cursor, offset);
+
+	// TODO - write better code
+	_currAction.Reset();
+	_currAction._movementOffset = _actions.top()._movementOffset;
+
+	switch (_actions.top()._actionType) {
+	case Action::INSERT_TEXT:
+		for (long long i = 0; i < _actions.top()._text.size(); i++)
+			_cursor = _text.erase(--_cursor); // TODO - reuse already written functions without recording action
+		break;
+	case Action::DELETE_TEXT:
+		for (auto ch : _actions.top()._text)
+			_text.insert(_cursor, ch); // TODO - reuse already written functions without recording action
+		break;
+	}
+
+	_actions.pop();
+}
+
+void Text::AddEvent() {
+	_actions.push(_currAction);
+	_currAction.Reset();
 }
 
 void Text::CatchEvent(Event event) {
@@ -142,6 +209,9 @@ void Text::CatchEvent(Event event) {
 			break;
 		case VK_CTRL_BACKSPACE:
 			DeleteWord();
+			break;
+		case VK_CTRL_Z:
+			Undo();
 			break;
 		default:
 			if (!CatchEventFromBaseComponent(event) && event.input > 26)
@@ -192,6 +262,16 @@ size_t Text::SpacesFromLeft() {
 		spacesFromLeft--;
 
 	return spacesFromLeft;
+}
+
+Text::value_type Text::SubstringFromList(std::list<char_type>::iterator begin, std::list<char_type>::iterator end) {
+	Text::value_type substring;
+
+	// Build substring from characters between 'begin' (inclusively) and 'end' (exclusively) iterators
+	while (begin != _text.end() && begin != end)
+		substring += *begin++;
+
+	return substring;
 }
 
 } // namespace tefk
