@@ -13,7 +13,9 @@ void TextEditor::SetText(std::string text) {
 	_text.clear();
 	for (auto ch : text)
 		_text.push_back(ch);
-	_cursor = _text.begin();
+	// TODO - optimize this
+	_cursor.Iter(_text.begin());
+	_cursor.Index(0);
 }
 
 std::string TextEditor::GetContent() {
@@ -57,7 +59,7 @@ void TextEditor::DrawOnCanvas() {
 			fillRowWithSpaces = false;
 
 		// Color pixel
-		if (_cursor == iter && !cursorPrinted && !fillRowWithSpaces) {
+		if (_cursor.Iter() == iter && !cursorPrinted && !fillRowWithSpaces) {
 			pixel->color = _color.Inverse();
 			cursorPrinted = true;
 		}

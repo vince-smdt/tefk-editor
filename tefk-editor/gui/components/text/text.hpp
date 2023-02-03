@@ -6,9 +6,11 @@
 namespace tefk {
 
 class Text : public GUIComponent {
-public:
-	using value_type = std::string;
-	using char_type = value_type::value_type;
+protected:
+	using string_type = std::string;
+	using size_type = string_type::value_type;
+	using char_type = string_type::value_type;
+	using list_type = std::list<char_type>;
 	
 	struct Action {
 		enum ActionType {
@@ -18,31 +20,103 @@ public:
 		};
 
 		ActionType _actionType;
-		long long _movementOffset;
-		value_type _text;
+		size_type _index;
+		string_type _text;
 
 		Action() 
 			: _actionType{ ActionType::NONE },
-			  _movementOffset{ 0 }
+			  _index{ 0 }
+		{}
+	};
+
+	class Cursor {
+		list_type* _list;
+		list_type::iterator _iter;
+		size_type _index;
+	public:
+		Cursor(list_type& textList)
+			: _list{ &textList },
+			  _iter { textList.begin() },
+			  _index { 0 }
 		{}
 
-		void Reset() {
-			_actionType = ActionType::NONE;
-			_movementOffset = 0;
-			_text = "";
+		bool AtListBegin() {
+			return _iter == _list->begin();
+		}
+
+		bool AtListEnd() {
+			return _iter == _list->end();
+		}
+
+		void Next() {
+			if (AtListEnd())
+				return;
+
+			_iter++;
+			_index++;
+		}
+
+		void Prev() {
+			if (AtListBegin())
+				return;
+
+			_iter--;
+			_index--;
+		}
+
+		list_type::iterator Iter() {
+			return _iter;
+		}
+
+		// TODO - Remove this method after optimization
+		void Iter(list_type::iterator iter) {
+			_iter = iter;
+		}
+
+		char_type Char() {
+			return *_iter;
+		}
+
+		size_type Index() {
+			return _index;
+		}
+
+		void Index(size_type index) {
+			_index = index;
+		}
+
+		void Move(size_type offset) {
+			std::advance(_iter, offset);
+			_index += offset;
+		}
+
+		void MoveToIndex(size_type index) {
+			std::advance(_iter, index - _index);
+			_index = index;
+		}
+
+		char Delete() {
+			char deletedChar = *--_iter;
+			_iter = _list->erase(_iter);
+			_index--;
+			return deletedChar;
+		}
+
+		void Add(char_type ch) {
+			_list->insert(_iter, ch);
+			_index++;
 		}
 	};
-protected:
-	std::list<char_type> _text;
-	std::list<char_type>::iterator _cursor;
+
+	list_type _text;
 	std::stack<Action> _actions;
-	Action _currAction;
+	Cursor _cursor;
 public:
 	// Constructors
 	Text();
 
 	// Setters & Getters
-	value_type GetText();
+	string_type GetText();
 
 	// Commands
 	void MoveCursorRight();
@@ -60,7 +134,7 @@ public:
 	void Undo();
 
 	// Action handler
-	void AddEvent();
+	void AddAction(Action action);
 
 	// Events
 	void CatchEvent(Event event) override;
@@ -68,7 +142,7 @@ public:
 protected:
 	// Helper functions
 	size_t SpacesFromLeft();
-	value_type SubstringFromList(std::list<char_type>::iterator begin, std::list<char_type>::iterator end);
+	string_type SubstringFromList(list_type::iterator begin, list_type::iterator end);
 };
 
 } // namespace tefk

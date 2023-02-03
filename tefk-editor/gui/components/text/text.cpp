@@ -3,12 +3,11 @@
 namespace tefk {
 
 Text::Text()
-	: GUIComponent{}
-{
-	_cursor = _text.begin();
-}
+	: GUIComponent{},
+	  _cursor{ _text }
+{}
 
-Text::value_type Text::GetText() {
+Text::string_type Text::GetText() {
 	std::string text;
 	for (auto ch : _text)
 		text.push_back(ch);
@@ -16,17 +15,11 @@ Text::value_type Text::GetText() {
 }
 
 void Text::MoveCursorRight() {
-	if (_cursor != _text.end()) {
-		_cursor++;
-		_currAction._movementOffset--;
-	}
+	_cursor.Next();
 }
 
 void Text::MoveCursorLeft() {
-	if (_cursor != _text.begin()) {
-		_cursor--;
-		_currAction._movementOffset++;
-	}
+	_cursor.Prev();
 }
 
 void Text::MoveCursorUp() {
@@ -38,30 +31,29 @@ void Text::MoveCursorUp() {
 	size_t previousRowSize = 0;
 
 	// Move cursor to start of line
-	if (_cursor == _text.end() || (_cursor != _text.begin() && *_cursor == '\n'))
+	if (_cursor.AtListEnd() || (!_cursor.AtListBegin() && _cursor.Char() == '\n'))
 		MoveCursorLeft();
 
-	while (_cursor != _text.begin() && *_cursor != '\n')
+	while (!_cursor.AtListBegin() && _cursor.Char() != '\n')
 		MoveCursorLeft();
 
 	// Move cursor to start of previous line
-	if (_cursor != _text.begin()) {
+	if (!_cursor.AtListBegin()) {
 		MoveCursorLeft();
 		previousRowSize++;
 	}
 
-	while (_cursor != _text.begin() && *_cursor != '\n') {
+	while (!_cursor.AtListBegin() && _cursor.Char() != '\n') {
 		MoveCursorLeft();
 		previousRowSize++;
 	}
 
-	if (_cursor != _text.end() && _cursor != _text.begin() && *_cursor == '\n')
+	if (!_cursor.AtListEnd() && !_cursor.AtListBegin() && _cursor.Char() == '\n')
 		MoveCursorRight();
 
 	// Move cursor right by offset of previous line
 	size_t offset = (std::min)(previousRowSize, spacesFromLeft);
-	std::advance(_cursor, offset);
-	_currAction._movementOffset -= offset;
+	_cursor.Move(offset);
 }
 
 void Text::MoveCursorDown() {
@@ -71,57 +63,59 @@ void Text::MoveCursorDown() {
 	size_t spacesFromLeft = SpacesFromLeft();
 
 	// Move cursor to start of next line
-	while (_cursor != _text.end() && *_cursor != '\n')
+	while (!_cursor.AtListEnd() && _cursor.Char() != '\n')
 		MoveCursorRight();
 
-	if (_cursor != _text.end())
+	if (!_cursor.AtListEnd())
 		MoveCursorRight();
 
 	// Move cursor right by offset
-	while (spacesFromLeft && _cursor != _text.end() && *_cursor != '\n') {
+	while (spacesFromLeft && !_cursor.AtListEnd() && _cursor.Char() != '\n') {
 		MoveCursorRight();
 		spacesFromLeft--;
 	}
 }
 
 void Text::MoveCursorNextWord() {
-	if (_cursor == _text.end())
+	if (_cursor.AtListEnd())
 		return;
 
-	if (*_cursor == '\n')
+	if (_cursor.Char() == '\n')
 		MoveCursorRight();
 
 	// Move forwards until space or newline reached
-	while (_cursor != _text.end() && *_cursor == ' ' && *_cursor != '\n')
+	while (!_cursor.AtListEnd() && _cursor.Char() == ' ' && _cursor.Char() != '\n')
 		MoveCursorRight();
 
 	// Move forwards until non-space or newline reached
-	while (_cursor != _text.end() && *_cursor != ' ' && *_cursor != '\n')
+	while (!_cursor.AtListEnd() && _cursor.Char() != ' ' && _cursor.Char() != '\n')
 		MoveCursorRight();
 }
 
 void Text::MoveCursorPrevWord() {
-	if (_cursor == _text.begin())
+	if (_cursor.AtListBegin())
 		return;
 
-	if (_cursor == _text.end() || *_cursor == '\n')
+	if (_cursor.AtListEnd() || _cursor.Char() == '\n')
 		MoveCursorLeft();
 
 	// Move backwards until space or newline reached
-	while (_cursor != _text.begin() && *_cursor == ' ' && *_cursor != '\n')
+	while (!_cursor.AtListBegin() && _cursor.Char() == ' ' && _cursor.Char() != '\n')
 		MoveCursorLeft();
 
 	// Move backwards until non-space or newline reached
-	while (_cursor != _text.begin() && *_cursor != ' ' && *_cursor != '\n')
+	while (!_cursor.AtListBegin() && _cursor.Char() != ' ' && _cursor.Char() != '\n')
 		MoveCursorLeft();
 }
 
 void Text::AddChar(char_type ch) {
-	_text.insert(_cursor, ch);
+	_cursor.Add(ch);
 
-	_currAction._actionType = Action::INSERT_TEXT;
-	_currAction._text = ch;
-	AddEvent();
+	Action action;
+	action._actionType = Action::INSERT_TEXT;
+	action._text = ch;
+	action._index = _cursor.Index();
+	AddAction(action);
 }
 
 void Text::NewLine() {
@@ -129,72 +123,59 @@ void Text::NewLine() {
 }
 
 void Text::DeleteChar() {
-	if (_cursor == _text.begin())
+	if (_cursor.AtListBegin())
 		return;
 
-	auto last = _cursor;
+	char deletedChar = _cursor.Delete();
 
-	MoveCursorLeft();
-
-	value_type deletedString = SubstringFromList(_cursor, last);
-	if (!deletedString.empty()) {
-		_currAction._actionType = Action::DELETE_TEXT;
-		_currAction._text = deletedString;
-		_currAction._movementOffset -= deletedString.size();
-		AddEvent();
-	}
-
-	_cursor = _text.erase(_cursor);
+	Action action;
+	action._actionType = Action::DELETE_TEXT;
+	action._text = deletedChar;
+	action._index = _cursor.Index();
+	AddAction(action);
 }
 
 void Text::DeleteWord() {
-	if (_cursor == _text.begin())
+	if (_cursor.AtListBegin())
 		return;
 
-	auto last = _cursor;
+	auto last = _cursor.Iter();
 
 	MoveCursorPrevWord();
 
-	value_type deletedString = SubstringFromList(_cursor, last);
-	if (!deletedString.empty()) {
-		_currAction._actionType = Action::DELETE_TEXT;
-		_currAction._text = deletedString;
-		_currAction._movementOffset -= deletedString.size();
-		AddEvent();
-	}
+	string_type deletedString = SubstringFromList(_cursor.Iter(), last);
+	_text.erase(_cursor.Iter(), last);
+	_cursor.Iter(last);
 
-	_cursor = _text.erase(_cursor, last);
+	Action action;
+	action._actionType = Action::DELETE_TEXT;
+	action._text = deletedString;
+	action._index = _cursor.Index();
+	AddAction(action);
 }
 
 void Text::Undo() {
 	if (_actions.empty())
 		return;
 
-	long long offset = _currAction._movementOffset;
-
-	std::advance(_cursor, offset);
-
-	// TODO - write better code
-	_currAction.Reset();
-	_currAction._movementOffset = _actions.top()._movementOffset;
+	_cursor.MoveToIndex(_actions.top()._index);
 
 	switch (_actions.top()._actionType) {
 	case Action::INSERT_TEXT:
 		for (long long i = 0; i < _actions.top()._text.size(); i++)
-			_cursor = _text.erase(--_cursor); // TODO - reuse already written functions without recording action
+			_cursor.Delete();
 		break;
 	case Action::DELETE_TEXT:
 		for (auto ch : _actions.top()._text)
-			_text.insert(_cursor, ch); // TODO - reuse already written functions without recording action
+			_cursor.Add(ch);
 		break;
 	}
 
 	_actions.pop();
 }
 
-void Text::AddEvent() {
-	_actions.push(_currAction);
-	_currAction.Reset();
+void Text::AddAction(Action action) {
+	_actions.push(action);
 }
 
 void Text::CatchEvent(Event event) {
@@ -246,7 +227,7 @@ void Text::CatchEvent(Event event) {
 
 size_t Text::SpacesFromLeft() {
 	size_t spacesFromLeft = 0;
-	auto iter = _cursor;
+	auto iter = _cursor.Iter();
 
 	if (iter == _text.end() || *iter == '\n') {
 		iter--;
@@ -264,8 +245,8 @@ size_t Text::SpacesFromLeft() {
 	return spacesFromLeft;
 }
 
-Text::value_type Text::SubstringFromList(std::list<char_type>::iterator begin, std::list<char_type>::iterator end) {
-	Text::value_type substring;
+Text::string_type Text::SubstringFromList(std::list<char_type>::iterator begin, std::list<char_type>::iterator end) {
+	string_type substring;
 
 	// Build substring from characters between 'begin' (inclusively) and 'end' (exclusively) iterators
 	while (begin != _text.end() && begin != end)
