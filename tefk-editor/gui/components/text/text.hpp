@@ -8,7 +8,7 @@ namespace tefk {
 class Text : public GUIComponent {
 protected:
 	using string_type = std::string;
-	using size_type = string_type::value_type;
+	using size_type = string_type::size_type;
 	using char_type = string_type::value_type;
 	using list_type = std::list<char_type>;
 	
@@ -91,11 +91,15 @@ protected:
 		}
 
 		void MoveToIndex(size_type index) {
-			std::advance(_iter, index - _index);
+			// Cast to a signed type to allow negative offset
+			std::advance(_iter, static_cast<long long>(index - _index));
 			_index = index;
 		}
 
 		char Delete() {
+			if (AtListBegin())
+				return '\0';
+
 			char deletedChar = *--_iter;
 			_iter = _list->erase(_iter);
 			_index--;
