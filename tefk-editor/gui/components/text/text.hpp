@@ -34,11 +34,17 @@ protected:
 		list_type::iterator _iter;
 		size_type _index;
 	public:
-		Cursor(list_type& textList)
-			: _list{ &textList },
-			  _iter { textList.begin() },
+		Cursor(list_type& text)
+			: _list{ &text },
+			  _iter { text.begin() },
 			  _index { 0 }
 		{}
+
+		void SetText(list_type& text) {
+			_list = &text;
+			_iter = text.begin();
+			_index = 0;
+		}
 
 		bool AtListBegin() {
 			return _iter == _list->begin();
@@ -79,10 +85,6 @@ protected:
 
 		size_type Index() {
 			return _index;
-		}
-
-		void Index(size_type index) {
-			_index = index;
 		}
 
 		void Move(size_type offset) {

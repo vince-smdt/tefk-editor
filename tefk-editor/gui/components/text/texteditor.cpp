@@ -13,9 +13,7 @@ void TextEditor::SetText(std::string text) {
 	_text.clear();
 	for (auto ch : text)
 		_text.push_back(ch);
-	// TODO - optimize this
-	_cursor.Iter(_text.begin());
-	_cursor.Index(0);
+	_cursor.SetText(_text);
 }
 
 std::string TextEditor::GetContent() {
