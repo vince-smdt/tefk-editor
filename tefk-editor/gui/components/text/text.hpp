@@ -22,11 +22,6 @@ protected:
 		ActionType _actionType;
 		size_type _index;
 		string_type _text;
-
-		Action() 
-			: _actionType{ ActionType::NONE },
-			  _index{ 0 }
-		{}
 	};
 
 	class Cursor {
@@ -34,84 +29,32 @@ protected:
 		list_type::iterator _iter;
 		size_type _index;
 	public:
-		Cursor(list_type& text)
-			: _list{ &text },
-			  _iter { text.begin() },
-			  _index { 0 }
-		{}
+		// Constructor
+		Cursor(list_type& text);
 
-		void SetText(list_type& text) {
-			_list = &text;
-			_iter = text.begin();
-			_index = 0;
-		}
+		// Status
+		bool AtListBegin();
+		bool AtListEnd();
 
-		bool AtListBegin() {
-			return _iter == _list->begin();
-		}
+		// Movement
+		void Next();
+		void Prev();
+		void Move(size_type offset);
+		void MoveToIndex(size_type index);
 
-		bool AtListEnd() {
-			return _iter == _list->end();
-		}
+		// Getters
+		list_type::iterator Iter();
+		char_type Char();
+		size_type Index();
 
-		void Next() {
-			if (AtListEnd())
-				return;
-
-			_iter++;
-			_index++;
-		}
-
-		void Prev() {
-			if (AtListBegin())
-				return;
-
-			_iter--;
-			_index--;
-		}
-
-		list_type::iterator Iter() {
-			return _iter;
-		}
-
+		// Setters
 		// TODO - Remove this method after optimization
-		void Iter(list_type::iterator iter) {
-			_iter = iter;
-		}
+		void SetText(list_type& text);
+		void Iter(list_type::iterator iter);
 
-		char_type Char() {
-			return *_iter;
-		}
-
-		size_type Index() {
-			return _index;
-		}
-
-		void Move(size_type offset) {
-			std::advance(_iter, offset);
-			_index += offset;
-		}
-
-		void MoveToIndex(size_type index) {
-			// Cast to a signed type to allow negative offset
-			std::advance(_iter, static_cast<long long>(index - _index));
-			_index = index;
-		}
-
-		char Delete() {
-			if (AtListBegin())
-				return '\0';
-
-			char deletedChar = *--_iter;
-			_iter = _list->erase(_iter);
-			_index--;
-			return deletedChar;
-		}
-
-		void Add(char_type ch) {
-			_list->insert(_iter, ch);
-			_index++;
-		}
+		// Actions
+		char Delete();
+		void Add(char_type ch);
 	};
 
 	list_type _text;

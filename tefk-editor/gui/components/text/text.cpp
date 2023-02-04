@@ -2,6 +2,89 @@
 
 namespace tefk {
 
+// Cursor
+
+Text::Cursor::Cursor(list_type& text) 
+	: _list{ &text },
+	  _iter{ text.begin() },
+	  _index{ 0 }
+{}
+
+bool Text::Cursor::AtListBegin() {
+	return _iter == _list->begin();
+}
+
+bool Text::Cursor::AtListEnd() {
+	return _iter == _list->end();
+}
+
+void Text::Cursor::Next() {
+	if (AtListEnd())
+		return;
+
+	_iter++;
+	_index++;
+}
+
+void Text::Cursor::Prev() {
+	if (AtListBegin())
+		return;
+
+	_iter--;
+	_index--;
+}
+
+void Text::Cursor::Move(size_type offset) {
+	std::advance(_iter, offset);
+	_index += offset;
+}
+
+void Text::Cursor::MoveToIndex(size_type index) {
+	// Cast to a signed type to allow negative offset
+	std::advance(_iter, static_cast<long long>(index - _index));
+	_index = index;
+}
+
+Text::list_type::iterator Text::Cursor::Iter() {
+	return _iter;
+}
+
+Text::char_type Text::Cursor::Char() {
+	return *_iter;
+}
+
+Text::size_type Text::Cursor::Index() {
+	return _index;
+}
+
+void Text::Cursor::SetText(list_type& text) {
+	_list = &text;
+	_iter = text.begin();
+	_index = 0;
+}
+
+// TODO - Remove this method after optimization
+void Text::Cursor::Iter(list_type::iterator iter) {
+	_iter = iter;
+}
+
+char Text::Cursor::Delete() {
+	if (AtListBegin())
+		return '\0';
+
+	char deletedChar = *--_iter;
+	_iter = _list->erase(_iter);
+	_index--;
+	return deletedChar;
+}
+
+void Text::Cursor::Add(char_type ch) {
+	_list->insert(_iter, ch);
+	_index++;
+}
+
+// Text base component
+
 Text::Text()
 	: GUIComponent{},
 	  _cursor{ _text }
