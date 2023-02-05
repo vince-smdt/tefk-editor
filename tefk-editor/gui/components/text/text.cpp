@@ -304,22 +304,30 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
 	if (takeStack.empty())
 		return;
 
-	_cursor.MoveToIndex(takeStack.top()._index);
-	
+	// Create new action in opposite stack
 	dumpStack.push(takeStack.top());
 
-	switch (takeStack.top()._actionType) {
+	Action *currAction = &takeStack.top(),
+		   *newAction = &dumpStack.top();
+
+	_cursor.MoveToIndex(currAction->_index);
+
+	switch (currAction->_actionType) {
 	case Action::INSERT_TEXT:
-		for (long long i = 0; i < takeStack.top()._text.size(); i++)
+		for (long long i = 0; i < currAction->_text.size(); i++)
 			_cursor.Delete();
-		dumpStack.top()._actionType = Action::DELETE_TEXT;
-		dumpStack.top()._index -= takeStack.top()._text.size();
+
+		newAction->_actionType = Action::DELETE_TEXT;
+		newAction->_index -= currAction->_text.size();
+
 		break;
 	case Action::DELETE_TEXT:
-		for (auto ch : takeStack.top()._text)
+		for (auto ch : currAction->_text)
 			_cursor.Add(ch);
-		dumpStack.top()._actionType = Action::INSERT_TEXT;
-		dumpStack.top()._index += takeStack.top()._text.size();
+
+		newAction->_actionType = Action::INSERT_TEXT;
+		newAction->_index += currAction->_text.size();
+
 		break;
 	}
 
