@@ -12,6 +12,7 @@
 #define VK_CTRL_BACKSPACE      0x7F
 #define VK_CTRL_Q			   0x11
 #define VK_CTRL_S              0x13
+#define VK_CTRL_Y			   0x19
 #define VK_CTRL_Z			   0x1A
 #define VK_PAGE_DOWN           0x51
 #define VK_PAGE_UP             0x49

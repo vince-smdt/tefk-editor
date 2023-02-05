@@ -59,6 +59,7 @@ protected:
 
 	list_type _text;
 	std::stack<Action> _actions;
+	std::stack<Action> _undoneActions;
 	Cursor _cursor;
 public:
 	// Constructors
@@ -81,14 +82,16 @@ public:
 	void DeleteWord();
 
 	void Undo();
-
-	// Action handler
-	void AddAction(Action action);
+	void Redo();
 
 	// Events
 	void CatchEvent(Event event) override;
 	virtual bool CatchEventFromBaseComponent(Event event) { return false; }
 protected:
+	// Action handler
+	void AddAction(Action action);
+	void ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dumpStack);
+
 	// Helper functions
 	size_t SpacesFromLeft();
 	string_type SubstringFromList(list_type::iterator begin, list_type::iterator end);

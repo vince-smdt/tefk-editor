@@ -238,27 +238,11 @@ void Text::DeleteWord() {
 }
 
 void Text::Undo() {
-	if (_actions.empty())
-		return;
-
-	_cursor.MoveToIndex(_actions.top()._index);
-
-	switch (_actions.top()._actionType) {
-	case Action::INSERT_TEXT:
-		for (long long i = 0; i < _actions.top()._text.size(); i++)
-			_cursor.Delete();
-		break;
-	case Action::DELETE_TEXT:
-		for (auto ch : _actions.top()._text)
-			_cursor.Add(ch);
-		break;
-	}
-
-	_actions.pop();
+	ExecuteAction(_actions, _undoneActions);
 }
 
-void Text::AddAction(Action action) {
-	_actions.push(action);
+void Text::Redo() {
+	ExecuteAction(_undoneActions, _actions);
 }
 
 void Text::CatchEvent(Event event) {
@@ -273,6 +257,9 @@ void Text::CatchEvent(Event event) {
 			break;
 		case VK_CTRL_BACKSPACE:
 			DeleteWord();
+			break;
+		case VK_CTRL_Y:
+			Redo();
 			break;
 		case VK_CTRL_Z:
 			Undo();
@@ -306,6 +293,37 @@ void Text::CatchEvent(Event event) {
 			CatchEventFromBaseComponent(event);
 		}
 	}
+}
+
+void Text::AddAction(Action action) {
+	_actions.push(action);
+	_undoneActions = std::stack<Action>();
+}
+
+void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dumpStack) {
+	if (takeStack.empty())
+		return;
+
+	_cursor.MoveToIndex(takeStack.top()._index);
+	
+	dumpStack.push(takeStack.top());
+
+	switch (takeStack.top()._actionType) {
+	case Action::INSERT_TEXT:
+		for (long long i = 0; i < takeStack.top()._text.size(); i++)
+			_cursor.Delete();
+		dumpStack.top()._actionType = Action::DELETE_TEXT;
+		dumpStack.top()._index -= takeStack.top()._text.size();
+		break;
+	case Action::DELETE_TEXT:
+		for (auto ch : takeStack.top()._text)
+			_cursor.Add(ch);
+		dumpStack.top()._actionType = Action::INSERT_TEXT;
+		dumpStack.top()._index += takeStack.top()._text.size();
+		break;
+	}
+
+	takeStack.pop();
 }
 
 size_t Text::SpacesFromLeft() {
