@@ -7,7 +7,7 @@ Logger::Logger(std::filesystem::path& filename)
 	_stream{ _file }
 {}
 
-std::string Logger::LogLevelStr(LogLevel level) {
+TefkString Logger::LogLevelStr(LogLevel level) {
 	switch (level) {
 
 	case LogLevel::FATAL:
@@ -34,7 +34,7 @@ std::string Logger::LogLevelStr(LogLevel level) {
 	}
 }
 
-const std::string Logger::CurrentDateTime() {
+const TefkString Logger::CurrentDateTime() {
 	using namespace std::chrono;
 	auto local = zoned_time{ current_zone(), system_clock::now() };
 	return std::format("{:%F %T}", local);

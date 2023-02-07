@@ -42,7 +42,7 @@ void Window::UpdateComponents() {
 		// TODO - update height in separate function (maybe do same for width)
 		switch (component->GetHeightBehaviour()) {
 		case SizeBehaviour::CONTENT: {
-			size_t contentSize = component->GetContent().size();
+			TefkSizeT contentSize = component->GetContent().size();
 			short divider = component->GetWidth() == 0 ? contentSize : component->GetWidth();
 
 			component->SetHeight((short)ceil(double(contentSize) / divider));

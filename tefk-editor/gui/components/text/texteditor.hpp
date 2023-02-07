@@ -9,9 +9,9 @@ class TextEditor : public Text {
 public:
 	TextEditor();
 
-	void SetText(std::string text);
+	void SetText(TefkString text);
 
-	std::string GetContent() override;
+	TefkString GetContent() override;
 	bool CatchEventFromBaseComponent(Event event) override;
 private:
 	void DrawOnCanvas() override;

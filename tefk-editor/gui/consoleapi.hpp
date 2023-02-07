@@ -39,7 +39,7 @@ public:
 	static Coord GetConsoleSize();
 	static void UpdateConsoleSize();
 
-	static unsigned char ReadKeypress();
+	static TefkChar ReadKeypress();
 private:
 	static void GetConsoleBufferInfo();
 };

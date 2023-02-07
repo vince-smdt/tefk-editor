@@ -44,7 +44,7 @@ void ConsoleAPI::UpdateConsoleSize() {
 	}
 }
 
-unsigned char ConsoleAPI::ReadKeypress() {
+TefkChar ConsoleAPI::ReadKeypress() {
 	return _getch();
 }
 

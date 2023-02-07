@@ -8,7 +8,7 @@ Event Event::ApplicationStart() {
 	return event;
 }
 
-Event Event::Character(unsigned char input) {
+Event Event::Character(TefkChar input) {
 	Event event;
 	event.input = input;
 	event.type = Type::CHARACTER;
@@ -21,7 +21,7 @@ Event Event::ConsoleSizeChange() {
 	return event;
 }
 
-Event Event::SpecialCharacter(unsigned char input) {
+Event Event::SpecialCharacter(TefkChar input) {
 	Event event;
 	event.input = input;
 	event.type = Type::SPECIAL_CHARACTER;

@@ -6,15 +6,15 @@ TextField::TextField()
 	: Text{}
 {}
 
-std::string TextField::GetLabel() {
+TefkString TextField::GetLabel() {
 	return _label;
 }
 
-void TextField::SetLabel(std::string label) {
+void TextField::SetLabel(TefkString label) {
 	_label = label;
 }
 
-std::string TextField::GetContent() {
+TefkString TextField::GetContent() {
 	return _label + ": " + GetText();;
 }
 
@@ -29,7 +29,7 @@ void TextField::DrawOnCanvas() {
 	if (_size.X * _size.Y <= 0)
 		return;
 
-	std::string text = GetContent();
+	TefkString text = GetContent();
 
 	for (size_t y = 0; y < _size.Y; y++) {
 		for (size_t x = 0; x < _size.X; x++) {

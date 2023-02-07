@@ -6,11 +6,11 @@ Label::Label()
 	: GUIComponent{}
 {}
 
-void Label::SetText(std::string text) {
+void Label::SetText(TefkString text) {
 	_text = text;
 }
 
-std::string Label::GetContent() {
+TefkString Label::GetContent() {
 	return _text;
 }
 

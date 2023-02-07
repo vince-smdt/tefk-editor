@@ -162,6 +162,7 @@
     <ClInclude Include="gui\event.hpp" />
     <ClInclude Include="gui\input.hpp" />
     <ClInclude Include="gui\canvas.hpp" />
+    <ClInclude Include="gui\types.h" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="windows\editor.hpp" />
   </ItemGroup>

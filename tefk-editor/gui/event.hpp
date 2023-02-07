@@ -1,4 +1,6 @@
 #pragma once
+#include "types.h"
+
 namespace tefk {
 
 struct Event {
@@ -10,13 +12,13 @@ struct Event {
 		WINDOW_CLOSING
 	};
 
-	unsigned char input;
+	TefkChar input;
 	Type type;
 
 	static Event ApplicationStart();
-	static Event Character(unsigned char input);
+	static Event Character(TefkChar input);
 	static Event ConsoleSizeChange();
-	static Event SpecialCharacter(unsigned char input);
+	static Event SpecialCharacter(TefkChar input);
 	static Event WindowClosing();
 };
 

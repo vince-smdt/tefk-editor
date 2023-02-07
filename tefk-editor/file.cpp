@@ -8,7 +8,7 @@ std::filesystem::path File::GetFilename() {
 	return _filename;
 }
 
-std::string File::GetContent() {
+TefkString File::GetContent() {
 	return _content;
 }
 
@@ -16,7 +16,7 @@ bool File::IsNewFile() {
 	return _filename.empty();
 }
 
-void File::SetContent(std::string content) {
+void File::SetContent(TefkString content) {
 	_content = content;
 }
 

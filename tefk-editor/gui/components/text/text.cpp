@@ -34,12 +34,12 @@ void Text::Cursor::Prev() {
 	_index--;
 }
 
-void Text::Cursor::Move(size_type offset) {
+void Text::Cursor::Move(TefkSizeT offset) {
 	std::advance(_iter, offset);
 	_index += offset;
 }
 
-void Text::Cursor::MoveToIndex(size_type index) {
+void Text::Cursor::MoveToIndex(TefkSizeT index) {
 	// Cast to a signed type to allow negative offset
 	std::advance(_iter, static_cast<long long>(index - _index));
 	_index = index;
@@ -49,11 +49,11 @@ Text::list_type::iterator Text::Cursor::Iter() {
 	return _iter;
 }
 
-Text::char_type Text::Cursor::Char() {
+TefkChar Text::Cursor::Char() {
 	return *_iter;
 }
 
-Text::size_type Text::Cursor::Index() {
+TefkSizeT Text::Cursor::Index() {
 	return _index;
 }
 
@@ -68,17 +68,17 @@ void Text::Cursor::Iter(list_type::iterator iter) {
 	_iter = iter;
 }
 
-char Text::Cursor::Delete() {
+TefkChar Text::Cursor::Delete() {
 	if (AtListBegin())
 		return '\0';
 
-	char deletedChar = *--_iter;
+	TefkChar deletedChar = *--_iter;
 	_iter = _list->erase(_iter);
 	_index--;
 	return deletedChar;
 }
 
-void Text::Cursor::Add(char_type ch) {
+void Text::Cursor::Add(TefkChar ch) {
 	_list->insert(_iter, ch);
 	_index++;
 }
@@ -90,8 +90,8 @@ Text::Text()
 	  _cursor{ _text }
 {}
 
-Text::string_type Text::GetText() {
-	std::string text;
+TefkString Text::GetText() {
+	TefkString text;
 	for (auto ch : _text)
 		text.push_back(ch);
 	return text;
@@ -191,7 +191,7 @@ void Text::MoveCursorPrevWord() {
 		MoveCursorLeft();
 }
 
-void Text::AddChar(char_type ch) {
+void Text::AddChar(TefkChar ch) {
 	_cursor.Add(ch);
 
 	Action action;
@@ -209,7 +209,7 @@ void Text::DeleteChar() {
 	if (_cursor.AtListBegin())
 		return;
 
-	char deletedChar = _cursor.Delete();
+	TefkChar deletedChar = _cursor.Delete();
 
 	Action action;
 	action._actionType = Action::DELETE_TEXT;
@@ -226,7 +226,7 @@ void Text::DeleteWord() {
 
 	MoveCursorPrevWord();
 
-	string_type deletedString = SubstringFromList(_cursor.Iter(), last);
+	TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
 	_text.erase(_cursor.Iter(), last);
 	_cursor.Iter(last);
 
@@ -354,8 +354,8 @@ size_t Text::SpacesFromLeft() {
 	return spacesFromLeft;
 }
 
-Text::string_type Text::SubstringFromList(std::list<char_type>::iterator begin, std::list<char_type>::iterator end) {
-	string_type substring;
+TefkString Text::SubstringFromList(std::list<TefkChar>::iterator begin, std::list<TefkChar>::iterator end) {
+	TefkString substring;
 
 	// Build substring from characters between 'begin' (inclusively) and 'end' (exclusively) iterators
 	while (begin != _text.end() && begin != end)

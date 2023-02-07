@@ -1,4 +1,6 @@
 #pragma once
+#include "gui/types.h"
+
 #include <chrono>
 #include <filesystem>
 #include <format>
@@ -25,8 +27,8 @@ private:
 
 	explicit Logger(std::filesystem::path& filename);
 
-	std::string LogLevelStr(LogLevel level);
-	const std::string CurrentDateTime();
+	TefkString LogLevelStr(LogLevel level);
+	const TefkString CurrentDateTime();
 public:
 	static Logger& Instance();
 

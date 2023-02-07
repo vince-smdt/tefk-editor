@@ -4,14 +4,14 @@
 namespace tefk {
 
 class TextField : public Text {
-	std::string _label;
+	TefkString _label;
 public:
 	TextField();
 
-	std::string GetLabel();
-	void SetLabel(std::string label);
+	TefkString GetLabel();
+	void SetLabel(TefkString label);
 
-	std::string GetContent() override;
+	TefkString GetContent() override;
 	bool CatchEventFromBaseComponent(Event event) override;
 private:
 	void DrawOnCanvas() override;

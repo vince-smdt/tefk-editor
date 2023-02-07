@@ -9,14 +9,14 @@ TextEditor::TextEditor()
 }
 
 // TODO - load text correctly, currently unable to load text from file
-void TextEditor::SetText(std::string text) {
+void TextEditor::SetText(TefkString text) {
 	_text.clear();
 	for (auto ch : text)
 		_text.push_back(ch);
 	_cursor.SetText(_text);
 }
 
-std::string TextEditor::GetContent() {
+TefkString TextEditor::GetContent() {
 	return GetText();
 }
 

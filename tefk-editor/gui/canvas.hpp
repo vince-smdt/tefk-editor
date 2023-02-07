@@ -7,7 +7,7 @@
 namespace tefk {
 
 struct Pixel {
-	char character;
+	TefkChar character;
 	TextColor color;
 };
 

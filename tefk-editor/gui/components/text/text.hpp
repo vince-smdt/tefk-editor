@@ -7,10 +7,7 @@ namespace tefk {
 
 class Text : public GUIComponent {
 protected:
-	using string_type = std::string;
-	using size_type = string_type::size_type;
-	using char_type = string_type::value_type;
-	using list_type = std::list<char_type>;
+	using list_type = std::list<TefkChar>;
 	
 	struct Action {
 		enum ActionType {
@@ -20,14 +17,14 @@ protected:
 		};
 
 		ActionType _actionType;
-		size_type _index;
-		string_type _text;
+		TefkSizeT _index;
+		TefkString _text;
 	};
 
 	class Cursor {
 		list_type* _list;
 		list_type::iterator _iter;
-		size_type _index;
+		TefkSizeT _index;
 	public:
 		// Constructor
 		Cursor(list_type& text);
@@ -39,13 +36,13 @@ protected:
 		// Movement
 		void Next();
 		void Prev();
-		void Move(size_type offset);
-		void MoveToIndex(size_type index);
+		void Move(TefkSizeT offset);
+		void MoveToIndex(TefkSizeT index);
 
 		// Getters
 		list_type::iterator Iter();
-		char_type Char();
-		size_type Index();
+		TefkChar Char();
+		TefkSizeT Index();
 
 		// Setters
 		// TODO - Remove this method after optimization
@@ -53,8 +50,8 @@ protected:
 		void Iter(list_type::iterator iter);
 
 		// Actions
-		char Delete();
-		void Add(char_type ch);
+		TefkChar Delete();
+		void Add(TefkChar ch);
 	};
 
 	list_type _text;
@@ -66,7 +63,7 @@ public:
 	Text();
 
 	// Setters & Getters
-	string_type GetText();
+	TefkString GetText();
 
 	// Commands
 	void MoveCursorRight();
@@ -76,7 +73,7 @@ public:
 	void MoveCursorNextWord();
 	void MoveCursorPrevWord();
 
-	void AddChar(char_type ch);
+	void AddChar(TefkChar ch);
 	void NewLine();
 	void DeleteChar();
 	void DeleteWord();
@@ -94,7 +91,7 @@ protected:
 
 	// Helper functions
 	size_t SpacesFromLeft();
-	string_type SubstringFromList(list_type::iterator begin, list_type::iterator end);
+	TefkString SubstringFromList(list_type::iterator begin, list_type::iterator end);
 };
 
 } // namespace tefk

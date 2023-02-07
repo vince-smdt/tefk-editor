@@ -7,6 +7,7 @@
 #include "../color.hpp"
 #include "../consoleapi.hpp"
 #include "../input.hpp"
+#include "../types.h"
 #include "window.hpp"
 
 namespace tefk {
@@ -46,7 +47,7 @@ public:
 	bool IsVisible();
 	bool Focused();
 
-	virtual std::string GetContent() = 0;
+	virtual TefkString GetContent() = 0;
 	virtual void CatchEvent(Event event) {}
 	virtual void DrawOnCanvas() = 0;
 };

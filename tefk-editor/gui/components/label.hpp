@@ -4,13 +4,13 @@
 namespace tefk {
 
 class Label : public GUIComponent {
-	std::string _text;
+	TefkString _text;
 public:
 	Label();
 
-	void SetText(std::string text);
+	void SetText(TefkString text);
 
-	std::string GetContent() override;
+	TefkString GetContent() override;
 private:
 	void DrawOnCanvas() override;
 };
