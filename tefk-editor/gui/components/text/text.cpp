@@ -63,11 +63,6 @@ void Text::Cursor::SetText(list_type& text) {
 	_index = 0;
 }
 
-// TODO - Remove this method after optimization
-void Text::Cursor::Iter(list_type::iterator iter) {
-	_iter = iter;
-}
-
 TefkChar Text::Cursor::Delete() {
 	if (AtListBegin())
 		return '\0';
@@ -75,6 +70,15 @@ TefkChar Text::Cursor::Delete() {
 	TefkChar deletedChar = *--_iter;
 	_iter = _list->erase(_iter);
 	_index--;
+	return deletedChar;
+}
+
+TefkChar Text::Cursor::DeleteFront() {
+	if (AtListEnd())
+		return '\0';
+
+	TefkChar deletedChar = *_iter;
+	_iter = _list->erase(_iter);
 	return deletedChar;
 }
 
@@ -227,8 +231,8 @@ void Text::DeleteWord() {
 	MoveCursorPrevWord();
 
 	TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
-	_text.erase(_cursor.Iter(), last);
-	_cursor.Iter(last);
+	for (auto _ : deletedString)
+		_cursor.DeleteFront();
 
 	Action action;
 	action._actionType = Action::DELETE_TEXT;

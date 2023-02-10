@@ -10,7 +10,6 @@
 namespace tefk {
 
 // TODO - make implementation file, deal with Log method Args template
-// TODO - fix first log that creates file always has error code 0 (GetLastError() - WinAPI)
 class Logger {
 public:
 	enum class LogLevel {

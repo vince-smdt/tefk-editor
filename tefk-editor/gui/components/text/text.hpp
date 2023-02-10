@@ -45,12 +45,11 @@ protected:
 		TefkSizeT Index();
 
 		// Setters
-		// TODO - Remove this method after optimization
 		void SetText(list_type& text);
-		void Iter(list_type::iterator iter);
 
 		// Actions
 		TefkChar Delete();
+		TefkChar DeleteFront();
 		void Add(TefkChar ch);
 	};
 
