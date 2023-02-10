@@ -11,7 +11,7 @@ class GUIComponent;
 class Window {
 	std::vector<GUIComponent*> _children;
 	GUIComponent* _focusedComponent;
-
+	Canvas _canvas;
 	bool _isClosing;
 public:
 	Window();
@@ -25,6 +25,7 @@ public:
 	void Close();
 
 	bool IsClosing();
+	Canvas& GetCanvas();
 
 	void CatchAndPropagateEvent(Event event);
 	virtual void CatchEvent(Event event) {};

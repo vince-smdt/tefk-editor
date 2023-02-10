@@ -71,4 +71,8 @@ bool GUIComponent::Focused() {
 	return this == &_parent->GetFocusedComponent();
 }
 
+Canvas& GUIComponent::GetCanvas() {
+	return _parent->GetCanvas();
+}
+
 } // namespace tefk

@@ -62,6 +62,9 @@ public:
 	// Focus
 	bool Focused();
 
+	// Canvas
+	Canvas& GetCanvas();
+
 	// Virtual methods
 	virtual TefkString GetContent() = 0;
 	virtual void CatchEvent(Event event) {}

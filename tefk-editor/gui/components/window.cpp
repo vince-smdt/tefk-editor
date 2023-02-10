@@ -3,8 +3,8 @@
 namespace tefk {
 
 Window::Window()
-	: _isClosing{ false }
-	, _focusedComponent{ nullptr }
+	: _focusedComponent{ nullptr }
+	, _isClosing{ false }
 {}
 
 GUIComponent& Window::GetFocusedComponent() {
@@ -74,11 +74,11 @@ void Window::UpdateComponents() {
 }
 
 void Window::Render() {
-	GetCanvas().Resize(ConsoleAPI::GetConsoleSize().X, ConsoleAPI::GetConsoleSize().Y);
+	_canvas.Resize(ConsoleAPI::GetConsoleSize().X, ConsoleAPI::GetConsoleSize().Y);
 	for (auto& child : _children)
 		if (child->IsVisible())
 			child->DrawOnCanvas();
-	GetCanvas().Render();
+	_canvas.Render();
 }
 
 void Window::Focus(GUIComponent& component) {
@@ -91,6 +91,10 @@ void Window::Close() {
 
 bool Window::IsClosing() {
 	return _isClosing;
+}
+
+Canvas& Window::GetCanvas() {
+	return _canvas;
 }
 
 void Window::CatchAndPropagateEvent(Event event) {

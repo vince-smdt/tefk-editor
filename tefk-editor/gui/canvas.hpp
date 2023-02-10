@@ -9,21 +9,21 @@ namespace tefk {
 struct Pixel {
 	TefkChar character;
 	TextColor color;
+
+	Pixel()
+		: character{ ' ' }
+	{}
 };
 
 class Canvas {
 	std::vector<Pixel> _pixels;
-	Coord _dimensions;
-	
-	Canvas();
+	Coord _dimensions;	
 public:
-	static Canvas& Instance();
+	Canvas();
 
 	void Render();
 	Pixel& PixelAt(size_t x, size_t y);
 	void Resize(size_t x, size_t y);
 };
-
-Canvas& GetCanvas();
 
 } // namespace tefk

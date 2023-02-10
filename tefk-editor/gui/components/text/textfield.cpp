@@ -15,7 +15,7 @@ void TextField::SetLabel(TefkString label) {
 }
 
 TefkString TextField::GetContent() {
-	return _label + ": " + GetText();;
+	return _label + ": " + GetText();
 }
 
 bool TextField::CatchEventFromBaseComponent(Event event) {

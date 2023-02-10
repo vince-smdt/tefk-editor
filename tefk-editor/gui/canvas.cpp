@@ -6,11 +6,6 @@ Canvas::Canvas()
 	: _dimensions{ 0, 0 }
 {}
 
-Canvas& Canvas::Instance() {
-	static Canvas instance;
-	return instance;
-}
-
 void Canvas::Render() {
 	std::wstringstream ss;
 	TextColor currentColor;
@@ -51,10 +46,6 @@ void Canvas::Resize(size_t x, size_t y) {
 	assert(0 <= size);
 	_dimensions = { (short)x, (short)y };
 	_pixels.resize(size);
-}
-
-Canvas& GetCanvas() {
-	return Canvas::Instance();
 }
 
 } // namespace tefk
