@@ -40,7 +40,7 @@ void Window::UpdateComponents() {
 	// Store pointers of fill height components
 	for (auto component : visibleComponents) {
 		// TODO - update height in separate function (maybe do same for width)
-		switch (component->GetHeightBehaviour()) {
+		switch (component->GetSizeBehaviour()) {
 		case SizeBehaviour::CONTENT: {
 			TefkSizeT contentSize = component->GetContent().size();
 			short divider = component->GetWidth() == 0 ? contentSize : component->GetWidth();

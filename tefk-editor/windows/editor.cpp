@@ -9,13 +9,13 @@ Editor::Editor()
 	_lblHeader.SetColor({ BLACK, WHITE });
 
 	_lblError.SetColor({ LIGHT_WHITE, LIGHT_RED });
-	_lblError.SetVisible(false);
+	_lblError.SetVisibility(false);
 
 	_ediEditor.SetColor({ WHITE, BLACK });
 
 	_txtFilename.SetColor({ WHITE, LIGHT_BLUE });
 	_txtFilename.SetLabel("Choose filename");
-	_txtFilename.SetVisible(false);
+	_txtFilename.SetVisibility(false);
 
 	_lblFooter.SetColor({ BLACK, WHITE });
 
@@ -43,12 +43,12 @@ void Editor::CatchEvent(Event event) {
 			if (_txtFilename.Focused()) {
 				if (_currFile->Open(_folderPath.generic_string() + "/" + _txtFilename.GetText())) {
 					SaveFile();
-					_txtFilename.SetVisible(false);
+					_txtFilename.SetVisibility(false);
 					Focus(_ediEditor);
 				}
 				else {
 					_lblError.SetText("File cannot be created.");
-					_lblError.SetVisible(true);
+					_lblError.SetVisibility(true);
 				}
 			}
 			break;
@@ -90,7 +90,7 @@ void Editor::UpdateFooter() {
 
 void Editor::SaveFile() {
 	if (_currFile->IsNewFile()) {
-		_txtFilename.SetVisible(true);
+		_txtFilename.SetVisibility(true);
 		Focus(_txtFilename);
 	}
 	else {
@@ -134,7 +134,7 @@ void Editor::OpenFiles(int argc, char** argv) {
 			failedFileOpens,
 			(failedFileOpens > 1) ? "s" : ""
 		));
-		_lblError.SetVisible(true);
+		_lblError.SetVisibility(true);
 	}
 
 	// If not files open, create new file

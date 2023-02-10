@@ -23,7 +23,6 @@ class Window;
 class GUIComponent {
 protected:
 	Window* _parent;
-
 	Coord _pos;
 	Coord _size;
 	TextColor _color;
@@ -32,21 +31,38 @@ protected:
 public:
 	GUIComponent();
 
+	// Parent
 	void SetParent(Window& window);
-	void SetPosition(Coord pos);
-	void SetWidth(short width);
-	void SetHeight(short height);
-	void SetSizeBehaviour(SizeBehaviour sizeBehaviour);
-	void SetColor(TextColor color);
-	void SetVisible(bool visible);
-
 	Window& GetParent();
+
+	// Position
+	void SetPosition(Coord pos);
+	Coord GetPosition();
+	
+	// Width
+	void SetWidth(short width);
 	short GetWidth();
+	
+	// Height
+	void SetHeight(short height);
 	short GetHeight();
-	SizeBehaviour GetHeightBehaviour();
+	
+	// Size behaviour
+	void SetSizeBehaviour(SizeBehaviour sizeBehaviour);
+	SizeBehaviour GetSizeBehaviour();
+	
+	// Color
+	void SetColor(TextColor color);
+	TextColor GetColor();
+	
+	// Visibility
+	void SetVisibility(bool visible);
 	bool IsVisible();
+
+	// Focus
 	bool Focused();
 
+	// Virtual methods
 	virtual TefkString GetContent() = 0;
 	virtual void CatchEvent(Event event) {}
 	virtual void DrawOnCanvas() = 0;
