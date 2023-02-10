@@ -3,13 +3,13 @@
 namespace tefk {
 
 TextColor::TextColor() 
-	: _fg{ DEFAULT },
-	  _bg{ DEFAULT }
+	: _fg{ DEFAULT }
+	, _bg{ DEFAULT }
 {}
 
 TextColor::TextColor(Color fg, Color bg) 
-	: _fg{ fg },
-	  _bg{ bg }
+	: _fg{ fg }
+	, _bg{ bg }
 {}
 
 int TextColor::Foreground() {

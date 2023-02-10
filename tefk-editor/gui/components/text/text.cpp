@@ -5,9 +5,9 @@ namespace tefk {
 // Cursor
 
 Text::Cursor::Cursor(list_type& text) 
-	: _list{ &text },
-	  _iter{ text.begin() },
-	  _index{ 0 }
+	: _list{ &text }
+	, _iter{ text.begin() }
+	, _index{ 0 }
 {}
 
 bool Text::Cursor::AtListBegin() {
@@ -86,8 +86,8 @@ void Text::Cursor::Add(TefkChar ch) {
 // Text base component
 
 Text::Text()
-	: GUIComponent{},
-	  _cursor{ _text }
+	: GUIComponent{}
+	, _cursor{ _text }
 {}
 
 TefkString Text::GetText() {

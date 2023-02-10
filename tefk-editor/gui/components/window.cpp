@@ -3,8 +3,8 @@
 namespace tefk {
 
 Window::Window()
-	: _isClosing{ false },
-	  _focusedComponent{ nullptr }
+	: _isClosing{ false }
+	, _focusedComponent{ nullptr }
 {}
 
 GUIComponent& Window::GetFocusedComponent() {

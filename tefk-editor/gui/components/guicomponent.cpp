@@ -3,12 +3,12 @@
 namespace tefk {
 
 GUIComponent::GUIComponent()
-	: _parent{ nullptr },
-	  _pos{ 0, 0 },
-	  _size{ 0, 0 },
-	  _color{ BLACK, WHITE },
-	  _sizeBehaviour{ SizeBehaviour::CONTENT },
-	  _visible{ true }
+	: _parent{ nullptr }
+	, _pos{ 0, 0 }
+	, _size{ 0, 0 }
+	, _color{ BLACK, WHITE }
+	, _sizeBehaviour{ SizeBehaviour::CONTENT }
+	, _visible{ true }
 {}
 
 void GUIComponent::SetParent(Window& window) {

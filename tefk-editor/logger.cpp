@@ -3,8 +3,8 @@
 namespace tefk {
 
 Logger::Logger(std::filesystem::path& filename)
-	: _file{ filename, std::ios::app },
-	_stream{ _file }
+	: _file{ filename, std::ios::app }
+	, _stream{ _file }
 {}
 
 TefkString Logger::LogLevelStr(LogLevel level) {
