@@ -39,46 +39,40 @@ bool TextEditor::CatchEventFromBaseComponent(Event event) {
 	return eventCaught;
 }
 
-void TextEditor::DrawOnCanvas() {
-	if (_size.X * _size.Y <= 0)
-		return;
+void TextEditor::GetPixelVector(PixelVector& pixelVec) {
+	size_t i = 0;
+	auto textIter = _text.begin();
 
-	auto iter = _text.begin();
-	bool fillRowWithSpaces = false;
-	bool cursorPrinted = false;
+	for (; i < pixelVec.size(); i++) {
+		// Invert color if cursor at current character
+		pixelVec[i].color = (textIter == _cursor.Iter()) ? _color.Inverse() : _color;
 
-	for (size_t pxInd = 0; pxInd < _size.Area(); pxInd++) {
-		// Set pixel position on canvas and pointer to current pixel
-		Coord pxPos = { pxInd % _size.X, pxInd / _size.X };
-		Pixel* pixel = &GetCanvas().PixelAt(pxPos.X + _pos.X, pxPos.Y + _pos.Y);
-
-		// Reset flag if new row
-		if (pxPos.X == 0)
-			fillRowWithSpaces = false;
-
-		// Color pixel
-		if (_cursor.Iter() == iter && !cursorPrinted && !fillRowWithSpaces) {
-			pixel->color = _color.Inverse();
-			cursorPrinted = true;
+		if (textIter != _text.end() && *textIter != '\n') {
+			// Set character
+			pixelVec[i].character = *textIter;
 		}
 		else {
-			pixel->color = _color;
+			// If newline, set rest of row as white space
+			pixelVec[i].character = ' ';
+			i++;
+			for (; i % _size.X != 0; i++) {
+				pixelVec[i].character = ' ';
+				pixelVec[i].color = _color;
+			}
+			i--;
 		}
+	
+		if (textIter == _text.end()) {
+			i++;
+			break;
+		}
+		else
+			textIter++;
+	}
 
-		// Assign pixel character and move iterator
-		if (fillRowWithSpaces || iter == _text.end()) {
-			pixel->character = ' ';
-		}
-		else {
-			if (*iter == '\n') {
-				fillRowWithSpaces = true;
-				pixel->character = ' ';
-			}
-			else {
-				pixel->character = *iter;
-			}
-			iter++;
-		}
+	for (; i < pixelVec.size(); i++) {
+		pixelVec[i].character = ' ';
+		pixelVec[i].color = _color;
 	}
 }
 

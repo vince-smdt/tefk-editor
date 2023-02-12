@@ -9,10 +9,9 @@ public:
 	Label();
 
 	void SetText(TefkString text);
-
 	TefkString GetContent() override;
 private:
-	void DrawOnCanvas() override;
+	void GetPixelVector(PixelVector& pixelVec) override;
 };
 
 } // namespace tefk

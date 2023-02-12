@@ -14,7 +14,7 @@ public:
 	TefkString GetContent() override;
 	bool CatchEventFromBaseComponent(Event event) override;
 private:
-	void DrawOnCanvas() override;
+	void GetPixelVector(PixelVector& pixelVec) override;
 };
 
 } // namespace tefk

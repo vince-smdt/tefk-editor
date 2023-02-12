@@ -15,8 +15,10 @@ struct Pixel {
 	{}
 };
 
+using PixelVector = std::vector<Pixel>;
+
 class Canvas {
-	std::vector<Pixel> _pixels;
+	PixelVector _pixels;
 	Coord _dimensions;	
 public:
 	Canvas();

@@ -64,11 +64,12 @@ public:
 
 	// Canvas
 	Canvas& GetCanvas();
+	void DrawOnCanvas();
 
 	// Virtual methods
 	virtual TefkString GetContent() = 0;
 	virtual void CatchEvent(Event event) {}
-	virtual void DrawOnCanvas() = 0;
+	virtual void GetPixelVector(PixelVector& pixelVec) = 0;
 };
 
 } // namespace tefk

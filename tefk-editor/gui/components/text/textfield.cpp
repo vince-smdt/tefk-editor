@@ -25,20 +25,24 @@ bool TextField::CatchEventFromBaseComponent(Event event) {
 	return eventCaught;
 }
 
-void TextField::DrawOnCanvas() {
-	if (_size.X * _size.Y <= 0)
-		return;
+void TextField::GetPixelVector(PixelVector& pixelVec) {
+	size_t availableEmptySpace = _size.Area() - (_label.size() + _text.size());
 
-	TefkString text = GetContent();
+	size_t i = 0;
+	for (; i < _label.size(); i++) {
+		pixelVec[i].character = _label[i];
+		pixelVec[i].color = _color;
+	}
 
-	for (size_t y = 0; y < _size.Y; y++) {
-		for (size_t x = 0; x < _size.X; x++) {
-			size_t charIndex = x + y * _size.X;
-			bool drawEmptySpace = charIndex >= text.size();
+	auto textIter = _text.begin();
+	for (; i < pixelVec.size() - availableEmptySpace && textIter != _text.end(); i++, textIter++) {
+		pixelVec[i].character = *textIter;
+		pixelVec[i].color = _color;
+	}
 
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : text[charIndex];
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
-		}
+	for (; i < pixelVec.size(); i++) {
+		pixelVec[i].character = ' ';
+		pixelVec[i].color = _color;
 	}
 }
 

@@ -14,18 +14,13 @@ TefkString Label::GetContent() {
 	return _text;
 }
 
-void Label::DrawOnCanvas() {
-	if (_size.X * _size.Y <= 0)
-		return;
+void Label::GetPixelVector(PixelVector& pixelVec) {
+	size_t availableEmptySpace = _size.Area() - _text.size();
+	TefkString canvasString = _text + TefkString(availableEmptySpace, ' ');
 
-	for (size_t y = 0; y < _size.Y; y++) {
-		for (size_t x = 0; x < _size.X; x++) {
-			size_t charIndex = x + y * _size.X;
-			bool drawEmptySpace = charIndex >= _text.size();
-
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).character = drawEmptySpace ? ' ' : _text[charIndex];
-			GetCanvas().PixelAt(x + _pos.X, y + _pos.Y).color = _color;
-		}
+	for (size_t i = 0; i < pixelVec.size(); i++) {
+		pixelVec[i].character = canvasString[i];
+		pixelVec[i].color = _color;
 	}
 }
 

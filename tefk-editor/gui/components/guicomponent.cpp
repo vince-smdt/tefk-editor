@@ -75,4 +75,13 @@ Canvas& GUIComponent::GetCanvas() {
 	return _parent->GetCanvas();
 }
 
+void GUIComponent::DrawOnCanvas() {
+	PixelVector pixelVec;
+	pixelVec.resize(_size.Area());
+	GetPixelVector(pixelVec);
+
+	for (size_t i = 0; i < pixelVec.size(); i++)
+		GetCanvas().PixelAt(i % _size.X + _pos.X, i / _size.X + _pos.Y) = pixelVec[i];
+}
+
 } // namespace tefk
