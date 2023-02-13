@@ -41,7 +41,7 @@ void Editor::CatchEvent(Event event) {
 			break;
 		case VK_RETURN:
 			if (_txtFilename.Focused()) {
-				if (_currFile->Open(_folderPath.generic_string() + "/" + _txtFilename.GetText())) {
+				if (_currFile->Open(_folderPath.generic_string() + "\\" + _txtFilename.GetText())) {
 					SaveFile();
 					_txtFilename.SetVisibility(false);
 					Focus(_ediEditor);
@@ -106,35 +106,37 @@ void Editor::LoadFile() {
 void Editor::OpenFiles(int argc, char** argv) {
 	// TODO - Give option to user to choose path if not detected, change log level?
 	if (argc < 2) {
+		std::filesystem::path path = argv[0];
+		_folderPath = path.parent_path();
 		Logger::Instance().Log(
-			Logger::LogLevel::WARN,
-			"DirPath not specified in command arguments, closing application."
+			Logger::LogLevel::INFO,
+			"DirPath not specified in command arguments, using executable directory as folderPath."
 		);
-		exit(0);
 	}
+	else {
+		_folderPath = argv[1];
 
-	_folderPath = argv[1];
+		// Open files from command arguments
+		int failedFileOpens = 0;
 
-	// Open files from command arguments
-	int failedFileOpens = 0;
-
-	for (int i = 2; i < argc; i++) {
-		std::filesystem::path filepath(_folderPath.generic_string() + "/" + argv[i]);
-		_files.push_back(File());
-		if (!_files.back().Open(filepath)) {
-			failedFileOpens++;
-			_files.pop_back();
+		for (int i = 2; i < argc; i++) {
+			std::filesystem::path filepath(_folderPath.generic_string() + "\\" + argv[i]);
+			_files.push_back(File());
+			if (!_files.back().Open(filepath)) {
+				failedFileOpens++;
+				_files.pop_back();
+			}
 		}
-	}
 
-	// Show error if some files failed to open
-	if (failedFileOpens) {
-		_lblError.SetText(std::format(
-			"Failed to open {} file{}.",
-			failedFileOpens,
-			(failedFileOpens > 1) ? "s" : ""
-		));
-		_lblError.SetVisibility(true);
+		// Show error if some files failed to open
+		if (failedFileOpens) {
+			_lblError.SetText(std::format(
+				"Failed to open {} file{}.",
+				failedFileOpens,
+				(failedFileOpens > 1) ? "s" : ""
+			));
+			_lblError.SetVisibility(true);
+		}
 	}
 
 	// If not files open, create new file
