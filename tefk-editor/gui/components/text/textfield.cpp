@@ -29,7 +29,7 @@ void TextField::GetPixelVector(PixelVector& pixelVec) {
 	size_t availableEmptySpace = _size.Area() - (_label.size() + _text.size());
 
 	size_t i = 0;
-	for (; i < _label.size(); i++) {
+	for (; i < pixelVec.size() && i < _label.size(); i++) {
 		pixelVec[i].character = _label[i];
 		pixelVec[i].color = _color;
 	}

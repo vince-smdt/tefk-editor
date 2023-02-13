@@ -25,7 +25,15 @@ void Canvas::Render() {
 		}
 
 		// Write character
-		ss << _pixels[i].character;
+		TefkChar ch = _pixels[i].character;
+		switch (ch) {
+		case L'%':
+			ss << _pixels[i].character << _pixels[i].character;
+			break;
+		default:
+			ss << _pixels[i].character;
+			break;
+		}
 	}
 
 	// Reset color
