@@ -81,10 +81,11 @@ void Editor::UpdateHeader() {
 }
 
 void Editor::UpdateFooter() {
+	Coord size = ConsoleAPI::GetConsoleSize();
 	_lblFooter.SetText(std::format(
 		"Rows = {}, Cols = {}",
-		ConsoleAPI::GetConsoleSize().Y,
-		ConsoleAPI::GetConsoleSize().X
+		size.Y,
+		size.X
 	));
 }
 
@@ -92,11 +93,10 @@ void Editor::SaveFile() {
 	if (_currFile->IsNewFile()) {
 		_txtFilename.SetVisibility(true);
 		Focus(_txtFilename);
+		return;
 	}
-	else {
-		_currFile->SetContent(_ediEditor.GetContent());
-		_currFile->Save();
-	}
+	_currFile->SetContent(_ediEditor.GetContent());
+	_currFile->Save();
 }
 
 void Editor::LoadFile() {
