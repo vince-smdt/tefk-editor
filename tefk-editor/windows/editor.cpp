@@ -16,6 +16,7 @@ Editor::Editor()
 	_txtFilename.SetColor({ WHITE, LIGHT_BLUE });
 	_txtFilename.SetLabel("Choose filename");
 	_txtFilename.SetVisibility(false);
+	_txtFilename.SetOnSubmit(std::bind(&Editor::SetFilename, this));
 
 	_lblFooter.SetColor({ BLACK, WHITE });
 
@@ -38,19 +39,6 @@ void Editor::CatchEvent(Event event) {
 			break;
 		case VK_CTRL_S:
 			SaveFile();
-			break;
-		case VK_RETURN:
-			if (_txtFilename.Focused()) {
-				if (_currFile->Open(_folderPath.generic_string() + "\\" + _txtFilename.GetText())) {
-					SaveFile();
-					_txtFilename.SetVisibility(false);
-					Focus(_ediEditor);
-				}
-				else {
-					_lblError.SetText("File cannot be created.");
-					_lblError.SetVisibility(true);
-				}
-			}
 			break;
 		}
 	}
@@ -167,6 +155,17 @@ void Editor::NextFile() {
 		_currFile++;
 	LoadFile();
 	UpdateHeader();
+}
+
+void Editor::SetFilename() {
+	if (_currFile->Open(_folderPath.generic_string() + "\\" + _txtFilename.GetText())) {
+		SaveFile();
+		_txtFilename.SetVisibility(false);
+		Focus(_ediEditor);
+		return;
+	}
+	_lblError.SetText("File cannot be created.");
+	_lblError.SetVisibility(true);
 }
 
 size_t Editor::FileIndex() {

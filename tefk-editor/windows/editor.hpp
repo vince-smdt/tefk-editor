@@ -33,6 +33,7 @@ public:
 	void OpenFiles(int filecount, char** filenames);
 	void PrevFile();
 	void NextFile();
+	void SetFilename();
 
 	// Properties
 	size_t FileIndex();

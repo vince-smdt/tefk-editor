@@ -14,6 +14,10 @@ void TextField::SetLabel(TefkString label) {
 	_label = label;
 }
 
+void TextField::SetOnSubmit(std::function<void()> func) {
+	_onSubmit = func;
+}
+
 TefkString TextField::GetContent() {
 	return _label + ": " + GetText();
 }
@@ -21,7 +25,20 @@ TefkString TextField::GetContent() {
 bool TextField::CatchEventFromBaseComponent(Event event) {
 	// TODO - catch event and do something with it
 	bool eventCaught = true;
-	eventCaught = false;
+
+	if (event.type == Event::Type::CHARACTER) {
+		switch (event.input) {
+		case VK_RETURN:
+			_onSubmit();
+			break;
+		default:
+			eventCaught = false;
+		}
+	}
+	else {
+		eventCaught = false;
+	}
+
 	return eventCaught;
 }
 
