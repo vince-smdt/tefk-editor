@@ -119,12 +119,11 @@ void Editor::OpenFiles(int argc, char** argv) {
 
 		// Show error if some files failed to open
 		if (failedFileOpens) {
-			_lblError.SetText(std::format(
+			RaiseError(std::format(
 				"Failed to open {} file{}.",
 				failedFileOpens,
 				(failedFileOpens > 1) ? "s" : ""
 			));
-			_lblError.SetVisibility(true);
 		}
 	}
 
@@ -165,7 +164,11 @@ void Editor::SetFilename() {
 		Focus(_ediEditor);
 		return;
 	}
-	_lblError.SetText("File cannot be created.");
+	RaiseError("File cannot be created.");
+}
+
+void Editor::RaiseError(TefkString text) {
+	_lblError.SetText(text);
 	_lblError.SetVisibility(true);
 }
 

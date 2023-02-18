@@ -37,6 +37,9 @@ public:
 	void NextFile();
 	void SetFilename();
 
+	// Helper functions
+	void RaiseError(TefkString text);
+
 	// Properties
 	size_t FileIndex();
 };
