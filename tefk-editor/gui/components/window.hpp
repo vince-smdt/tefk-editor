@@ -16,14 +16,15 @@ class Window {
 public:
 	Window();
 
-	GUIComponent& GetFocusedComponent();
-
+	// Actions
 	void AddComponent(GUIComponent& component);
 	void UpdateComponents();
 	void Render();
 	void Focus(GUIComponent& component);
 	void Close();
 
+	// Properties
+	GUIComponent& GetFocusedComponent();
 	bool IsClosing();
 	Canvas& GetCanvas();
 

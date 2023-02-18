@@ -7,10 +7,6 @@ Window::Window()
 	, _isClosing{ false }
 {}
 
-GUIComponent& Window::GetFocusedComponent() {
-	return *_focusedComponent;
-}
-
 void Window::AddComponent(GUIComponent& component) {
 	// TODO - check if component already has a parent
 	_children.push_back(&component);
@@ -87,6 +83,10 @@ void Window::Focus(GUIComponent& component) {
 
 void Window::Close() {
 	_isClosing = true;
+}
+
+GUIComponent& Window::GetFocusedComponent() {
+	return *_focusedComponent;
 }
 
 bool Window::IsClosing() {

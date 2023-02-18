@@ -9,11 +9,14 @@ class TextField : public Text {
 public:
 	TextField();
 
+	// Label
 	TefkString GetLabel();
 	void SetLabel(TefkString label);
 
+	// Events
 	void SetOnSubmit(std::function<void()> func);
 
+	// Overrides
 	TefkString GetContent() override;
 	bool CatchEventFromBaseComponent(Event event) override;
 private:

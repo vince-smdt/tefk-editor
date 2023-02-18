@@ -9,8 +9,10 @@ class TextEditor : public Text {
 public:
 	TextEditor();
 
+	// Text
 	void SetText(TefkString text);
 
+	// Overrides
 	TefkString GetContent() override;
 	bool CatchEventFromBaseComponent(Event event) override;
 private:

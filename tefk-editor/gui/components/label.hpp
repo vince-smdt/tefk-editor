@@ -8,6 +8,7 @@ class Label : public GUIComponent {
 public:
 	Label();
 
+	// Text
 	void SetText(TefkString text);
 	TefkString GetContent() override;
 private:
