@@ -10,6 +10,7 @@
 #define VK_CTRL_ARROW_LEFT     0x73
 #define VK_CTRL_ARROW_RIGHT    0x74
 #define VK_CTRL_BACKSPACE      0x7F
+#define VK_CTRL_N              0x0E
 #define VK_CTRL_Q			   0x11
 #define VK_CTRL_S              0x13
 #define VK_CTRL_Y			   0x19

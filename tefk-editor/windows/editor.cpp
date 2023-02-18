@@ -35,6 +35,9 @@ void Editor::CatchEvent(Event event) {
 	// Handle event
 	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
+		case VK_CTRL_N:
+			NewFile();
+			break;
 		case VK_CTRL_Q:
 			Close();
 			break;
@@ -53,9 +56,10 @@ void Editor::CatchEvent(Event event) {
 			break;
 		}
 	}
-	else if (event.type == Event::Type::CONSOLE_SIZE_CHANGE) {
-		UpdateFooter();
-	}
+
+	// Update components
+	UpdateHeader();
+	UpdateFooter();
 }
 
 void Editor::UpdateHeader() {
@@ -134,7 +138,6 @@ void Editor::OpenFiles(int argc, char** argv) {
 
 	_currFile = _files.begin();
 	LoadFile();
-	UpdateHeader();
 }
 
 void Editor::PrevFile() {
@@ -144,7 +147,6 @@ void Editor::PrevFile() {
 	else
 		_currFile--;
 	LoadFile();
-	UpdateHeader();
 }
 
 void Editor::NextFile() {
@@ -154,7 +156,13 @@ void Editor::NextFile() {
 	else
 		_currFile++;
 	LoadFile();
-	UpdateHeader();
+}
+
+void Editor::NewFile() {
+	_currFile->SetContent(_ediEditor.GetContent());
+	_files.push_back(File());
+	_currFile = _files.end() - 1;
+	LoadFile();
 }
 
 void Editor::SetFilename() {
@@ -162,6 +170,7 @@ void Editor::SetFilename() {
 		SaveFile();
 		_txtFilename.SetVisibility(false);
 		Focus(_ediEditor);
+		UpdateHeader();
 		return;
 	}
 	RaiseError("File cannot be created.");

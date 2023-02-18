@@ -35,6 +35,7 @@ public:
 	void OpenFiles(int filecount, char** filenames);
 	void PrevFile();
 	void NextFile();
+	void NewFile();
 	void SetFilename();
 
 	// Helper functions
