@@ -10,24 +10,26 @@
 namespace tefk { 
 
 class Editor : public Window {
-public:
 	Label _lblHeader;
 	Label _lblError;
 	TextEditor _ediEditor;
 	TextField _txtFilename;
 	Label _lblFooter;
-private:
+
 	std::vector<File> _files;
 	std::vector<File>::iterator _currFile; // TODO - check if _currFile is not null before displaying
 	std::filesystem::path _folderPath;
 public:
 	Editor();
 
+	// Events
 	void CatchEvent(Event event) override;
 
+	// Component updaters
 	void UpdateHeader();
 	void UpdateFooter();
 
+	// Editor actions
 	void SaveFile();
 	void LoadFile();
 	void OpenFiles(int filecount, char** filenames);

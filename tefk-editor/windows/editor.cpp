@@ -27,6 +27,7 @@ Editor::Editor()
 	AddComponent(_txtFilename);
 	AddComponent(_lblFooter);
 
+	// Focus on text editor panel
 	Focus(_ediEditor);
 }
 
@@ -92,10 +93,10 @@ void Editor::LoadFile() {
 }
 
 void Editor::OpenFiles(int argc, char** argv) {
-	// TODO - Give option to user to choose path if not detected, change log level?
+	// If directory or file not specified in command line arguments
 	if (argc < 2) {
-		std::filesystem::path path = argv[0];
-		_folderPath = path.parent_path();
+		std::filesystem::path executablePath = argv[0];
+		_folderPath = executablePath.parent_path();
 		Logger::Instance().Log(
 			Logger::LogLevel::INFO,
 			"DirPath not specified in command arguments, using executable directory as folderPath."
