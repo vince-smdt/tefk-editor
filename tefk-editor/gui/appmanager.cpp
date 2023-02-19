@@ -34,6 +34,9 @@ void CatchEvents() {
 	if (_windows.top()->IsClosing())
 		AddEvent(Event::WindowClosing());
 
+	if (_windows.top()->ExecuteTimerBoundProcedures())
+		AddEvent(Event::TimerUp());
+
 	if (_kbhit())
 		AddEvent(Input::CatchInput());
 

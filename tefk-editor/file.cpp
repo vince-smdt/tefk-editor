@@ -2,8 +2,6 @@
 
 namespace tefk {
 
-File::File() {}
-
 std::filesystem::path File::GetFilename() {
 	return _filename;
 }

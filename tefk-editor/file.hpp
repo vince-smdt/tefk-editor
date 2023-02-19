@@ -12,8 +12,6 @@ private:
 	std::filesystem::path _filename;
 	TefkString _content;
 public:
-	File();
-
 	std::filesystem::path GetFilename();
 	TefkString GetContent();
 	bool IsNewFile();

@@ -28,6 +28,12 @@ Event Event::SpecialCharacter(TefkChar input) {
 	return event;
 }
 
+Event Event::TimerUp() {
+	Event event;
+	event.type = Type::TIMER_UP;
+	return event;
+}
+
 Event Event::WindowClosing() {
 	Event event;
 	event.type = Type::WINDOW_CLOSING;

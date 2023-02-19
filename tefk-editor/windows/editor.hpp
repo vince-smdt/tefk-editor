@@ -16,6 +16,8 @@ class Editor : public Window {
 	TextField _txtFilename;
 	Label _lblFooter;
 
+	Timer _timerError;
+
 	std::vector<File> _files;
 	std::vector<File>::iterator _currFile; // TODO - check if _currFile is not null before displaying
 	std::filesystem::path _folderPath;
@@ -40,6 +42,7 @@ public:
 
 	// Helper functions
 	void RaiseError(TefkString text);
+	void HideError();
 
 	// Properties
 	size_t FileIndex();

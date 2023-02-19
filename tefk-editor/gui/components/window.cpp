@@ -69,6 +69,10 @@ void Window::UpdateComponents() {
 	}
 }
 
+void Window::AddTimerBoundProcedure(Timer* timer, std::function<void()> procedure) {
+	_timerBoundProcedures.push_back(std::pair(timer, procedure));
+}
+
 void Window::Render() {
 	_canvas.Resize(ConsoleAPI::GetConsoleSize().X, ConsoleAPI::GetConsoleSize().Y);
 	for (auto& child : _children)
@@ -91,6 +95,20 @@ GUIComponent& Window::GetFocusedComponent() {
 
 bool Window::IsClosing() {
 	return _isClosing;
+}
+
+bool Window::ExecuteTimerBoundProcedures() {
+	bool proceduresExecuted = false;
+
+	for (auto& timerBoundProcedure : _timerBoundProcedures) {
+		if (timerBoundProcedure.first->Ringing()) {
+			timerBoundProcedure.second();
+			timerBoundProcedure.first->StopTimer();
+			proceduresExecuted = true;
+		}
+	}
+
+	return proceduresExecuted;
 }
 
 Canvas& Window::GetCanvas() {

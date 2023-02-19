@@ -90,6 +90,9 @@
     <ClCompile Include="gui\color.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
+    <ClCompile Include="gui\timer.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -138,6 +141,12 @@
       <Filter>Header Files\gui\components\text</Filter>
     </ClInclude>
     <ClInclude Include="gui\canvas.hpp">
+      <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\timer.hpp">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
   </ItemGroup>

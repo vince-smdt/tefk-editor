@@ -9,6 +9,7 @@ struct Event {
 		CHARACTER,
 		CONSOLE_SIZE_CHANGE,
 		SPECIAL_CHARACTER,
+		TIMER_UP,
 		WINDOW_CLOSING
 	};
 
@@ -19,6 +20,7 @@ struct Event {
 	static Event Character(TefkChar input);
 	static Event ConsoleSizeChange();
 	static Event SpecialCharacter(TefkChar input);
+	static Event TimerUp();
 	static Event WindowClosing();
 };
 

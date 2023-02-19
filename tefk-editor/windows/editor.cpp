@@ -27,6 +27,9 @@ Editor::Editor()
 	AddComponent(_txtFilename);
 	AddComponent(_lblFooter);
 
+	// Bound timers to methods
+	AddTimerBoundProcedure(&_timerError, std::bind(&Editor::HideError, this));
+
 	// Focus on text editor panel
 	Focus(_ediEditor);
 }
@@ -179,6 +182,11 @@ void Editor::SetFilename() {
 void Editor::RaiseError(TefkString text) {
 	_lblError.SetText(text);
 	_lblError.SetVisibility(true);
+	_timerError.StartTimer(5000);
+}
+
+void Editor::HideError() {
+	_lblError.SetVisibility(false);
 }
 
 size_t Editor::FileIndex() {
