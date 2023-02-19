@@ -38,6 +38,7 @@ public:
 	void PrevFile();
 	void NextFile();
 	void NewFile();
+	void RemoveFile();
 	void SetFilename();
 
 	// Helper functions

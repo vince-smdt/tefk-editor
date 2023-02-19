@@ -38,6 +38,9 @@ void Editor::CatchEvent(Event event) {
 	// Handle event
 	if (event.type == Event::Type::CHARACTER) {
 		switch (event.input) {
+		case VK_CTRL_D:
+			RemoveFile();
+			break;
 		case VK_CTRL_N:
 			NewFile();
 			break;
@@ -165,6 +168,20 @@ void Editor::NewFile() {
 	_currFile->SetContent(_ediEditor.GetContent());
 	_files.push_back(File());
 	_currFile = _files.end() - 1;
+	LoadFile();
+}
+
+void Editor::RemoveFile() {
+	if (_files.size() == 1) {
+		_files.clear();
+		_files.push_back(File());
+		_currFile = _files.begin();
+		LoadFile();
+		return;
+	}
+	_currFile = _files.erase(_currFile);
+	if (_currFile == _files.end())
+		_currFile--;
 	LoadFile();
 }
 
