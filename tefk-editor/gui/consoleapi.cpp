@@ -14,7 +14,12 @@ void ConsoleAPI::Init() {
 	DWORD prevMode;
 	HANDLE hInput = GetStdHandle(STD_OUTPUT_HANDLE);
 	GetConsoleMode(hInput, &prevMode);
-	SetConsoleMode(hInput, prevMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
+	// Add console modes
+	prevMode |= ENABLE_PROCESSED_OUTPUT
+			 |  ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+
+	SetConsoleMode(hInput, prevMode);
 }
 
 bool ConsoleAPI::ConsoleSizeChanged() {
