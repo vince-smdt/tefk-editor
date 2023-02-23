@@ -8,7 +8,6 @@ TextEditor::TextEditor()
 	_sizeBehaviour = SizeBehaviour::FILL;
 }
 
-// TODO - load text correctly, currently unable to load text from file
 void TextEditor::SetText(TefkString text) {
 	_text.clear();
 	for (auto ch : text)

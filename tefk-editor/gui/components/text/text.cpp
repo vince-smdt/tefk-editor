@@ -110,36 +110,41 @@ void Text::MoveCursorLeft() {
 }
 
 void Text::MoveCursorUp() {
-	// TODO - fix cursor going to beginning of line when at end of line
-	if (_text.begin() == _text.end())
+	if (_text.size() == 0)
 		return;
 
-	size_t spacesFromLeft = SpacesFromLeft();
-	size_t previousRowSize = 0;
+	size_t currentRowIndex = 0,
+		   rowAboveSize = 0;
 
-	// Move cursor to start of line
+	// If on newline, move back
+	if (_cursor.AtListEnd() || (!_cursor.AtListBegin() && _cursor.Char() == '\n')) {
+		currentRowIndex++;
+		MoveCursorLeft();
+	}
+
+	// If moved to previous line, cancel previous movement
 	if (_cursor.AtListEnd() || (!_cursor.AtListBegin() && _cursor.Char() == '\n'))
-		MoveCursorLeft();
+		currentRowIndex--;
 
-	while (!_cursor.AtListBegin() && _cursor.Char() != '\n')
+	// Move to beginning of line
+	while (!_cursor.AtListBegin() && _cursor.Char() != '\n') {
+		currentRowIndex++;
 		MoveCursorLeft();
+	}
 
 	// Move cursor to start of previous line
 	if (!_cursor.AtListBegin()) {
 		MoveCursorLeft();
-		previousRowSize++;
+		rowAboveSize++;
 	}
 
 	while (!_cursor.AtListBegin() && _cursor.Char() != '\n') {
 		MoveCursorLeft();
-		previousRowSize++;
+		rowAboveSize++;
 	}
 
-	if (!_cursor.AtListEnd() && !_cursor.AtListBegin() && _cursor.Char() == '\n')
-		MoveCursorRight();
-
 	// Move cursor right by offset of previous line
-	size_t offset = (std::min)(previousRowSize, spacesFromLeft);
+	size_t offset = (std::min)(rowAboveSize, currentRowIndex);
 	_cursor.Move(offset);
 }
 
