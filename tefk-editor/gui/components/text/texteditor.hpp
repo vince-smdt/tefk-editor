@@ -7,16 +7,16 @@ namespace tefk {
 
 class TextEditor : public Text {
 public:
-	TextEditor();
+    TextEditor();
 
-	// Text
-	void SetText(TefkString text);
+    // Text
+    void SetText(TefkString text);
 
-	// Overrides
-	TefkString GetContent() override;
-	bool CatchEventFromBaseComponent(Event event) override;
+    // Overrides
+    TefkString GetContent() override;
+    bool CatchEventFromBaseComponent(Event event) override;
 private:
-	void GetPixelVector(PixelVector& pixelVec) override;
+    void GetPixelVector(PixelVector& pixelVec) override;
 };
 
 } // namespace tefk

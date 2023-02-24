@@ -12,44 +12,44 @@ namespace tefk {
 // TODO - make implementation file, deal with Log method Args template
 class Logger {
 public:
-	enum class LogLevel {
-		FATAL, 
-		ERR, 
-		WARN,
-		INFO,
-		DEBUG,
-		TRACE
-	};
+    enum class LogLevel {
+        FATAL, 
+        ERR, 
+        WARN,
+        INFO,
+        DEBUG,
+        TRACE
+    };
 private:
-	std::ofstream _file;
-	std::ostream& _stream;
+    std::ofstream _file;
+    std::ostream& _stream;
 
-	explicit Logger(std::filesystem::path& filename);
+    explicit Logger(std::filesystem::path& filename);
 
-	TefkString LogLevelStr(LogLevel level);
-	const TefkString CurrentDateTime();
+    TefkString LogLevelStr(LogLevel level);
+    const TefkString CurrentDateTime();
 public:
-	static Logger& Instance();
+    static Logger& Instance();
 
-	template <typename... Args>
-	void Log(LogLevel level, const std::_Fmt_string<Args...> format, Args&&... args);
+    template <typename... Args>
+    void Log(LogLevel level, const std::_Fmt_string<Args...> format, Args&&... args);
 };
 
 
 template <typename... Args>
 inline void Logger::Log(LogLevel level, const std::_Fmt_string<Args...> format, Args&&... args) {
-	try {
-		_stream << CurrentDateTime() << " "
-			<< std::setw(5) << std::left << LogLevelStr(level) << " "
-			<< std::format(format, std::forward<Args>(args)...)
-			<< std::endl;
-	}
-	catch (std::ios_base::failure) {
-		// TODO - Show error in console
-	}
-	catch (std::bad_alloc) {
-		// ...
-	}
+    try {
+        _stream << CurrentDateTime() << " "
+            << std::setw(5) << std::left << LogLevelStr(level) << " "
+            << std::format(format, std::forward<Args>(args)...)
+            << std::endl;
+    }
+    catch (std::ios_base::failure) {
+        // TODO - Show error in console
+    }
+    catch (std::bad_alloc) {
+        // ...
+    }
 }
 
 } // namespace tefk

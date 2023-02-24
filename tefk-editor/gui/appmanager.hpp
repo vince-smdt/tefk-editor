@@ -9,23 +9,23 @@
 #include "input.hpp"
 
 namespace tefk::ApplicationManager {
-	namespace {
-		bool _running = true;
-		std::stack<Window*> _windows;
-		std::queue<std::shared_ptr<Event>> _events;
-	}
+    namespace {
+        bool _running = true;
+        std::stack<Window*> _windows;
+        std::queue<std::shared_ptr<Event>> _events;
+    }
 
-	void Render();
+    void Render();
 
-	void OpenWindow(Window& window);
-	void CloseWindow();
+    void OpenWindow(Window& window);
+    void CloseWindow();
 
-	void CatchEvents();
-	void AddEvent(Event event);
-	void RunEvents();
-	void ProcessEvent(Event event);
+    void CatchEvents();
+    void AddEvent(Event event);
+    void RunEvents();
+    void ProcessEvent(Event event);
 
-	bool Running();
+    bool Running();
 
-	void CloseApp();
+    void CloseApp();
 } // namespace tefk::ApplicationManager

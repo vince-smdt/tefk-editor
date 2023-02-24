@@ -7,10 +7,10 @@
 namespace tefk {
 
 class Application {
-	Editor _editor;
+    Editor _editor;
 public:
-	void Init(int argc, char** argv);
-	void Run();
+    void Init(int argc, char** argv);
+    void Run();
 };
 
 } // namespace tefk

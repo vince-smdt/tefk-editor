@@ -7,25 +7,25 @@
 namespace tefk {
 
 struct Pixel {
-	TefkChar character;
-	TextColor color;
+    TefkChar character;
+    TextColor color;
 
-	Pixel()
-		: character{ ' ' }
-	{}
+    Pixel()
+        : character{ ' ' }
+    {}
 };
 
 using PixelVector = std::vector<Pixel>;
 
 class Canvas {
-	PixelVector _pixels;
-	Coord _dimensions;	
+    PixelVector _pixels;
+    Coord _dimensions;    
 public:
-	Canvas();
+    Canvas();
 
-	void Render();
-	Pixel& PixelAt(size_t x, size_t y);
-	void Resize(size_t x, size_t y);
+    void Render();
+    Pixel& PixelAt(size_t x, size_t y);
+    void Resize(size_t x, size_t y);
 };
 
 } // namespace tefk

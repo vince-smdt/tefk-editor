@@ -9,17 +9,17 @@ namespace tefk {
 
 class File {
 private:
-	std::filesystem::path _filename;
-	TefkString _content;
+    std::filesystem::path _filename;
+    TefkString _content;
 public:
-	std::filesystem::path GetFilename();
-	TefkString GetContent();
-	bool IsNewFile();
+    std::filesystem::path GetFilename();
+    TefkString GetContent();
+    bool IsNewFile();
 
-	void SetContent(TefkString content);
+    void SetContent(TefkString content);
 
-	bool Open(std::filesystem::path filename);
-	void Save();
+    bool Open(std::filesystem::path filename);
+    void Save();
 };
 
 } // namespace tefk

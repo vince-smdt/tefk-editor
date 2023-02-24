@@ -9,39 +9,39 @@
 namespace tefk {
 
 struct Coord {
-	short X;
-	short Y;
+    short X;
+    short Y;
 
-	short Area() {
-		return X * Y;
-	}
+    short Area() {
+        return X * Y;
+    }
 
-	bool operator==(const Coord& c) {
-		return X == c.X && Y == c.Y;
-	}
+    bool operator==(const Coord& c) {
+        return X == c.X && Y == c.Y;
+    }
 
-	bool operator!=(const Coord& c) {
-		return X != c.X || Y != c.Y;
-	}
+    bool operator!=(const Coord& c) {
+        return X != c.X || Y != c.Y;
+    }
 };
 
 class ConsoleAPI {
-	ConsoleAPI() = delete;
-	ConsoleAPI(const ConsoleAPI&) = delete;
+    ConsoleAPI() = delete;
+    ConsoleAPI(const ConsoleAPI&) = delete;
 
-	static HANDLE s_handle;
-	static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
-	static Coord s_lastRecordedSize;
+    static HANDLE s_handle;
+    static CONSOLE_SCREEN_BUFFER_INFO s_csbi;
+    static Coord s_lastRecordedSize;
 public:
-	static void Init();
+    static void Init();
 
-	static bool ConsoleSizeChanged();
-	static Coord GetConsoleSize();
-	static void UpdateConsoleSize();
+    static bool ConsoleSizeChanged();
+    static Coord GetConsoleSize();
+    static void UpdateConsoleSize();
 
-	static TefkChar ReadKeypress();
+    static TefkChar ReadKeypress();
 private:
-	static void GetConsoleBufferInfo();
+    static void GetConsoleBufferInfo();
 };
 
 } // namespace tefk

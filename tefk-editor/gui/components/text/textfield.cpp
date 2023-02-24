@@ -3,65 +3,65 @@
 namespace tefk {
 
 TextField::TextField()
-	: Text{}
+    : Text{}
 {}
 
 TefkString TextField::GetLabel() {
-	return _label;
+    return _label;
 }
 
 void TextField::SetLabel(TefkString label) {
-	_label = label;
+    _label = label;
 }
 
 void TextField::SetOnSubmit(std::function<void()> func) {
-	_onSubmit = func;
+    _onSubmit = func;
 }
 
 TefkString TextField::GetContent() {
-	return _label + ": " + GetText();
+    return _label + ": " + GetText();
 }
 
 bool TextField::CatchEventFromBaseComponent(Event event) {
-	// TODO - catch event and do something with it
-	bool eventCaught = true;
+    // TODO - catch event and do something with it
+    bool eventCaught = true;
 
-	if (event.type == Event::Type::CHARACTER) {
-		switch (event.input) {
-		case VK_RETURN:
-			_onSubmit();
-			break;
-		default:
-			eventCaught = false;
-		}
-	}
-	else {
-		eventCaught = false;
-	}
+    if (event.type == Event::Type::CHARACTER) {
+        switch (event.input) {
+        case VK_RETURN:
+            _onSubmit();
+            break;
+        default:
+            eventCaught = false;
+        }
+    }
+    else {
+        eventCaught = false;
+    }
 
-	return eventCaught;
+    return eventCaught;
 }
 
 void TextField::GetPixelVector(PixelVector& pixelVec) {
-	TefkString formatLabel = _label + ": ";
-	size_t availableEmptySpace = _size.Area() - (formatLabel.size() + _text.size());
+    TefkString formatLabel = _label + ": ";
+    size_t availableEmptySpace = _size.Area() - (formatLabel.size() + _text.size());
 
-	size_t i = 0;
-	for (; i < pixelVec.size() && i < formatLabel.size(); i++) {
-		pixelVec[i].character = formatLabel[i];
-		pixelVec[i].color = _color;
-	}
+    size_t i = 0;
+    for (; i < pixelVec.size() && i < formatLabel.size(); i++) {
+        pixelVec[i].character = formatLabel[i];
+        pixelVec[i].color = _color;
+    }
 
-	auto textIter = _text.begin();
-	for (; i < pixelVec.size() - availableEmptySpace && textIter != _text.end(); i++, textIter++) {
-		pixelVec[i].character = *textIter;
-		pixelVec[i].color = _color;
-	}
+    auto textIter = _text.begin();
+    for (; i < pixelVec.size() - availableEmptySpace && textIter != _text.end(); i++, textIter++) {
+        pixelVec[i].character = *textIter;
+        pixelVec[i].color = _color;
+    }
 
-	for (; i < pixelVec.size(); i++) {
-		pixelVec[i].character = ' ';
-		pixelVec[i].color = _color;
-	}
+    for (; i < pixelVec.size(); i++) {
+        pixelVec[i].character = ' ';
+        pixelVec[i].color = _color;
+    }
 }
 
 } // namespace tefk
