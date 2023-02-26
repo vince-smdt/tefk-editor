@@ -52,13 +52,15 @@ void Window::UpdateComponents() {
     }
 
     // Update height of fill height components
-    short fillHeight = availableSpace / fillComponents.size();
-    short leftoverSpace = availableSpace % fillComponents.size();
-    for (auto component : fillComponents) {
-        if (component != fillComponents.back())
-            component->SetHeight(fillHeight);
-        else
-            component->SetHeight(fillHeight + leftoverSpace);
+    if (fillComponents.size() > 0) {
+        short fillHeight = availableSpace / fillComponents.size();
+        short leftoverSpace = availableSpace % fillComponents.size();
+        for (auto component : fillComponents) {
+            if (component != fillComponents.back())
+                component->SetHeight(fillHeight);
+            else
+                component->SetHeight(fillHeight + leftoverSpace);
+        }
     }
 
     // Position every component vertically
