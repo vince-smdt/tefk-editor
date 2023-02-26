@@ -1,8 +1,12 @@
 #include "appmanager.hpp"
 
-namespace tefk::ApplicationManager {
+namespace tefk {
 
-void Render() {
+ApplicationManager::ApplicationManager()
+    : _running{ true }
+{}
+
+void ApplicationManager::Render() {
     if (_windows.empty()) {
         Logger::Instance().Log(
             Logger::LogLevel::WARN,
@@ -15,11 +19,11 @@ void Render() {
     _windows.top()->Render();
 }
 
-void OpenWindow(Window& window) {
+void ApplicationManager::OpenWindow(Window& window) {
     _windows.push(&window);
 }
 
-void CloseWindow() {
+void ApplicationManager::CloseWindow() {
     _windows.pop();
     if (_windows.empty()) {
         Logger::Instance().Log(
@@ -30,7 +34,7 @@ void CloseWindow() {
     }
 }
 
-void CatchEvents() {
+void ApplicationManager::CatchEvents() {
     if (_windows.top()->IsClosing())
         AddEvent(Event::WindowClosing());
 
@@ -44,11 +48,11 @@ void CatchEvents() {
         AddEvent(Event::ConsoleSizeChange());
 }
 
-void AddEvent(Event event) {
+void ApplicationManager::AddEvent(Event event) {
     _events.push(std::make_shared<Event>(event));
 }
 
-void RunEvents() {
+void ApplicationManager::RunEvents() {
     // TODO - check if window stack empty, avoid redundancy in checks
     if (_events.empty())
         return;
@@ -66,7 +70,7 @@ void RunEvents() {
     Render();
 }
 
-void ProcessEvent(Event event) {
+void ApplicationManager::ProcessEvent(Event event) {
     if (event.type == Event::Type::CONSOLE_SIZE_CHANGE)
         ConsoleAPI::UpdateConsoleSize();
 
@@ -74,11 +78,11 @@ void ProcessEvent(Event event) {
         _windows.top()->Close();
 }
 
-bool Running() {
+bool ApplicationManager::Running() {
     return _running;
 }
 
-void CloseApp() {
+void ApplicationManager::CloseApp() {
     Logger::Instance().Log(
         Logger::LogLevel::INFO,
         "Closing application."

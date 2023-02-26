@@ -7,6 +7,7 @@
 namespace tefk {
 
 class Application {
+    ApplicationManager _appManager;
     Editor _editor;
 public:
     void Init(int argc, char** argv);

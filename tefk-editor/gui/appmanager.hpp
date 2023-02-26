@@ -8,12 +8,14 @@
 #include "components/window.hpp"
 #include "input.hpp"
 
-namespace tefk::ApplicationManager {
-    namespace {
-        bool _running = true;
-        std::stack<Window*> _windows;
-        std::queue<std::shared_ptr<Event>> _events;
-    }
+namespace tefk {
+
+class ApplicationManager {
+    bool _running;
+    std::stack<Window*> _windows;
+    std::queue<std::shared_ptr<Event>> _events;
+public:
+    ApplicationManager();
 
     void Render();
 
@@ -28,4 +30,6 @@ namespace tefk::ApplicationManager {
     bool Running();
 
     void CloseApp();
-} // namespace tefk::ApplicationManager
+};
+
+} // namespace tefk

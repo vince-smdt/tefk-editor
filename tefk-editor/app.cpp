@@ -5,14 +5,14 @@ namespace tefk {
 void Application::Init(int argc, char** argv) {
     ConsoleAPI::Init();
     _editor.OpenFiles(argc, argv);
-    ApplicationManager::OpenWindow(_editor);
+    _appManager.OpenWindow(_editor);
 }
 
 void Application::Run() {
-    ApplicationManager::AddEvent(Event::ApplicationStart());
-    while (ApplicationManager::Running()) {
-        ApplicationManager::CatchEvents();
-        ApplicationManager::RunEvents();
+    _appManager.AddEvent(Event::ApplicationStart());
+    while (_appManager.Running()) {
+        _appManager.CatchEvents();
+        _appManager.RunEvents();
     }
 }
 
