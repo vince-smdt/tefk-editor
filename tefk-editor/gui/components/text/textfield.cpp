@@ -44,7 +44,6 @@ bool TextField::CatchEventFromBaseComponent(Event event) {
 
 void TextField::GetPixelVector(PixelVector& pixelVec) {
     TefkString formatLabel = _label + ": ";
-    size_t availableEmptySpace = _size.Area() - (formatLabel.size() + _text.size());
 
     size_t i = 0;
     for (; i < pixelVec.size() && i < formatLabel.size(); i++) {
@@ -53,13 +52,8 @@ void TextField::GetPixelVector(PixelVector& pixelVec) {
     }
 
     auto textIter = _text.begin();
-    for (; i < pixelVec.size() - availableEmptySpace && textIter != _text.end(); i++, textIter++) {
+    for (; i < pixelVec.size() && textIter != _text.end(); i++, textIter++) {
         pixelVec[i].character = *textIter;
-        pixelVec[i].color = _color;
-    }
-
-    for (; i < pixelVec.size(); i++) {
-        pixelVec[i].character = ' ';
         pixelVec[i].color = _color;
     }
 }

@@ -42,36 +42,23 @@ void TextEditor::GetPixelVector(PixelVector& pixelVec) {
     size_t i = 0;
     auto textIter = _text.begin();
 
-    for (; i < pixelVec.size(); i++) {
+    for (; i < pixelVec.size(); i++, textIter++) {
         // Invert color if cursor at current character
-        pixelVec[i].color = (textIter == _cursor.Iter()) ? _color.Inverse() : _color;
+        if (textIter == _cursor.Iter())
+            pixelVec[i].color = _color.Inverse();
 
-        if (textIter != _text.end() && *textIter != '\n') {
+        // If all text printed, break out of loop
+        if (textIter == _text.end())
+            break;
+
+        if (*textIter != '\n') {
             // Set character
             pixelVec[i].character = *textIter;
         }
         else {
-            // If newline, set rest of row as white space
-            pixelVec[i].character = ' ';
-            i++;
-            for (; i % _size.X != 0; i++) {
-                pixelVec[i].character = ' ';
-                pixelVec[i].color = _color;
-            }
-            i--;
+            // Set i to beginning of next pixel row
+            i = ((i + _size.X) / _size.X) * _size.X - 1;
         }
-    
-        if (textIter == _text.end()) {
-            i++;
-            break;
-        }
-        else
-            textIter++;
-    }
-
-    for (; i < pixelVec.size(); i++) {
-        pixelVec[i].character = ' ';
-        pixelVec[i].color = _color;
     }
 }
 

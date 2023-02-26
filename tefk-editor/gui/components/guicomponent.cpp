@@ -77,7 +77,7 @@ Canvas& GUIComponent::GetCanvas() {
 
 void GUIComponent::DrawOnCanvas() {
     PixelVector pixelVec;
-    pixelVec.resize(_size.Area());
+    pixelVec.resize(_size.Area(), Pixel(' ', _color));
     GetPixelVector(pixelVec);
 
     for (size_t i = 0; i < pixelVec.size(); i++)

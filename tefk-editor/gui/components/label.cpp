@@ -15,11 +15,8 @@ TefkString Label::GetContent() {
 }
 
 void Label::GetPixelVector(PixelVector& pixelVec) {
-    size_t availableEmptySpace = _size.Area() - _text.size();
-    TefkString canvasString = _text + TefkString(availableEmptySpace, ' ');
-
-    for (size_t i = 0; i < pixelVec.size(); i++) {
-        pixelVec[i].character = canvasString[i];
+    for (size_t i = 0; i < pixelVec.size() && i < _text.size(); i++) {
+        pixelVec[i].character = _text[i];
         pixelVec[i].color = _color;
     }
 }

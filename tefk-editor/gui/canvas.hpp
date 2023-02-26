@@ -13,6 +13,11 @@ struct Pixel {
     Pixel()
         : character{ ' ' }
     {}
+
+    Pixel(TefkChar ch, TextColor color)
+        : character{ ch }
+        , color{ color }
+    {}
 };
 
 using PixelVector = std::vector<Pixel>;
