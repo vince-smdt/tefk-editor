@@ -7,6 +7,14 @@ Window::Window()
     , _isClosing{ false }
 {}
 
+void Window::SetParent(ApplicationManager& parentApp) {
+    _parentApp = &parentApp;
+}
+
+ApplicationManager& Window::GetParent() {
+    return *_parentApp;
+}
+
 void Window::AddComponent(GUIComponent& component) {
     // TODO - check if component already has a parent
     _children.push_back(&component);
@@ -76,11 +84,11 @@ void Window::AddTimerBoundProcedure(Timer* timer, std::function<void()> procedur
 }
 
 void Window::Render() {
-    _canvas.Resize(ConsoleAPI::GetConsoleSize().X, ConsoleAPI::GetConsoleSize().Y);
+    GetCanvas().Resize(ConsoleAPI::GetConsoleSize().X, ConsoleAPI::GetConsoleSize().Y);
     for (auto& child : _children)
         if (child->IsVisible())
             child->DrawOnCanvas();
-    _canvas.Render();
+    GetCanvas().Render();
 }
 
 void Window::Focus(GUIComponent& component) {
@@ -114,7 +122,7 @@ bool Window::ExecuteTimerBoundProcedures() {
 }
 
 Canvas& Window::GetCanvas() {
-    return _canvas;
+    return _parentApp->GetCanvas();
 }
 
 void Window::CatchAndPropagateEvent(Event event) {

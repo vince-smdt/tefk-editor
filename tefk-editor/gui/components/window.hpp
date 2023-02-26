@@ -1,22 +1,29 @@
 #pragma once
 #include <vector>
 
+#include "../appmanager.hpp"
 #include "../event.hpp"
 #include "guicomponent.hpp"
 #include "../timer.hpp"
 
 namespace tefk {
 
+// Forward declarations
+class ApplicationManager;
 class GUIComponent;
 
 class Window {
+    ApplicationManager* _parentApp;
     std::vector<GUIComponent*> _children;
     GUIComponent* _focusedComponent;
     std::vector<std::pair<Timer*, std::function<void()>>> _timerBoundProcedures;
-    Canvas _canvas;
     bool _isClosing;
 public:
     Window();
+
+    // Parent
+    void SetParent(ApplicationManager& parentApp);
+    ApplicationManager& GetParent();
 
     // Actions
     void AddComponent(GUIComponent& component);

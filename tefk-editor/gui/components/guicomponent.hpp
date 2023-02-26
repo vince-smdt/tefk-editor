@@ -19,6 +19,7 @@ enum class SizeBehaviour {
     FILL
 };
 
+// Forward declarations
 class Window;
 
 class GUIComponent {

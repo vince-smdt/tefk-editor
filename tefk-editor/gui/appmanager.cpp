@@ -6,21 +6,13 @@ ApplicationManager::ApplicationManager()
     : _running{ true }
 {}
 
-void ApplicationManager::Render() {
-    if (_windows.empty()) {
-        Logger::Instance().Log(
-            Logger::LogLevel::WARN,
-            "Cannot render current window, window stack empty. Proceeding to termination of application."
-        );
-        CloseApp();
-    }
-    
-    _windows.top()->UpdateComponents();
-    _windows.top()->Render();
+Canvas& ApplicationManager::GetCanvas() {
+    return _canvas;
 }
 
 void ApplicationManager::OpenWindow(Window& window) {
     _windows.push(&window);
+    window.SetParent(*this);
 }
 
 void ApplicationManager::CloseWindow() {
@@ -76,6 +68,19 @@ void ApplicationManager::ProcessEvent(Event event) {
 
     if (event.type == Event::Type::WINDOW_CLOSING)
         _windows.top()->Close();
+}
+
+void ApplicationManager::Render() {
+    if (_windows.empty()) {
+        Logger::Instance().Log(
+            Logger::LogLevel::WARN,
+            "Cannot render current window, window stack empty. Proceeding to termination of application."
+        );
+        CloseApp();
+    }
+    
+    _windows.top()->UpdateComponents();
+    _windows.top()->Render();
 }
 
 bool ApplicationManager::Running() {
