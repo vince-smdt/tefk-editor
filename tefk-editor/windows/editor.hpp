@@ -6,6 +6,7 @@
 #include "../gui/components/text/texteditor.hpp"
 #include "../gui/components/text/textfield.hpp"
 #include "../gui/components/window.hpp"
+#include "menu.hpp"
 
 namespace tefk { 
 
@@ -17,6 +18,8 @@ class Editor : public Window {
     Label _lblFooter;
 
     Timer _timerError;
+
+    Menu _menuWindow;
 
     std::vector<File> _files;
     std::vector<File>::iterator _currFile; // TODO - check if _currFile is not null before displaying
@@ -40,6 +43,9 @@ public:
     void NewFile();
     void RemoveFile();
     void SetFilename();
+
+    // Menu
+    void OpenMenu();
 
     // Helper functions
     void RaiseError(TefkString text);

@@ -24,7 +24,7 @@ using PixelVector = std::vector<Pixel>;
 
 class Canvas {
     PixelVector _pixels;
-    Coord _dimensions;    
+    Coord _dimensions;
 public:
     Canvas();
 

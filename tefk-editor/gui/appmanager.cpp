@@ -13,6 +13,7 @@ Canvas& ApplicationManager::GetCanvas() {
 void ApplicationManager::OpenWindow(Window& window) {
     _windows.push(&window);
     window.SetParent(*this);
+    window.Open();
 }
 
 void ApplicationManager::CloseWindow() {
@@ -51,10 +52,6 @@ void ApplicationManager::RunEvents() {
 
     while (!_events.empty()) {
         ProcessEvent(*_events.front());
-        if (_windows.top()->IsClosing()) {
-            CloseWindow();
-            return;
-        }
         _windows.top()->CatchAndPropagateEvent(*_events.front());
         _events.pop();
     }
@@ -67,7 +64,7 @@ void ApplicationManager::ProcessEvent(Event event) {
         ConsoleAPI::UpdateConsoleSize();
 
     if (event.type == Event::Type::WINDOW_CLOSING)
-        _windows.top()->Close();
+        CloseWindow();
 }
 
 void ApplicationManager::Render() {

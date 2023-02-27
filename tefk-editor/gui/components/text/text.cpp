@@ -274,7 +274,7 @@ void Text::CatchEvent(Event event) {
             Undo();
             break;
         default:
-            if (!CatchEventFromBaseComponent(event) && event.input > 26)
+            if (!CatchEventFromBaseComponent(event) && event.input > 27)
                 AddChar(event.input);
         }
     }

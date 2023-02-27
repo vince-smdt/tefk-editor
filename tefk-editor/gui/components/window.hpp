@@ -31,6 +31,7 @@ public:
     void AddTimerBoundProcedure(Timer* timer, std::function<void()> procedure);
     void Render();
     void Focus(GUIComponent& component);
+    void Open();
     void Close();
 
     // Properties

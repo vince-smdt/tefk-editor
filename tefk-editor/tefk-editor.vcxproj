@@ -147,6 +147,7 @@
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="windows\editor.cpp" />
+    <ClCompile Include="windows\menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.hpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="gui\types.h" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="windows\editor.hpp" />
+    <ClInclude Include="windows\menu.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

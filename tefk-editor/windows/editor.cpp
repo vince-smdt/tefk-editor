@@ -50,6 +50,9 @@ void Editor::CatchEvent(Event event) {
         case VK_CTRL_S:
             SaveFile();
             break;
+        case VK_ESC:
+            OpenMenu();
+            break;
         }
     }
     else if (event.type == Event::Type::SPECIAL_CHARACTER) {
@@ -70,7 +73,7 @@ void Editor::CatchEvent(Event event) {
 
 void Editor::UpdateHeader() {
     _lblHeader.SetText(std::format(
-        "{} {}/{} Press Ctrl+S to save!",
+        "{} {}/{} Ctrl+S to save! Esc for menu!",
         (_currFile->IsNewFile())
             ? "New File"
             : _currFile->GetFilename().generic_string(),
@@ -194,6 +197,10 @@ void Editor::SetFilename() {
         return;
     }
     RaiseError("File cannot be created.");
+}
+
+void Editor::OpenMenu() {
+    GetParent().OpenWindow(_menuWindow);
 }
 
 void Editor::RaiseError(TefkString text) {

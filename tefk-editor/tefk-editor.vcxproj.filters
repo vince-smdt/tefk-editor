@@ -93,6 +93,9 @@
     <ClCompile Include="gui\timer.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
+    <ClCompile Include="windows\menu.cpp">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="gui\timer.hpp">
       <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\menu.hpp">
+      <Filter>Header Files\windows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

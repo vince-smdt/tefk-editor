@@ -3,7 +3,8 @@
 namespace tefk {
 
 Window::Window()
-    : _focusedComponent{ nullptr }
+    : _parentApp{ nullptr }
+    , _focusedComponent { nullptr }
     , _isClosing{ false }
 {}
 
@@ -93,6 +94,10 @@ void Window::Render() {
 
 void Window::Focus(GUIComponent& component) {
     _focusedComponent = &component;
+}
+
+void Window::Open() {
+    _isClosing = false;
 }
 
 void Window::Close() {
