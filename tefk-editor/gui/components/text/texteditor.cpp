@@ -15,6 +15,11 @@ void TextEditor::SetText(TefkString text) {
     _cursor.SetText(_text);
 }
 
+void TextEditor::Tab() {
+    for (size_t i = 0; i < 4; i++)
+        AddChar(' ');
+}
+
 TefkString TextEditor::GetContent() {
     return GetText();
 }
@@ -26,6 +31,9 @@ bool TextEditor::CatchEventFromBaseComponent(Event event) {
         switch (event.input) {
         case VK_RETURN:
             NewLine();
+            break;
+        case VK_TAB:
+            Tab();
             break;
         default:
             eventCaught = false;

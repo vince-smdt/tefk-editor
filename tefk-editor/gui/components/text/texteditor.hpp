@@ -12,6 +12,9 @@ public:
     // Text
     void SetText(TefkString text);
 
+    // Actions
+    void Tab();
+
     // Overrides
     TefkString GetContent() override;
     bool CatchEventFromBaseComponent(Event event) override;

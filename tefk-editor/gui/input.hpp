@@ -20,6 +20,7 @@
 #define VK_PAGE_DOWN            0x51
 #define VK_PAGE_UP              0x49
 #define VK_RETURN               0x0D
+#define VK_TAB                  0x09
 
 namespace tefk::Input {
 
