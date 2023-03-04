@@ -76,6 +76,10 @@ public:
     void MoveCursorDown();
     void MoveCursorNextWord();
     void MoveCursorPrevWord();
+    void MoveCursorStartLine();
+    void MoveCursorEndLine();
+    void MoveCursorNextLine();
+    void MoveCursorPrevLine();
 
     void AddChar(TefkChar ch);
     void NewLine();

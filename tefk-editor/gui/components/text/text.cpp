@@ -110,62 +110,23 @@ void Text::MoveCursorLeft() {
 }
 
 void Text::MoveCursorUp() {
-    if (_text.size() == 0)
-        return;
+    TefkSizeT rowIndex = RowIndex();
 
-    size_t currentRowIndex = 0,
-           rowAboveSize = 0;
+    MoveCursorPrevLine();
+    MoveCursorStartLine();
 
-    // If on newline, move back
-    if (_cursor.AtListEnd() || (!_cursor.AtListBegin() && _cursor.Char() == '\n')) {
-        currentRowIndex++;
-        MoveCursorLeft();
-    }
-
-    // If moved to previous line, cancel previous movement
-    if (_cursor.AtListEnd() || (!_cursor.AtListBegin() && _cursor.Char() == '\n'))
-        currentRowIndex--;
-
-    // Move to beginning of line
-    while (!_cursor.AtListBegin() && _cursor.Char() != '\n') {
-        currentRowIndex++;
-        MoveCursorLeft();
-    }
-
-    // Move cursor to start of previous line
-    if (!_cursor.AtListBegin()) {
-        MoveCursorLeft();
-        rowAboveSize++;
-    }
-
-    while (!_cursor.AtListBegin() && _cursor.Char() != '\n') {
-        MoveCursorLeft();
-        rowAboveSize++;
-    }
-
-    // Move cursor right by offset of previous line
-    size_t offset = (std::min)(rowAboveSize, currentRowIndex);
-    _cursor.Move(offset);
+    for (; rowIndex > 0 && !_cursor.AtListEnd() && _cursor.Char() != '\n'; rowIndex--)
+        MoveCursorRight();
 }
 
 void Text::MoveCursorDown() {
-    if (_text.begin() == _text.end())
-        return;
+    TefkSizeT rowIndex = RowIndex();
 
-    size_t spacesFromLeft = RowIndex();
+    MoveCursorNextLine();
+    MoveCursorStartLine();
 
-    // Move cursor to start of next line
-    while (!_cursor.AtListEnd() && _cursor.Char() != '\n')
+    for (; rowIndex > 0 && !_cursor.AtListEnd() && _cursor.Char() != '\n'; rowIndex--)
         MoveCursorRight();
-
-    if (!_cursor.AtListEnd())
-        MoveCursorRight();
-
-    // Move cursor right by offset
-    while (spacesFromLeft && !_cursor.AtListEnd() && _cursor.Char() != '\n') {
-        MoveCursorRight();
-        spacesFromLeft--;
-    }
 }
 
 void Text::MoveCursorNextWord() {
@@ -198,6 +159,32 @@ void Text::MoveCursorPrevWord() {
     // Move backwards until non-space or newline reached
     while (!_cursor.AtListBegin() && _cursor.Char() != ' ' && _cursor.Char() != '\n')
         MoveCursorLeft();
+}
+
+void Text::MoveCursorStartLine() {
+    if (_cursor.AtListBegin())
+        return;
+
+    do _cursor.Prev();
+    while (!_cursor.AtListBegin() && _cursor.Char() != '\n');
+
+    if (_cursor.Char() == '\n')
+        _cursor.Next();
+}
+
+void Text::MoveCursorEndLine() {
+    while (!_cursor.AtListEnd() && _cursor.Char() != '\n')
+        _cursor.Next();
+}
+
+void Text::MoveCursorNextLine() {
+    MoveCursorEndLine();
+    MoveCursorRight();
+}
+
+void Text::MoveCursorPrevLine() {
+    MoveCursorStartLine();
+    MoveCursorLeft();
 }
 
 void Text::AddChar(TefkChar ch) {
@@ -378,11 +365,11 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
     takeStack.pop();
 }
 
-size_t Text::RowIndex() {
+TefkSizeT Text::RowIndex() {
     if (_cursor.AtListBegin())
         return 0;
 
-    size_t index = 0;
+    TefkSizeT index = 0;
     auto iter = _cursor.Iter();
 
     // Moving to newline of previous line or beginning of text
