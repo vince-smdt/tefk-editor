@@ -76,6 +76,7 @@ public:
     void NewLine();
     void DeleteChar();
     void DeleteWord();
+    void DeleteLine();
 
     void Undo();
     void Redo();

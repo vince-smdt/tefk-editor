@@ -228,12 +228,44 @@ void Text::DeleteChar() {
 }
 
 void Text::DeleteWord() {
+    // TODO - Fix if cursor on char in front of spaces, only one space deleted
     if (_cursor.AtListBegin())
         return;
 
     auto last = _cursor.Iter();
 
     MoveCursorPrevWord();
+
+    TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
+    for (auto _ : deletedString)
+        _cursor.DeleteFront();
+
+    Action action;
+    action._actionType = Action::DELETE_TEXT;
+    action._text = deletedString;
+    action._index = _cursor.Index();
+    AddAction(action);
+}
+
+void Text::DeleteLine() {
+    if (_text.empty())
+        return;
+
+    while (!_cursor.AtListEnd() && _cursor.Char() != '\n')
+        MoveCursorRight();
+
+    auto last = _cursor.Iter();
+    if (last != _text.end())
+        last++;
+
+    if (_cursor.AtListEnd() || _cursor.Char() == '\n')
+        MoveCursorLeft();
+
+    while (!_cursor.AtListBegin() && _cursor.Char() != '\n')
+        MoveCursorLeft();
+
+    if (!_cursor.AtListBegin() && _cursor.Char() == '\n')
+        MoveCursorRight();
 
     TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
     for (auto _ : deletedString)
@@ -266,6 +298,9 @@ void Text::CatchEvent(Event event) {
             break;
         case VK_CTRL_BACKSPACE:
             DeleteWord();
+            break;
+        case VK_CTRL_L:
+            DeleteLine();
             break;
         case VK_CTRL_Y:
             Redo();
@@ -344,6 +379,9 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
 }
 
 size_t Text::SpacesFromLeft() {
+    if (_cursor.AtListBegin())
+        return 0;
+
     size_t spacesFromLeft = 0;
     auto iter = _cursor.Iter();
 
