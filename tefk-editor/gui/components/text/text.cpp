@@ -152,7 +152,7 @@ void Text::MoveCursorDown() {
     if (_text.begin() == _text.end())
         return;
 
-    size_t spacesFromLeft = SpacesFromLeft();
+    size_t spacesFromLeft = RowIndex();
 
     // Move cursor to start of next line
     while (!_cursor.AtListEnd() && _cursor.Char() != '\n')
@@ -378,27 +378,24 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
     takeStack.pop();
 }
 
-size_t Text::SpacesFromLeft() {
+size_t Text::RowIndex() {
     if (_cursor.AtListBegin())
         return 0;
 
-    size_t spacesFromLeft = 0;
+    size_t index = 0;
     auto iter = _cursor.Iter();
 
-    if (iter == _text.end() || *iter == '\n') {
+    // Moving to newline of previous line or beginning of text
+    do {
         iter--;
-        spacesFromLeft++;
-    }
+        index++;
+    } while (iter != _text.begin() && *iter != '\n');
 
-    while (iter != _text.begin() && (iter == _text.end() || *iter != '\n')) {
-        iter--;
-        spacesFromLeft++;
-    }
+    // If iterator on newline of previous line, adjust index
+    if (*iter == '\n')
+        index--;
 
-    if (iter != _text.end() && *iter == '\n' && spacesFromLeft > 0)
-        spacesFromLeft--;
-
-    return spacesFromLeft;
+    return index;
 }
 
 TefkString Text::SubstringFromList(std::list<TefkChar>::iterator begin, std::list<TefkChar>::iterator end) {

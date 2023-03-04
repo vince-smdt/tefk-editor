@@ -19,6 +19,11 @@ protected:
         ActionType _actionType;
         TefkSizeT _index;
         TefkString _text;
+
+        Action()
+            : _actionType{ NONE }
+            , _index{ 0 }
+        {}
     };
 
     class Cursor {
@@ -90,7 +95,7 @@ protected:
     void ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dumpStack);
 
     // Helper functions
-    size_t SpacesFromLeft();
+    TefkSizeT RowIndex();
     TefkString SubstringFromList(list_type::iterator begin, list_type::iterator end);
 };
 
