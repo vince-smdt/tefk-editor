@@ -345,7 +345,7 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
 
     switch (currAction->_actionType) {
     case Action::INSERT_TEXT:
-        for (long long i = 0; i < currAction->_text.size(); i++)
+        for (TefkSizeT i = 0; i < currAction->_text.size(); i++)
             _cursor.Delete();
 
         newAction->_actionType = Action::DELETE_TEXT;

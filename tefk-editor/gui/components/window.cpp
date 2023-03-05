@@ -48,7 +48,7 @@ void Window::UpdateComponents() {
         switch (component->GetSizeBehaviour()) {
         case SizeBehaviour::CONTENT: {
             TefkSizeT contentSize = component->GetContent().size();
-            short divider = component->GetWidth() == 0 ? contentSize : component->GetWidth();
+            TefkSizeT divider = component->GetWidth() == 0 ? contentSize : component->GetWidth();
 
             component->SetHeight((short)ceil(double(contentSize) / divider));
             availableSpace -= component->GetHeight();
@@ -62,7 +62,7 @@ void Window::UpdateComponents() {
 
     // Update height of fill height components
     if (fillComponents.size() > 0) {
-        short fillHeight = availableSpace / fillComponents.size();
+        short fillHeight = availableSpace / short(fillComponents.size());
         short leftoverSpace = availableSpace % fillComponents.size();
         for (auto component : fillComponents) {
             if (component != fillComponents.back())
