@@ -7,7 +7,7 @@ namespace tefk {
 
 class Text : public GUIComponent {
 protected:
-    using list_type = std::list<TefkChar>;
+    using TefkCharList = std::list<TefkChar>;
     
     struct Action {
         enum ActionType {
@@ -27,12 +27,12 @@ protected:
     };
 
     class Cursor {
-        list_type* _list;
-        list_type::iterator _iter;
+        TefkCharList* _list;
+        TefkCharList::iterator _iter;
         TefkSizeT _index;
     public:
         // Constructor
-        Cursor(list_type& text);
+        Cursor(TefkCharList& text);
 
         // Status
         bool AtListBegin();
@@ -45,12 +45,12 @@ protected:
         void MoveToIndex(TefkSizeT index);
 
         // Getters
-        list_type::iterator Iter();
+        TefkCharList::iterator Iter();
         TefkChar Char();
         TefkSizeT Index();
 
         // Setters
-        void SetText(list_type& text);
+        void SetText(TefkCharList& text);
 
         // Actions
         TefkChar Delete();
@@ -58,10 +58,11 @@ protected:
         void Add(TefkChar ch);
     };
 
-    list_type _text;
+    TefkCharList _text;
     std::stack<Action> _actions;
     std::stack<Action> _undoneActions;
     Cursor _cursor;
+    TefkSizeT _aimedCursorRowIndex; // TODO - minimize use of this line "_aimedCursorRowIndex = RowIndex();", maybe implement decorators?
 public:
     // Constructors
     Text();
@@ -70,16 +71,17 @@ public:
     TefkString GetText();
 
     // Commands
-    void MoveCursorRight();
-    void MoveCursorLeft();
+    void MoveCursorRight(bool adjustAimedCursorRowIndex = true);
+    void MoveCursorLeft(bool adjustAimedCursorRowIndex = true);
     void MoveCursorUp();
     void MoveCursorDown();
     void MoveCursorNextWord();
     void MoveCursorPrevWord();
-    void MoveCursorStartLine();
-    void MoveCursorEndLine();
-    void MoveCursorNextLine();
-    void MoveCursorPrevLine();
+    void MoveCursorStartLine(bool adjustAimedCursorRowIndex = true);
+    void MoveCursorEndLine(bool adjustAimedCursorRowIndex = true);
+    void MoveCursorNextLine(bool adjustAimedCursorRowIndex = true);
+    void MoveCursorPrevLine(bool adjustAimedCursorRowIndex = true);
+    void MoveCursorToAimedRowIndex();
 
     void AddChar(TefkChar ch);
     void NewLine();
@@ -100,7 +102,7 @@ protected:
 
     // Helper functions
     TefkSizeT RowIndex();
-    TefkString SubstringFromList(list_type::iterator begin, list_type::iterator end);
+    TefkString SubstringFromList(TefkCharList::iterator begin, TefkCharList::iterator end);
 };
 
 } // namespace tefk

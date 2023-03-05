@@ -4,7 +4,7 @@ namespace tefk {
 
 // Cursor
 
-Text::Cursor::Cursor(list_type& text) 
+Text::Cursor::Cursor(TefkCharList& text) 
     : _list{ &text }
     , _iter{ text.begin() }
     , _index{ 0 }
@@ -45,7 +45,7 @@ void Text::Cursor::MoveToIndex(TefkSizeT index) {
     _index = index;
 }
 
-Text::list_type::iterator Text::Cursor::Iter() {
+Text::TefkCharList::iterator Text::Cursor::Iter() {
     return _iter;
 }
 
@@ -57,7 +57,7 @@ TefkSizeT Text::Cursor::Index() {
     return _index;
 }
 
-void Text::Cursor::SetText(list_type& text) {
+void Text::Cursor::SetText(TefkCharList& text) {
     _list = &text;
     _iter = text.begin();
     _index = 0;
@@ -92,6 +92,7 @@ void Text::Cursor::Add(TefkChar ch) {
 Text::Text()
     : GUIComponent{}
     , _cursor{ _text }
+    , _aimedCursorRowIndex{ 0 }
 {}
 
 TefkString Text::GetText() {
@@ -101,32 +102,26 @@ TefkString Text::GetText() {
     return text;
 }
 
-void Text::MoveCursorRight() {
+void Text::MoveCursorRight(bool adjustAimedCursorRowIndex) {
     _cursor.Next();
+    if (adjustAimedCursorRowIndex)
+        _aimedCursorRowIndex = RowIndex();
 }
 
-void Text::MoveCursorLeft() {
+void Text::MoveCursorLeft(bool adjustAimedCursorRowIndex) {
     _cursor.Prev();
+    if (adjustAimedCursorRowIndex)
+        _aimedCursorRowIndex = RowIndex();
 }
 
 void Text::MoveCursorUp() {
-    TefkSizeT rowIndex = RowIndex();
-
-    MoveCursorPrevLine();
-    MoveCursorStartLine();
-
-    for (; rowIndex > 0 && !_cursor.AtListEnd() && _cursor.Char() != '\n'; rowIndex--)
-        MoveCursorRight();
+    MoveCursorPrevLine(false);
+    MoveCursorToAimedRowIndex();
 }
 
 void Text::MoveCursorDown() {
-    TefkSizeT rowIndex = RowIndex();
-
-    MoveCursorNextLine();
-    MoveCursorStartLine();
-
-    for (; rowIndex > 0 && !_cursor.AtListEnd() && _cursor.Char() != '\n'; rowIndex--)
-        MoveCursorRight();
+    MoveCursorNextLine(false);
+    MoveCursorToAimedRowIndex();
 }
 
 void Text::MoveCursorNextWord() {
@@ -161,34 +156,42 @@ void Text::MoveCursorPrevWord() {
         MoveCursorLeft();
 }
 
-void Text::MoveCursorStartLine() {
+void Text::MoveCursorStartLine(bool adjustAimedCursorRowIndex) {
     if (_cursor.AtListBegin())
         return;
 
-    do _cursor.Prev();
+    do MoveCursorLeft(adjustAimedCursorRowIndex);
     while (!_cursor.AtListBegin() && _cursor.Char() != '\n');
 
     if (_cursor.Char() == '\n')
-        _cursor.Next();
+        MoveCursorRight(adjustAimedCursorRowIndex);
 }
 
-void Text::MoveCursorEndLine() {
+void Text::MoveCursorEndLine(bool adjustAimedCursorRowIndex) {
     while (!_cursor.AtListEnd() && _cursor.Char() != '\n')
-        _cursor.Next();
+        MoveCursorRight(adjustAimedCursorRowIndex);
 }
 
-void Text::MoveCursorNextLine() {
-    MoveCursorEndLine();
-    MoveCursorRight();
+void Text::MoveCursorNextLine(bool adjustAimedCursorRowIndex) {
+    MoveCursorEndLine(adjustAimedCursorRowIndex);
+    MoveCursorRight(adjustAimedCursorRowIndex);
 }
 
-void Text::MoveCursorPrevLine() {
-    MoveCursorStartLine();
-    MoveCursorLeft();
+void Text::MoveCursorPrevLine(bool adjustAimedCursorRowIndex) {
+    MoveCursorStartLine(adjustAimedCursorRowIndex);
+    MoveCursorLeft(adjustAimedCursorRowIndex);
+}
+
+void Text::MoveCursorToAimedRowIndex() {
+    MoveCursorStartLine(false);
+    for (TefkSizeT i = 0; i < _aimedCursorRowIndex && !_cursor.AtListEnd() && _cursor.Char() != '\n'; i++)
+        MoveCursorRight(false);
 }
 
 void Text::AddChar(TefkChar ch) {
     _cursor.Add(ch);
+
+    _aimedCursorRowIndex = RowIndex();
 
     Action action;
     action._actionType = Action::INSERT_TEXT;
@@ -206,6 +209,8 @@ void Text::DeleteChar() {
         return;
 
     TefkChar deletedChar = _cursor.Delete();
+
+    _aimedCursorRowIndex = RowIndex();
 
     Action action;
     action._actionType = Action::DELETE_TEXT;
@@ -226,6 +231,8 @@ void Text::DeleteWord() {
     TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
     for (auto _ : deletedString)
         _cursor.DeleteFront();
+
+    _aimedCursorRowIndex = RowIndex();
 
     Action action;
     action._actionType = Action::DELETE_TEXT;
@@ -257,6 +264,8 @@ void Text::DeleteLine() {
     TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
     for (auto _ : deletedString)
         _cursor.DeleteFront();
+
+    _aimedCursorRowIndex = RowIndex();
 
     Action action;
     action._actionType = Action::DELETE_TEXT;
