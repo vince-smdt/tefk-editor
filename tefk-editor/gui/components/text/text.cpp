@@ -144,7 +144,7 @@ void Text::MoveCursorPrevWord() {
     if (_cursor.AtListBegin())
         return;
 
-    if (_cursor.AtListEnd() || _cursor.Char() == '\n')
+    if (_cursor.AtListEnd() || _cursor.Char() == '\n' || _cursor.Char() != ' ')
         MoveCursorLeft();
 
     // Move backwards until space or newline reached
@@ -372,6 +372,8 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
     }
 
     takeStack.pop();
+
+    _aimedCursorRowIndex = RowIndex();
 }
 
 TefkSizeT Text::RowIndex() {
