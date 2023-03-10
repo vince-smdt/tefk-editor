@@ -23,7 +23,12 @@
 #define VK_RETURN               0x0D
 #define VK_TAB                  0x09
 
-namespace tefk::Input {
+namespace tefk {
+
+//struct Input {
+//    TefkChar character;
+//    bool isCtrl;
+//};
 
 Event CatchInput();
 

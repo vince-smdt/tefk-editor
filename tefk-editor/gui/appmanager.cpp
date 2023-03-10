@@ -35,7 +35,7 @@ void ApplicationManager::CatchEvents() {
         AddEvent(Event::TimerUp());
 
     if (_kbhit())
-        AddEvent(Input::CatchInput());
+        AddEvent(CatchInput());
 
     if (ConsoleAPI::ConsoleSizeChanged())
         AddEvent(Event::ConsoleSizeChange());

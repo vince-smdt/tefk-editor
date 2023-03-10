@@ -38,8 +38,6 @@ public:
     static bool ConsoleSizeChanged();
     static Coord GetConsoleSize();
     static void UpdateConsoleSize();
-
-    static TefkChar ReadKeypress();
 private:
     static void GetConsoleBufferInfo();
 };

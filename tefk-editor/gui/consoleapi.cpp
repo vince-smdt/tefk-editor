@@ -10,16 +10,22 @@ void ConsoleAPI::Init() {
     // Disable Ctrl+C closing app
     SetConsoleCtrlHandler(NULL, TRUE);
 
+    DWORD prevOutputMode;
+    DWORD prevInputMode;
+    HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    GetConsoleMode(hOutput, &prevOutputMode);
+    GetConsoleMode(hInput, &prevInputMode);
+
     // Activate Virtual Terminal Sequences
-    DWORD prevMode;
-    HANDLE hInput = GetStdHandle(STD_OUTPUT_HANDLE);
-    GetConsoleMode(hInput, &prevMode);
+    prevOutputMode |= ENABLE_PROCESSED_OUTPUT
+                   |  ENABLE_VIRTUAL_TERMINAL_PROCESSING;
 
-    // Add console modes
-    prevMode |= ENABLE_PROCESSED_OUTPUT
-             |  ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    // Disable quick edit mode
+    prevInputMode = ENABLE_EXTENDED_FLAGS | (prevInputMode & ~ENABLE_QUICK_EDIT_MODE);
 
-    SetConsoleMode(hInput, prevMode);
+    SetConsoleMode(hInput, prevOutputMode);
+    SetConsoleMode(hInput, prevInputMode);
 }
 
 bool ConsoleAPI::ConsoleSizeChanged() {
@@ -47,10 +53,6 @@ void ConsoleAPI::UpdateConsoleSize() {
         );
         exit(0);
     }
-}
-
-TefkChar ConsoleAPI::ReadKeypress() {
-    return _getch();
 }
 
 void ConsoleAPI::GetConsoleBufferInfo() {

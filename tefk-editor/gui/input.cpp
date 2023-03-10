@@ -1,12 +1,12 @@
 #include "input.hpp"
 
-namespace tefk::Input {
+namespace tefk {
 
 Event CatchInput() {
-    unsigned char c = ConsoleAPI::ReadKeypress();
+    unsigned char c = _getch();
 
     if (c == 0 || c == 224) {
-        c = ConsoleAPI::ReadKeypress();
+        c = _getch();
         return Event::SpecialCharacter(c);
     }
 
