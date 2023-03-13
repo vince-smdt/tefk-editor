@@ -292,16 +292,16 @@ void Text::CatchEvent(Event event) {
         case VK_BACK:
             DeleteChar();
             break;
-        case VK_CTRL_BACKSPACE:
+        case KC_CTRL_BACKSPACE:
             DeleteWord();
             break;
-        case VK_CTRL_L:
+        case KC_CTRL_L:
             DeleteLine();
             break;
-        case VK_CTRL_Y:
+        case KC_CTRL_Y:
             Redo();
             break;
-        case VK_CTRL_Z:
+        case KC_CTRL_Z:
             Undo();
             break;
         default:
@@ -311,22 +311,22 @@ void Text::CatchEvent(Event event) {
     }
     else if (event.type == Event::Type::SPECIAL_CHARACTER) {
         switch (event.input) {
-        case VK_ARROW_RIGHT:
+        case KC_ARROW_RIGHT:
             MoveCursorRight();
             break;
-        case VK_ARROW_LEFT:
+        case KC_ARROW_LEFT:
             MoveCursorLeft();
             break;
-        case VK_ARROW_UP:
+        case KC_ARROW_UP:
             MoveCursorUp();
             break;
-        case VK_ARROW_DOWN:
+        case KC_ARROW_DOWN:
             MoveCursorDown();
             break;
-        case VK_CTRL_ARROW_RIGHT:
+        case KC_CTRL_ARROW_RIGHT:
             MoveCursorNextWord();
             break;
-        case VK_CTRL_ARROW_LEFT:
+        case KC_CTRL_ARROW_LEFT:
             MoveCursorPrevWord();
             break;
         default:

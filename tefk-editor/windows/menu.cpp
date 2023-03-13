@@ -22,7 +22,7 @@ void Menu::CatchEvent(Event event) {
     // Handle event
     if (event.type == Event::Type::CHARACTER) {
         switch (event.input) {
-        case VK_ESC:
+        case KC_ESC:
             Close();
             break;
         }

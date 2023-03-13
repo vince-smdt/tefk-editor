@@ -38,29 +38,29 @@ void Editor::CatchEvent(Event event) {
     // Handle event
     if (event.type == Event::Type::CHARACTER) {
         switch (event.input) {
-        case VK_CTRL_D:
+        case KC_CTRL_D:
             RemoveFile();
             break;
-        case VK_CTRL_N:
+        case KC_CTRL_N:
             NewFile();
             break;
-        case VK_CTRL_Q:
+        case KC_CTRL_Q:
             Close();
             break;
-        case VK_CTRL_S:
+        case KC_CTRL_S:
             SaveFile();
             break;
-        case VK_ESC:
+        case KC_ESC:
             OpenMenu();
             break;
         }
     }
     else if (event.type == Event::Type::SPECIAL_CHARACTER) {
         switch (event.input) {
-        case VK_PAGE_DOWN:
+        case KC_PAGE_DOWN:
             NextFile();
             break;
-        case VK_PAGE_UP:
+        case KC_PAGE_UP:
             PrevFile();
             break;
         }

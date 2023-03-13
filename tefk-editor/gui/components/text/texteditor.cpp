@@ -32,7 +32,7 @@ bool TextEditor::CatchEventFromBaseComponent(Event event) {
         case VK_RETURN:
             NewLine();
             break;
-        case VK_TAB:
+        case KC_TAB:
             Tab();
             break;
         default:
