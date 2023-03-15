@@ -1,5 +1,4 @@
 #pragma once
-#include <cassert>
 #include <conio.h>
 #include <Windows.h>
 

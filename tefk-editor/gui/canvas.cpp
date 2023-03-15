@@ -21,7 +21,14 @@ void Canvas::Render() {
         // Switch color if different
         if (currentColor != _pixels[i].color) {
             currentColor = _pixels[i].color;
-            ss << "\x1b[" << currentColor.Foreground() << ";" << currentColor.Background() << "m";
+
+            // TODO - Make less repetitive
+            ss << "\x1b[38;2;" << currentColor.Foreground().Red << ";"
+                               << currentColor.Foreground().Green << ";"
+                               << currentColor.Foreground().Blue << "m\x1b[48;2;"
+                               << currentColor.Background().Red << ";"
+                               << currentColor.Background().Green << ";"
+                               << currentColor.Background().Blue << "m";
         }
 
         // Write character
