@@ -153,7 +153,21 @@
   <ItemGroup>
     <ClInclude Include="app.hpp" />
     <ClInclude Include="file.hpp" />
+    <ClInclude Include="gui\appmanager.hpp" />
+    <ClInclude Include="gui\canvas.hpp" />
+    <ClInclude Include="gui\color.hpp" />
+    <ClInclude Include="gui\components\base\guicomponent.hpp" />
+    <ClInclude Include="gui\components\base\text.hpp" />
+    <ClInclude Include="gui\components\label.hpp" />
+    <ClInclude Include="gui\components\menustrip.hpp" />
+    <ClInclude Include="gui\components\texteditor.hpp" />
+    <ClInclude Include="gui\components\textfield.hpp" />
+    <ClInclude Include="gui\consoleapi.hpp" />
+    <ClInclude Include="gui\event.hpp" />
+    <ClInclude Include="gui\input.hpp" />
+    <ClInclude Include="gui\timer.hpp" />
     <ClInclude Include="gui\types.h" />
+    <ClInclude Include="gui\window.hpp" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="windows\editor.hpp" />
     <ClInclude Include="windows\menu.hpp" />
