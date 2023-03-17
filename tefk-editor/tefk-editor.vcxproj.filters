@@ -96,6 +96,9 @@
     <ClCompile Include="windows\menu.cpp">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
+    <ClCompile Include="gui\components\menustrip.cpp">
+      <Filter>Source Files\gui\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="windows\menu.hpp">
       <Filter>Header Files\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\components\menustrip.hpp">
+      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
