@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
 
-#include "../appmanager.hpp"
-#include "../event.hpp"
-#include "guicomponent.hpp"
-#include "../timer.hpp"
+#include "appmanager.hpp"
+#include "event.hpp"
+#include "components/base/guicomponent.hpp"
+#include "timer.hpp"
 
 namespace tefk {
 

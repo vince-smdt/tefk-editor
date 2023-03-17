@@ -4,12 +4,12 @@
 #include <functional>
 #include <iostream>
 
-#include "../canvas.hpp"
-#include "../color.hpp"
-#include "../consoleapi.hpp"
-#include "../input.hpp"
-#include "../types.h"
-#include "window.hpp"
+#include "../../canvas.hpp"
+#include "../../color.hpp"
+#include "../../consoleapi.hpp"
+#include "../../input.hpp"
+#include "../../types.h"
+#include "../../window.hpp"
 
 namespace tefk {
 

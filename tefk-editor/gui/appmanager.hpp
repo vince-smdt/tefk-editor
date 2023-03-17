@@ -5,7 +5,7 @@
 #include <stack>
 
 #include "canvas.hpp"
-#include "components/window.hpp"
+#include "window.hpp"
 #include "input.hpp"
 
 namespace tefk {

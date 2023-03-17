@@ -1,7 +1,7 @@
 #pragma once
 #include <stack>
 
-#include "../guicomponent.hpp"
+#include "guicomponent.hpp"
 
 namespace tefk {
 

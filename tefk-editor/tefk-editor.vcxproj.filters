@@ -16,12 +16,6 @@
     <Filter Include="Source Files\gui">
       <UniqueIdentifier>{f0cb694f-3b2d-466e-b597-061a274143c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui">
-      <UniqueIdentifier>{d8cf357a-8231-47c2-85cf-6813c8ea3c77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\components">
-      <UniqueIdentifier>{4596f9cb-c8aa-43b4-b349-453af3c1a57f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\gui\components">
       <UniqueIdentifier>{946b3045-eb45-4c54-b9ce-e70eff4132c4}</UniqueIdentifier>
     </Filter>
@@ -31,11 +25,8 @@
     <Filter Include="Header Files\windows">
       <UniqueIdentifier>{688baf94-1c43-4161-b576-435dc9009561}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui\components\text">
-      <UniqueIdentifier>{41337e93-53f5-4d76-9930-ef4d425fc486}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\components\text">
-      <UniqueIdentifier>{3f9e4bf7-8cc0-45e9-9c2c-70d2b117c79f}</UniqueIdentifier>
+    <Filter Include="Source Files\gui\components\base">
+      <UniqueIdentifier>{f3603c9e-8af3-4098-96dc-dcc56c168c8c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -47,15 +38,6 @@
     </ClCompile>
     <ClCompile Include="file.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\components\guicomponent.cpp">
-      <Filter>Source Files\gui\components</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\components\label.cpp">
-      <Filter>Source Files\gui\components</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\components\window.cpp">
-      <Filter>Source Files\gui\components</Filter>
     </ClCompile>
     <ClCompile Include="gui\consoleapi.cpp">
       <Filter>Source Files\gui</Filter>
@@ -75,15 +57,6 @@
     <ClCompile Include="gui\appmanager.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
-    <ClCompile Include="gui\components\text\texteditor.cpp">
-      <Filter>Source Files\gui\components\text</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\components\text\textfield.cpp">
-      <Filter>Source Files\gui\components\text</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\components\text\text.cpp">
-      <Filter>Source Files\gui\components\text</Filter>
-    </ClCompile>
     <ClCompile Include="gui\canvas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,7 +69,25 @@
     <ClCompile Include="windows\menu.cpp">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
+    <ClCompile Include="gui\window.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\components\base\guicomponent.cpp">
+      <Filter>Source Files\gui\components\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\components\base\text.cpp">
+      <Filter>Source Files\gui\components\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\components\label.cpp">
+      <Filter>Source Files\gui\components</Filter>
+    </ClCompile>
     <ClCompile Include="gui\components\menustrip.cpp">
+      <Filter>Source Files\gui\components</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\components\texteditor.cpp">
+      <Filter>Source Files\gui\components</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\components\textfield.cpp">
       <Filter>Source Files\gui\components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,56 +101,14 @@
     <ClInclude Include="logger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gui\components\guicomponent.hpp">
-      <Filter>Header Files\gui\components</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\components\label.hpp">
-      <Filter>Header Files\gui\components</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\components\window.hpp">
-      <Filter>Header Files\gui\components</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\consoleapi.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\color.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="windows\editor.hpp">
       <Filter>Header Files\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\event.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\input.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\appmanager.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\components\text\texteditor.hpp">
-      <Filter>Header Files\gui\components\text</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\components\text\textfield.hpp">
-      <Filter>Header Files\gui\components\text</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\components\text\text.hpp">
-      <Filter>Header Files\gui\components\text</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\canvas.hpp">
-      <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="gui\types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gui\timer.hpp">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="windows\menu.hpp">
       <Filter>Header Files\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\components\menustrip.hpp">
-      <Filter>Header Files\gui\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

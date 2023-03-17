@@ -3,9 +3,9 @@
 
 #include "../file.hpp"
 #include "../gui/components/label.hpp"
-#include "../gui/components/text/texteditor.hpp"
-#include "../gui/components/text/textfield.hpp"
-#include "../gui/components/window.hpp"
+#include "../gui/components/texteditor.hpp"
+#include "../gui/components/textfield.hpp"
+#include "../gui/window.hpp"
 #include "menu.hpp"
 
 namespace tefk { 

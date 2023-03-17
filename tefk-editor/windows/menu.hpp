@@ -1,6 +1,6 @@
 #pragma once
 #include "../gui/components/label.hpp"
-#include "../gui/components/window.hpp"
+#include "../gui/window.hpp"
 
 namespace tefk {
 
