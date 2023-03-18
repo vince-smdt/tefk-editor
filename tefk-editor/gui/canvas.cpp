@@ -59,7 +59,7 @@ Pixel& Canvas::PixelAt(size_t x, size_t y) {
 void Canvas::Resize(size_t x, size_t y) {
     size_t size = x * y;
     assert(0 <= size);
-    _dimensions = { (short)x, (short)y };
+    _dimensions = { (TefkCoordSizeT)x, (TefkCoordSizeT)y };
     _pixels.resize(size);
 }
 

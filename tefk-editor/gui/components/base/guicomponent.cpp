@@ -19,27 +19,27 @@ Window& GUIComponent::GetParent() {
     return *_parent;
 }
 
-void GUIComponent::SetPosition(Coord pos) { 
+void GUIComponent::SetPosition(TefkCoord pos) { 
     _pos = pos;
 }
 
-Coord GUIComponent::GetPosition() {
+TefkCoord GUIComponent::GetPosition() {
     return _pos;
 }
 
-void GUIComponent::SetWidth(short width) {
+void GUIComponent::SetWidth(TefkCoordSizeT width) {
     _size.X = width;
 }
 
-short GUIComponent::GetWidth() {
+TefkCoordSizeT GUIComponent::GetWidth() {
     return _size.X;
 }
 
-void GUIComponent::SetHeight(short height) {
+void GUIComponent::SetHeight(TefkCoordSizeT height) {
     _size.Y = height;
 }
 
-short GUIComponent::GetHeight() {
+TefkCoordSizeT GUIComponent::GetHeight() {
     return _size.Y;
 }
 

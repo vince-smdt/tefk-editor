@@ -38,7 +38,7 @@ void Window::UpdateComponents() {
         component->SetWidth(ConsoleAPI::GetConsoleSize().X);
 
     // HEIGHT
-    short availableSpace = ConsoleAPI::GetConsoleSize().Y;
+    TefkCoordSizeT availableSpace = ConsoleAPI::GetConsoleSize().Y;
     std::list<GUIComponent*> fillComponents;
 
     // Update content height components
@@ -50,7 +50,7 @@ void Window::UpdateComponents() {
             TefkSizeT contentSize = component->GetContent().size();
             TefkSizeT divider = component->GetWidth() == 0 ? contentSize : component->GetWidth();
 
-            component->SetHeight((short)ceil(double(contentSize) / divider));
+            component->SetHeight((TefkCoordSizeT)ceil(double(contentSize) / divider));
             availableSpace -= component->GetHeight();
             break;
         }
@@ -62,8 +62,8 @@ void Window::UpdateComponents() {
 
     // Update height of fill height components
     if (fillComponents.size() > 0) {
-        short fillHeight = availableSpace / short(fillComponents.size());
-        short leftoverSpace = availableSpace % fillComponents.size();
+        TefkCoordSizeT fillHeight = availableSpace / TefkCoordSizeT(fillComponents.size());
+        TefkCoordSizeT leftoverSpace = availableSpace % fillComponents.size();
         for (auto component : fillComponents) {
             if (component != fillComponents.back())
                 component->SetHeight(fillHeight);
@@ -73,7 +73,7 @@ void Window::UpdateComponents() {
     }
 
     // Position every component vertically
-    short offsetY = 0;
+    TefkCoordSizeT offsetY = 0;
     for (auto component : visibleComponents) {
         component->SetPosition({ 0, offsetY });
         offsetY += component->GetHeight();

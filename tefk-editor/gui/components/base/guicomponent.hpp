@@ -25,8 +25,8 @@ class Window;
 class GUIComponent {
 protected:
     Window* _parent;
-    Coord _pos;
-    Coord _size;
+    TefkCoord _pos;
+    TefkCoord _size;
     TextColor _color;
     SizeBehaviour _sizeBehaviour;
     bool _visible;
@@ -38,16 +38,16 @@ public:
     Window& GetParent();
 
     // Position
-    void SetPosition(Coord pos);
-    Coord GetPosition();
+    void SetPosition(TefkCoord pos);
+    TefkCoord GetPosition();
     
     // Width
-    void SetWidth(short width);
-    short GetWidth();
+    void SetWidth(TefkCoordSizeT width);
+    TefkCoordSizeT GetWidth();
     
     // Height
-    void SetHeight(short height);
-    short GetHeight();
+    void SetHeight(TefkCoordSizeT height);
+    TefkCoordSizeT GetHeight();
     
     // Size behaviour
     void SetSizeBehaviour(SizeBehaviour sizeBehaviour);

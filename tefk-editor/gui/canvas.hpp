@@ -24,7 +24,7 @@ using PixelVector = std::vector<Pixel>;
 
 class Canvas {
     PixelVector _pixels;
-    Coord _dimensions;
+    TefkCoord _dimensions; // TODO - set max _pixels size or change tefkcoord size to avoid tefkcoord overflow
 public:
     Canvas();
 

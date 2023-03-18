@@ -4,7 +4,7 @@ namespace tefk {
 
 HANDLE ConsoleAPI::s_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_SCREEN_BUFFER_INFO ConsoleAPI::s_csbi;
-Coord ConsoleAPI::s_lastRecordedSize = { 0, 0 };
+TefkCoord ConsoleAPI::s_lastRecordedSize = { 0, 0 };
 
 void ConsoleAPI::Init() {
     // Disable Ctrl+C closing app
@@ -32,9 +32,9 @@ bool ConsoleAPI::ConsoleSizeChanged() {
     return s_lastRecordedSize != ConsoleAPI::GetConsoleSize();
 }
 
-Coord ConsoleAPI::GetConsoleSize() {
+TefkCoord ConsoleAPI::GetConsoleSize() {
     GetConsoleBufferInfo();
-    return Coord(
+    return TefkCoord(
         s_csbi.srWindow.Right - s_csbi.srWindow.Left + 1,
         s_csbi.srWindow.Bottom - s_csbi.srWindow.Top + 1
     );

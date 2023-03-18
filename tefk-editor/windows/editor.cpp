@@ -83,7 +83,7 @@ void Editor::UpdateHeader() {
 }
 
 void Editor::UpdateFooter() {
-    Coord size = ConsoleAPI::GetConsoleSize();
+    TefkCoord size = ConsoleAPI::GetConsoleSize();
     _lblFooter.SetText(std::format(
         "Rows = {}, Cols = {}",
         size.Y,
