@@ -62,7 +62,7 @@ void Window::UpdateComponents() {
 
     // Update height of fill height components
     if (fillComponents.size() > 0) {
-        TefkCoordSizeT fillHeight = availableSpace / TefkCoordSizeT(fillComponents.size());
+        TefkCoordSizeT fillHeight = availableSpace / fillComponents.size();
         TefkCoordSizeT leftoverSpace = availableSpace % fillComponents.size();
         for (auto component : fillComponents) {
             if (component != fillComponents.back())

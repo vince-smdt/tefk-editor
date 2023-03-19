@@ -42,7 +42,7 @@ TefkCoord ConsoleAPI::GetConsoleSize() {
 
 void ConsoleAPI::UpdateConsoleSize() {
     s_lastRecordedSize = ConsoleAPI::GetConsoleSize();
-    COORD currSize = { s_lastRecordedSize.X, s_lastRecordedSize.Y };
+    COORD currSize = { (SHORT)s_lastRecordedSize.X, (SHORT)s_lastRecordedSize.Y };
 
     if (!SetConsoleScreenBufferSize(s_handle, currSize)) {
         DWORD errorCode = GetLastError();

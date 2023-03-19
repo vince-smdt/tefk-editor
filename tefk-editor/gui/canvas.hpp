@@ -24,13 +24,13 @@ using PixelVector = std::vector<Pixel>;
 
 class Canvas {
     PixelVector _pixels;
-    TefkCoord _dimensions; // TODO - set max _pixels size or change tefkcoord size to avoid tefkcoord overflow
+    TefkCoord _dimensions;
 public:
     Canvas();
 
     void Render();
-    Pixel& PixelAt(size_t x, size_t y);
-    void Resize(size_t x, size_t y);
+    Pixel& PixelAt(TefkCoordSizeT x, TefkCoordSizeT y);
+    void Resize(TefkCoordSizeT x, TefkCoordSizeT y);
 };
 
 } // namespace tefk

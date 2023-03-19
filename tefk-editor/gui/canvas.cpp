@@ -50,16 +50,16 @@ void Canvas::Render() {
     wprintf(ss.str().c_str());
 }
 
-Pixel& Canvas::PixelAt(size_t x, size_t y) {
+Pixel& Canvas::PixelAt(TefkCoordSizeT x, TefkCoordSizeT y) {
     size_t index = x + y * _dimensions.X;
     assert(0 <= index && index < _pixels.size());
     return _pixels[index];
 }
 
-void Canvas::Resize(size_t x, size_t y) {
+void Canvas::Resize(TefkCoordSizeT x, TefkCoordSizeT y) {
     size_t size = x * y;
     assert(0 <= size);
-    _dimensions = { (TefkCoordSizeT)x, (TefkCoordSizeT)y };
+    _dimensions = { x, y };
     _pixels.resize(size);
 }
 

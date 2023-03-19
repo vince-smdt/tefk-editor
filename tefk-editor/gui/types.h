@@ -7,7 +7,7 @@ using TefkString = std::string;
 using TefkChar = TefkString::value_type;
 using TefkSizeT = TefkString::size_type;
 
-using TefkCoordSizeT = short;
+using TefkCoordSizeT = size_t;
 struct TefkCoord {
     TefkCoordSizeT X;
     TefkCoordSizeT Y;
