@@ -14,12 +14,12 @@ void TextField::SetLabel(TefkString label) {
     _label = label;
 }
 
-void TextField::SetOnSubmit(std::function<void()> func) {
-    _onSubmit = func;
+TefkString TextField::GetFormattedString() {
+    return _label + ": " + GetText();
 }
 
-TefkString TextField::GetContent() {
-    return _label + ": " + GetText();
+void TextField::SetOnSubmit(std::function<void()> func) {
+    _onSubmit = func;
 }
 
 bool TextField::CatchEventFromBaseComponent(Event event) {
@@ -40,6 +40,14 @@ bool TextField::CatchEventFromBaseComponent(Event event) {
     }
 
     return eventCaught;
+}
+
+TefkCoordSizeT TextField::GetContentWidth() {
+    return (std::min)(GetFormattedString().size(), _size.X);
+}
+
+TefkCoordSizeT TextField::GetContentHeight() {
+    return (TefkCoordSizeT)std::ceil(GetFormattedString().size() / (double)_size.X);
 }
 
 void TextField::GetPixelVector(PixelVector& pixelVec) {

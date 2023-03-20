@@ -48,6 +48,9 @@ public:
     // Height
     void SetHeight(TefkCoordSizeT height);
     TefkCoordSizeT GetHeight();
+
+    // Size
+    TefkCoord GetContentSize();
     
     // Size behaviour
     void SetSizeBehaviour(SizeBehaviour sizeBehaviour);
@@ -69,7 +72,8 @@ public:
     void DrawOnCanvas();
 
     // Virtual methods
-    virtual TefkString GetContent() = 0;
+    virtual TefkCoordSizeT GetContentWidth() = 0;
+    virtual TefkCoordSizeT GetContentHeight() = 0;
     virtual void CatchEvent(Event event) {}
     virtual void GetPixelVector(PixelVector& pixelVec) = 0;
 };

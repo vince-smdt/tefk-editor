@@ -10,8 +10,12 @@ void Label::SetText(TefkString text) {
     _text = text;
 }
 
-TefkString Label::GetContent() {
-    return _text;
+TefkCoordSizeT Label::GetContentWidth() {
+    return (std::min)(_text.size(), _size.X);
+}
+
+TefkCoordSizeT Label::GetContentHeight() {
+    return (TefkCoordSizeT)std::ceil(_text.size() / (double)_size.X);
 }
 
 void Label::GetPixelVector(PixelVector& pixelVec) {

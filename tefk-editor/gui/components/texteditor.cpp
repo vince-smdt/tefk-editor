@@ -20,10 +20,6 @@ void TextEditor::Tab() {
         AddChar(' ');
 }
 
-TefkString TextEditor::GetContent() {
-    return GetText();
-}
-
 bool TextEditor::CatchEventFromBaseComponent(Event event) {
     bool eventCaught = true;
 
@@ -44,6 +40,18 @@ bool TextEditor::CatchEventFromBaseComponent(Event event) {
     }
 
     return eventCaught;
+}
+
+TefkCoordSizeT TextEditor::GetContentWidth() {
+    return _size.X;
+}
+
+TefkCoordSizeT TextEditor::GetContentHeight() {
+    TefkSizeT lineCount = 1;
+    for (auto ch : _text)
+        if (ch == '\n')
+            lineCount++;
+    return lineCount;
 }
 
 void TextEditor::GetPixelVector(PixelVector& pixelVec) {

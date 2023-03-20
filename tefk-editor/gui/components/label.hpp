@@ -10,8 +10,9 @@ public:
 
     // Text
     void SetText(TefkString text);
-    TefkString GetContent() override;
 private:
+    TefkCoordSizeT GetContentWidth() override;
+    TefkCoordSizeT GetContentHeight() override;
     void GetPixelVector(PixelVector& pixelVec) override;
 };
 

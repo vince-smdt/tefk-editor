@@ -6,8 +6,12 @@ MenuStrip::MenuStrip()
     : GUIComponent{} 
 {}
 
-TefkString MenuStrip::GetContent() {
-    return "";
+TefkCoordSizeT MenuStrip::GetContentWidth() {
+    return 0; // TODO - complete this method
+}
+
+TefkCoordSizeT MenuStrip::GetContentHeight() {
+    return 0; // TODO - complete this method
 }
 
 void MenuStrip::GetPixelVector(PixelVector& pixelVec) {

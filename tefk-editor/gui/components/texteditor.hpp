@@ -16,9 +16,10 @@ public:
     void Tab();
 
     // Overrides
-    TefkString GetContent() override;
     bool CatchEventFromBaseComponent(Event event) override;
 private:
+    TefkCoordSizeT GetContentWidth() override;
+    TefkCoordSizeT GetContentHeight() override;
     void GetPixelVector(PixelVector& pixelVec) override;
 };
 

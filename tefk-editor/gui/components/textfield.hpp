@@ -13,13 +13,17 @@ public:
     TefkString GetLabel();
     void SetLabel(TefkString label);
 
+    // Formatted string
+    TefkString GetFormattedString();
+
     // Events
     void SetOnSubmit(std::function<void()> func);
 
     // Overrides
-    TefkString GetContent() override;
     bool CatchEventFromBaseComponent(Event event) override;
 private:
+    TefkCoordSizeT GetContentWidth() override;
+    TefkCoordSizeT GetContentHeight() override;
     void GetPixelVector(PixelVector& pixelVec) override;
 };
 

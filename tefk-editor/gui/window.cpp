@@ -47,10 +47,7 @@ void Window::UpdateComponents() {
         // TODO - update height in separate function (maybe do same for width)
         switch (component->GetSizeBehaviour()) {
         case SizeBehaviour::CONTENT: {
-            TefkSizeT contentSize = component->GetContent().size();
-            TefkSizeT divider = component->GetWidth() == 0 ? contentSize : component->GetWidth();
-
-            component->SetHeight((TefkCoordSizeT)ceil(double(contentSize) / divider));
+            component->SetHeight(component->GetContentHeight());
             availableSpace -= component->GetHeight();
             break;
         }

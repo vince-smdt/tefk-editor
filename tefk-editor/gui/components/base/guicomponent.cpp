@@ -43,6 +43,10 @@ TefkCoordSizeT GUIComponent::GetHeight() {
     return _size.Y;
 }
 
+TefkCoord GUIComponent::GetContentSize() {
+    return { GetContentWidth(), GetContentHeight() };
+}
+
 void GUIComponent::SetSizeBehaviour(SizeBehaviour sizeBehaviour) {
     _sizeBehaviour = sizeBehaviour;
 }

@@ -6,9 +6,9 @@ namespace tefk {
 class MenuStrip : public GUIComponent {
 public:
     MenuStrip();
-
-    TefkString GetContent() override;
 private:
+    TefkCoordSizeT GetContentWidth() override;
+    TefkCoordSizeT GetContentHeight() override;
     void GetPixelVector(PixelVector& pixelVec) override;
 };
 
