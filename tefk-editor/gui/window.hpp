@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "appmanager.hpp"
+#include "../application.hpp"
 #include "event.hpp"
 #include "components/base/guicomponent.hpp"
 #include "timer.hpp"
@@ -9,11 +9,11 @@
 namespace tefk {
 
 // Forward declarations
-class ApplicationManager;
+class Application;
 class GUIComponent;
 
 class Window {
-    ApplicationManager* _parentApp;
+    Application* _parentApp;
     std::vector<GUIComponent*> _children;
     GUIComponent* _focusedComponent;
     std::vector<std::pair<Timer*, std::function<void()>>> _timerBoundProcedures;
@@ -22,8 +22,8 @@ public:
     Window();
 
     // Parent
-    void SetParent(ApplicationManager& parentApp);
-    ApplicationManager& GetParent();
+    void SetParent(Application& parentApp);
+    Application& GetParent();
 
     // Actions
     void AddComponent(GUIComponent& component);

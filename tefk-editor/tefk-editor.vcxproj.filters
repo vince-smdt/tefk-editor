@@ -42,9 +42,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="app.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,9 +58,6 @@
       <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="gui\input.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\appmanager.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="gui\color.cpp">
@@ -99,12 +93,12 @@
     <ClCompile Include="gui\canvas.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="app.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="logger.hpp">
@@ -115,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="windows\menu.hpp">
       <Filter>Header Files\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\appmanager.hpp">
-      <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="gui\canvas.hpp">
       <Filter>Header Files\gui</Filter>
@@ -160,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="gui\types.h">
       <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="application.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

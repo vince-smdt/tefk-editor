@@ -8,11 +8,11 @@ Window::Window()
     , _isClosing{ false }
 {}
 
-void Window::SetParent(ApplicationManager& parentApp) {
+void Window::SetParent(Application& parentApp) {
     _parentApp = &parentApp;
 }
 
-ApplicationManager& Window::GetParent() {
+Application& Window::GetParent() {
     return *_parentApp;
 }
 

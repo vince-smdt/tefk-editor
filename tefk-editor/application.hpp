@@ -4,9 +4,9 @@
 #include <queue>
 #include <stack>
 
-#include "canvas.hpp"
-#include "window.hpp"
-#include "input.hpp"
+#include "gui/canvas.hpp"
+#include "gui/window.hpp"
+#include "gui/input.hpp"
 
 namespace tefk {
 
@@ -14,13 +14,13 @@ namespace tefk {
 class Window;
 
 // TODO - change class name to Application, isn't a manager but just an app
-class ApplicationManager {
+class Application {
     bool _running;
     std::stack<Window*> _windows;
     std::queue<std::shared_ptr<Event>> _events;
     Canvas _canvas;
 public:
-    ApplicationManager();
+    Application();
 
     // Canvas
     Canvas& GetCanvas();

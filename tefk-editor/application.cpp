@@ -1,22 +1,22 @@
-#include "appmanager.hpp"
+#include "application.hpp"
 
 namespace tefk {
 
-ApplicationManager::ApplicationManager()
+Application::Application()
     : _running{ true }
 {}
 
-Canvas& ApplicationManager::GetCanvas() {
+Canvas& Application::GetCanvas() {
     return _canvas;
 }
 
-void ApplicationManager::OpenWindow(Window& window) {
+void Application::OpenWindow(Window& window) {
     _windows.push(&window);
     window.SetParent(*this);
     window.Open();
 }
 
-void ApplicationManager::CloseWindow() {
+void Application::CloseWindow() {
     _windows.pop();
     if (_windows.empty()) {
         Logger::Instance().Log(
@@ -27,7 +27,7 @@ void ApplicationManager::CloseWindow() {
     }
 }
 
-void ApplicationManager::CatchEvents() {
+void Application::CatchEvents() {
     if (_windows.top()->IsClosing())
         AddEvent(Event::WindowClosing());
 
@@ -41,11 +41,11 @@ void ApplicationManager::CatchEvents() {
         AddEvent(Event::ConsoleSizeChange());
 }
 
-void ApplicationManager::AddEvent(Event event) {
+void Application::AddEvent(Event event) {
     _events.push(std::make_shared<Event>(event));
 }
 
-void ApplicationManager::RunEvents() {
+void Application::RunEvents() {
     // TODO - check if window stack empty, avoid redundancy in checks
     if (_events.empty())
         return;
@@ -59,7 +59,7 @@ void ApplicationManager::RunEvents() {
     Render();
 }
 
-void ApplicationManager::ProcessEvent(Event event) {
+void Application::ProcessEvent(Event event) {
     if (event.type == Event::Type::CONSOLE_SIZE_CHANGE)
         ConsoleAPI::UpdateConsoleSize();
 
@@ -67,7 +67,7 @@ void ApplicationManager::ProcessEvent(Event event) {
         CloseWindow();
 }
 
-void ApplicationManager::Render() {
+void Application::Render() {
     if (_windows.empty()) {
         Logger::Instance().Log(
             Logger::LogLevel::WARN,
@@ -80,11 +80,11 @@ void ApplicationManager::Render() {
     _windows.top()->Render();
 }
 
-bool ApplicationManager::Running() {
+bool Application::Running() {
     return _running;
 }
 
-void ApplicationManager::CloseApp() {
+void Application::CloseApp() {
     Logger::Instance().Log(
         Logger::LogLevel::INFO,
         "Closing application."

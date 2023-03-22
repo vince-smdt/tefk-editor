@@ -129,9 +129,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="app.cpp" />
+    <ClCompile Include="application.cpp" />
     <ClCompile Include="file.cpp" />
-    <ClCompile Include="gui\appmanager.cpp" />
     <ClCompile Include="gui\color.cpp" />
     <ClCompile Include="gui\components\base\guicomponent.cpp" />
     <ClCompile Include="gui\components\base\text.cpp" />
@@ -151,9 +150,8 @@
     <ClCompile Include="windows\menu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="app.hpp" />
+    <ClInclude Include="application.hpp" />
     <ClInclude Include="file.hpp" />
-    <ClInclude Include="gui\appmanager.hpp" />
     <ClInclude Include="gui\canvas.hpp" />
     <ClInclude Include="gui\color.hpp" />
     <ClInclude Include="gui\components\base\guicomponent.hpp" />
