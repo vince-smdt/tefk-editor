@@ -1,3 +1,4 @@
+#include "consoleapi.hpp"
 #include "input.hpp"
 
 namespace tefk {

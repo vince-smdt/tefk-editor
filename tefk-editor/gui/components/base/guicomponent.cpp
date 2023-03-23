@@ -1,4 +1,5 @@
 #include "guicomponent.hpp"
+#include "../../window.hpp"
 
 namespace tefk {
 

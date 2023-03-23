@@ -8,6 +8,7 @@
 namespace tefk {
 
 class ConsoleAPI {
+    // TODO - make it so we don't have to delete the contructors, namespace?
     ConsoleAPI() = delete;
     ConsoleAPI(const ConsoleAPI&) = delete;
 

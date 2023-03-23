@@ -1,5 +1,4 @@
 #pragma once
-#include "consoleapi.hpp"
 #include "event.hpp"
 
 #pragma region Characters

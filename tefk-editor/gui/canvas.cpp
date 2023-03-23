@@ -1,4 +1,5 @@
 #include "canvas.hpp"
+#include "consoleapi.hpp"
 
 namespace tefk {
 

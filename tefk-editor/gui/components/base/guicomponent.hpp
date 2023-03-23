@@ -9,7 +9,6 @@
 #include "../../consoleapi.hpp"
 #include "../../input.hpp"
 #include "../../types.h"
-#include "../../window.hpp"
 
 namespace tefk {
 

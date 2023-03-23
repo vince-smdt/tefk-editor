@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "color.hpp"
-#include "consoleapi.hpp"
+#include "types.h"
 
 namespace tefk {
 
