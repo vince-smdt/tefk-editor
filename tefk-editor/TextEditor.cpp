@@ -1,24 +1,27 @@
-#include "text.hpp"
+#include "TextEditor.h"
 
 namespace tefk {
 
 // Cursor
 
-Text::Cursor::Cursor(TefkCharList& text) 
-    : _list{ &text }
-    , _iter{ text.begin() }
-    , _index{ 0 }
+TextEditor::Cursor::Cursor(std::list<ChType>& text)
+    : _list(&text)
+    , _iter(text.begin())
+    , _index(0)
 {}
 
-bool Text::Cursor::AtListBegin() {
+bool TextEditor::Cursor::AtListBegin()
+{
     return _iter == _list->begin();
 }
 
-bool Text::Cursor::AtListEnd() {
+bool TextEditor::Cursor::AtListEnd()
+{
     return _iter == _list->end();
 }
 
-void Text::Cursor::Next() {
+void TextEditor::Cursor::Next()
+{
     if (AtListEnd())
         return;
 
@@ -26,7 +29,8 @@ void Text::Cursor::Next() {
     _index++;
 }
 
-void Text::Cursor::Prev() {
+void TextEditor::Cursor::Prev()
+{
     if (AtListBegin())
         return;
 
@@ -34,97 +38,117 @@ void Text::Cursor::Prev() {
     _index--;
 }
 
-void Text::Cursor::Move(TefkSizeT offset) {
+void TextEditor::Cursor::Move(size_t offset)
+{
     std::advance(_iter, offset);
     _index += offset;
 }
 
-void Text::Cursor::MoveToIndex(TefkSizeT index) {
+void TextEditor::Cursor::MoveToIndex(size_t index)
+{
     // Cast to a signed type to allow negative offset
     std::advance(_iter, static_cast<long long>(index - _index));
     _index = index;
 }
 
-Text::TefkCharList::iterator Text::Cursor::Iter() {
+std::list<ChType>::iterator TextEditor::Cursor::Iter()
+{
     return _iter;
 }
 
-TefkChar Text::Cursor::Char() {
+ChType TextEditor::Cursor::Char()
+{
     return *_iter;
 }
 
-TefkSizeT Text::Cursor::Index() {
+size_t TextEditor::Cursor::Index()
+{
     return _index;
 }
 
-void Text::Cursor::SetText(TefkCharList& text) {
+void TextEditor::Cursor::SetText(std::list<ChType>& text)
+{
     _list = &text;
     _iter = text.begin();
     _index = 0;
 }
 
-TefkChar Text::Cursor::Delete() {
+ChType TextEditor::Cursor::Delete()
+{
     if (AtListBegin())
         return '\0';
 
-    TefkChar deletedChar = *--_iter;
+    ChType deletedChar = *--_iter;
     _iter = _list->erase(_iter);
     _index--;
     return deletedChar;
 }
 
-TefkChar Text::Cursor::DeleteFront() {
+ChType TextEditor::Cursor::DeleteFront()
+{
     if (AtListEnd())
         return '\0';
 
-    TefkChar deletedChar = *_iter;
+    ChType deletedChar = *_iter;
     _iter = _list->erase(_iter);
     return deletedChar;
 }
 
-void Text::Cursor::Add(TefkChar ch) {
+void TextEditor::Cursor::Add(ChType ch)
+{
     _list->insert(_iter, ch);
     _index++;
 }
 
-// Text base component
-
-Text::Text()
-    : GUIComponent{}
-    , _cursor{ _text }
-    , _aimedCursorRowIndex{ 0 }
+TextEditor::TextEditor()
+    : _cursor(_text)
+    , _aimedCursorRowIndex(0)
 {}
+ 
+void TextEditor::SetText(std::vector<ChType> text)
+{
+    _text.clear();
+    for (auto ch : text)
+        _text.push_back(ch);
+    _cursor.SetText(_text);
+}
 
-TefkString Text::GetText() {
-    TefkString text;
+std::vector<ChType> TextEditor::GetText()
+{
+    std::vector<ChType> text;
     for (auto ch : _text)
         text.push_back(ch);
     return text;
 }
 
-void Text::MoveCursorRight(bool adjustAimedCursorRowIndex) {
+void TextEditor::MoveCursorRight(bool adjustAimedCursorRowIndex)
+{
     _cursor.Next();
     if (adjustAimedCursorRowIndex)
         _aimedCursorRowIndex = RowIndex();
 }
 
-void Text::MoveCursorLeft(bool adjustAimedCursorRowIndex) {
+void TextEditor::MoveCursorLeft(bool adjustAimedCursorRowIndex)
+{
     _cursor.Prev();
     if (adjustAimedCursorRowIndex)
         _aimedCursorRowIndex = RowIndex();
 }
 
-void Text::MoveCursorUp() {
+void TextEditor::MoveCursorUp()
+{
     MoveCursorPrevLine(false);
     MoveCursorToAimedRowIndex();
 }
 
-void Text::MoveCursorDown() {
+void TextEditor::MoveCursorDown()
+{
     MoveCursorNextLine(false);
     MoveCursorToAimedRowIndex();
 }
 
-void Text::MoveCursorNextWord() {
+void TextEditor::MoveCursorNextWord()
+{
     if (_cursor.AtListEnd())
         return;
 
@@ -140,7 +164,8 @@ void Text::MoveCursorNextWord() {
         MoveCursorRight();
 }
 
-void Text::MoveCursorPrevWord() {
+void TextEditor::MoveCursorPrevWord()
+{
     if (_cursor.AtListBegin())
         return;
 
@@ -156,7 +181,8 @@ void Text::MoveCursorPrevWord() {
         MoveCursorLeft();
 }
 
-void Text::MoveCursorStartLine(bool adjustAimedCursorRowIndex) {
+void TextEditor::MoveCursorStartLine(bool adjustAimedCursorRowIndex)
+{
     if (_cursor.AtListBegin())
         return;
 
@@ -167,59 +193,69 @@ void Text::MoveCursorStartLine(bool adjustAimedCursorRowIndex) {
         MoveCursorRight(adjustAimedCursorRowIndex);
 }
 
-void Text::MoveCursorEndLine(bool adjustAimedCursorRowIndex) {
+void TextEditor::MoveCursorEndLine(bool adjustAimedCursorRowIndex)
+{
     while (!_cursor.AtListEnd() && _cursor.Char() != '\n')
         MoveCursorRight(adjustAimedCursorRowIndex);
 }
 
-void Text::MoveCursorNextLine(bool adjustAimedCursorRowIndex) {
+void TextEditor::MoveCursorNextLine(bool adjustAimedCursorRowIndex)
+{
     MoveCursorEndLine(adjustAimedCursorRowIndex);
     MoveCursorRight(adjustAimedCursorRowIndex);
 }
 
-void Text::MoveCursorPrevLine(bool adjustAimedCursorRowIndex) {
+void TextEditor::MoveCursorPrevLine(bool adjustAimedCursorRowIndex)
+{
     MoveCursorStartLine(adjustAimedCursorRowIndex);
     MoveCursorLeft(adjustAimedCursorRowIndex);
 }
 
-void Text::MoveCursorToAimedRowIndex() {
+void TextEditor::MoveCursorToAimedRowIndex()
+{
     MoveCursorStartLine(false);
-    for (TefkSizeT i = 0; i < _aimedCursorRowIndex && !_cursor.AtListEnd() && _cursor.Char() != '\n'; i++)
+    for (size_t i = 0; i < _aimedCursorRowIndex && !_cursor.AtListEnd() && _cursor.Char() != '\n'; i++)
         MoveCursorRight(false);
 }
 
-void Text::AddChar(TefkChar ch) {
+void TextEditor::AddChar(ChType ch)
+{
     _cursor.Add(ch);
 
     _aimedCursorRowIndex = RowIndex();
 
     Action action;
     action._actionType = Action::INSERT_TEXT;
-    action._text = ch;
+    action._text.resize(1);
+    action._text[0] = ch;
     action._index = _cursor.Index();
     AddAction(action);
 }
 
-void Text::NewLine() {
+void TextEditor::NewLine()
+{
     AddChar('\n');
 }
 
-void Text::DeleteChar() {
+void TextEditor::DeleteChar()
+{
     if (_cursor.AtListBegin())
         return;
 
-    TefkChar deletedChar = _cursor.Delete();
+    ChType deletedChar = _cursor.Delete();
 
     _aimedCursorRowIndex = RowIndex();
 
     Action action;
     action._actionType = Action::DELETE_TEXT;
-    action._text = deletedChar;
+    action._text.resize(1);
+    action._text[0] = deletedChar;
     action._index = _cursor.Index();
     AddAction(action);
 }
 
-void Text::DeleteWord() {
+void TextEditor::DeleteWord()
+{
     // TODO - Fix if cursor on char in front of spaces, only one space deleted
     if (_cursor.AtListBegin())
         return;
@@ -228,7 +264,7 @@ void Text::DeleteWord() {
 
     MoveCursorPrevWord();
 
-    TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
+    std::vector<ChType> deletedString = SubstringFromList(_cursor.Iter(), last);
     for (auto _ : deletedString)
         _cursor.DeleteFront();
 
@@ -241,7 +277,9 @@ void Text::DeleteWord() {
     AddAction(action);
 }
 
-void Text::DeleteLine() {
+void TextEditor::DeleteLine()
+{
+    // TODO - make sure deletes whole line, including previous line newline (\n) char
     if (_text.empty())
         return;
 
@@ -261,7 +299,7 @@ void Text::DeleteLine() {
     if (!_cursor.AtListBegin() && _cursor.Char() == '\n')
         MoveCursorRight();
 
-    TefkString deletedString = SubstringFromList(_cursor.Iter(), last);
+    std::vector<ChType> deletedString = SubstringFromList(_cursor.Iter(), last);
     for (auto _ : deletedString)
         _cursor.DeleteFront();
 
@@ -274,73 +312,24 @@ void Text::DeleteLine() {
     AddAction(action);
 }
 
-void Text::Undo() {
+void TextEditor::Undo()
+{
     ExecuteAction(_actions, _undoneActions);
 }
 
-void Text::Redo() {
+void TextEditor::Redo()
+{
     ExecuteAction(_undoneActions, _actions);
 }
 
-void Text::CatchEvent(Event event) {
-    // Cancel if component isn't focused
-    if (!Focused())
-        return;
-
-    if (event.type == Event::Type::CHARACTER) {
-        switch (event.input) {
-        case VK_BACK:
-            DeleteChar();
-            break;
-        case KC_CTRL_BACKSPACE:
-            DeleteWord();
-            break;
-        case KC_CTRL_L:
-            DeleteLine();
-            break;
-        case KC_CTRL_Y:
-            Redo();
-            break;
-        case KC_CTRL_Z:
-            Undo();
-            break;
-        default:
-            if (!CatchEventFromBaseComponent(event) && event.input > 27)
-                AddChar(event.input);
-        }
-    }
-    else if (event.type == Event::Type::SPECIAL_CHARACTER) {
-        switch (event.input) {
-        case KC_ARROW_RIGHT:
-            MoveCursorRight();
-            break;
-        case KC_ARROW_LEFT:
-            MoveCursorLeft();
-            break;
-        case KC_ARROW_UP:
-            MoveCursorUp();
-            break;
-        case KC_ARROW_DOWN:
-            MoveCursorDown();
-            break;
-        case KC_CTRL_ARROW_RIGHT:
-            MoveCursorNextWord();
-            break;
-        case KC_CTRL_ARROW_LEFT:
-            MoveCursorPrevWord();
-            break;
-        default:
-            CatchEventFromBaseComponent(event);
-        }
-    }
-}
-
-void Text::AddAction(Action action) {
+void TextEditor::AddAction(Action action)
+{
     _actions.push(action);
     _undoneActions = std::stack<Action>();
 }
 
-void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dumpStack) {
+void TextEditor::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dumpStack)
+{
     if (takeStack.empty())
         return;
 
@@ -352,9 +341,10 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
 
     _cursor.MoveToIndex(currAction->_index);
 
-    switch (currAction->_actionType) {
+    switch (currAction->_actionType)
+    {
     case Action::INSERT_TEXT:
-        for (TefkSizeT i = 0; i < currAction->_text.size(); i++)
+        for (size_t i = 0; i < currAction->_text.size(); i++)
             _cursor.Delete();
 
         newAction->_actionType = Action::DELETE_TEXT;
@@ -376,15 +366,17 @@ void Text::ExecuteAction(std::stack<Action>& takeStack, std::stack<Action>& dump
     _aimedCursorRowIndex = RowIndex();
 }
 
-TefkSizeT Text::RowIndex() {
+size_t TextEditor::RowIndex()
+{
     if (_cursor.AtListBegin())
         return 0;
 
-    TefkSizeT index = 0;
+    size_t index = 0;
     auto iter = _cursor.Iter();
 
     // Moving to newline of previous line or beginning of text
-    do {
+    do
+    {
         iter--;
         index++;
     } while (iter != _text.begin() && *iter != '\n');
@@ -396,12 +388,13 @@ TefkSizeT Text::RowIndex() {
     return index;
 }
 
-TefkString Text::SubstringFromList(std::list<TefkChar>::iterator begin, std::list<TefkChar>::iterator end) {
-    TefkString substring;
+std::vector<ChType> TextEditor::SubstringFromList(std::list<ChType>::iterator begin, std::list<ChType>::iterator end)
+{
+    std::vector<ChType> substring;
 
     // Build substring from characters between 'begin' (inclusively) and 'end' (exclusively) iterators
     while (begin != _text.end() && begin != end)
-        substring += *begin++;
+        substring.push_back(*begin++);
 
     return substring;
 }

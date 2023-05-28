@@ -70,6 +70,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)tefk-editor\libs\PDCurses-3.9;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)tefk-editor\libs\PDCurses-3.9;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -105,10 +111,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)tefk-editor\libs\PDCurses-3.9\wincon;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pdcurses.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,55 +129,39 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)tefk-editor\libs\PDCurses-3.9\wincon;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pdcurses.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="application.cpp" />
-    <ClCompile Include="file.cpp" />
-    <ClCompile Include="gui\color.cpp" />
-    <ClCompile Include="gui\components\base\guicomponent.cpp" />
-    <ClCompile Include="gui\components\base\text.cpp" />
-    <ClCompile Include="gui\components\label.cpp" />
-    <ClCompile Include="gui\components\menustrip.cpp" />
-    <ClCompile Include="gui\components\texteditor.cpp" />
-    <ClCompile Include="gui\components\textfield.cpp" />
-    <ClCompile Include="gui\consoleapi.cpp" />
-    <ClCompile Include="gui\event.cpp" />
-    <ClCompile Include="gui\input.cpp" />
-    <ClCompile Include="gui\canvas.cpp" />
-    <ClCompile Include="gui\timer.cpp" />
-    <ClCompile Include="gui\window.cpp" />
-    <ClCompile Include="logger.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="windows\editor.cpp" />
-    <ClCompile Include="windows\menu.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="EditorLayout.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="Layout.cpp" />
+    <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="TextEditor.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="application.hpp" />
-    <ClInclude Include="file.hpp" />
-    <ClInclude Include="gui\canvas.hpp" />
-    <ClInclude Include="gui\color.hpp" />
-    <ClInclude Include="gui\components\base\guicomponent.hpp" />
-    <ClInclude Include="gui\components\base\text.hpp" />
-    <ClInclude Include="gui\components\label.hpp" />
-    <ClInclude Include="gui\components\menustrip.hpp" />
-    <ClInclude Include="gui\components\texteditor.hpp" />
-    <ClInclude Include="gui\components\textfield.hpp" />
-    <ClInclude Include="gui\consoleapi.hpp" />
-    <ClInclude Include="gui\event.hpp" />
-    <ClInclude Include="gui\input.hpp" />
-    <ClInclude Include="gui\timer.hpp" />
-    <ClInclude Include="gui\types.h" />
-    <ClInclude Include="gui\window.hpp" />
-    <ClInclude Include="logger.hpp" />
-    <ClInclude Include="windows\editor.hpp" />
-    <ClInclude Include="windows\menu.hpp" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="CastMacros.h" />
+    <ClInclude Include="CursesMacros.h" />
+    <ClInclude Include="CursesTypes.h" />
+    <ClInclude Include="EditorLayout.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="Layout.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="TextEditor.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="WindowData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

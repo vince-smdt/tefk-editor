@@ -1,4 +1,4 @@
-#include "timer.hpp"
+#include "Timer.h"
 
 namespace tefk {
 
@@ -7,17 +7,20 @@ Timer::Timer()
     , _set{ false }
 {}
 
-void Timer::StartTimer(double milliseconds) {
+void Timer::StartTimer(double milliseconds)
+{
     _startTime = std::chrono::system_clock::now();
     _duration = milliseconds;
     _set = true;
 }
 
-void Timer::StopTimer() {
+void Timer::StopTimer()
+{
     _set = false;
 }
 
-bool Timer::Ringing() {
+bool Timer::Ringing()
+{
     if (!_set)
         return false;
 
